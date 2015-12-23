@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Component>
+
+
+<GeneralInfo>
+<Name>Sphere</Name>
+</GeneralInfo>
+
+
+
+<Vec4>
+<V>SpherePos</V>
+<D>0.0, 0.0, 0.0, 0.0</D>
+</Vec4>
+
+
+
+<Float>
+<V>SphereRad</V>
+<D>1.25</D>
+</Float>
+
+
+
+<Int>
+<V>MaterialIndex</V>
+<D>42</D>
+</Int>
+
+
+
+
+</Component>

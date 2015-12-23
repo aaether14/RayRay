@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+           <Window type="GlossySerpentFHD/FrameWindow" name="Frame3" >
+            <Property name="Area" value="{{0.00875,0},{-0.0566666,68},{0.00875,250},{-0.0566666,300}}" />
+            <Property name="Text" value="Transform" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-12" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="TitlebarHeight" value="25" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="Font" value="DejaVuSerif-HD-12" />
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton" >
+                <Property name="Area" value="{{0.0633802,0},{0.0223439,0},{0.156338,50},{-0.124039,50}}" />
+                <Property name="Text" value="Position" />
+            </Window>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton3" >
+                <Property name="Area" value="{{0.0633802,0},{0.305427,0},{0.156338,50},{0.159045,50}}" />
+                <Property name="Text" value="Scale" />
+            </Window>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton2" >
+                <Property name="Area" value="{{0.0633803,0},{0.164092,0},{0.190141,50},{0.0177098,50}}" />
+                <Property name="Text" value="Rotiation" />
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner2" >
+                <Property name="Area" value="{{0.140189,-17},{0.597175,8},{0.596952,-17},{0.747958,8}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner3" >
+                <Property name="Area" value="{{0.137214,-17},{0.712815,19},{0.593977,-17},{0.863598,19}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner" >
+                <Property name="Area" value="{{0.140361,-17},{0.475879,-2},{0.597124,-17},{0.626662,-2}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+        </Window>
+</GUILayout>
