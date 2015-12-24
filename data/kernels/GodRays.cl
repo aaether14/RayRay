@@ -103,7 +103,7 @@ struct RayStack
 
 
 
-float4 matrixVectorMultiply(__global float* matrix, float4* vector)
+float4 matrixVectorMultiply(__global float* matrix, float4 vector)
 {
 
 
@@ -114,10 +114,10 @@ float4 matrixVectorMultiply(__global float* matrix, float4* vector)
 
 
 	float4 result;
-	result.x = matrix[0] * ((*vector).x) + matrix[4] * ((*vector).y) + matrix[8] * ((*vector).z) + matrix[12] * ((*vector).w);
-	result.y = matrix[1] * ((*vector).x) + matrix[5] * ((*vector).y) + matrix[9] * ((*vector).z) + matrix[13] * ((*vector).w);
-	result.z = matrix[2] * ((*vector).x) + matrix[6] * ((*vector).y) + matrix[10] * ((*vector).z) + matrix[14] * ((*vector).w);
-	result.w = matrix[3] * ((*vector).x) + matrix[7] * ((*vector).y) + matrix[11] * ((*vector).z) + matrix[15] * ((*vector).w);
+	result.x = matrix[0] * vector.x + matrix[4] * vector.y + matrix[8] * vector.z + matrix[12] * vector.w;
+	result.y = matrix[1] * vector.x + matrix[5] * vector.y + matrix[9] * vector.z + matrix[13] * vector.w;
+	result.z = matrix[2] * vector.x + matrix[6] * vector.y + matrix[10] * vector.z + matrix[14] * vector.w;
+	result.w = matrix[3] * vector.x + matrix[7] * vector.y + matrix[11] * vector.z + matrix[15] * vector.w;
 	return result;
 
 
@@ -495,7 +495,7 @@ __kernel void GodRays(__global float4* output, __global float* view_matrix, cons
 
 
 
-	float4 dir_vector = matrixVectorMultiply(view_matrix, &(float4)(x * aspect_ratio * tan_half_fov, y * tan_half_fov, -1.0, 0.0));
+	float4 dir_vector = matrixVectorMultiply(view_matrix, (float4)(x * aspect_ratio * tan_half_fov, y * tan_half_fov, -1.0, 0.0));
 
 
 
@@ -522,7 +522,7 @@ __kernel void GodRays(__global float4* output, __global float* view_matrix, cons
 
 
 
-	pixel = clamp(pixel, 0.0, 1.0);
+	pixel = clamp(pixel, (float4)(0.0), (float4)(1.0));
 	output[get_global_id(0)] = pixel;
 
 

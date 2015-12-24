@@ -51,7 +51,7 @@ public:
 	/**
 	Adds a certain shader type from provided path
 	*/
-	void Add(char * path, GLenum type);
+	void Add(std::string path, GLenum type);
 	/**
 	Links current shaders in program
 	*/

@@ -10,7 +10,7 @@
 
 
 
-#define OBJECT_FOLDER "data\\objects\\"
+#define OBJECT_FOLDER "data/objects/"
 
 
 

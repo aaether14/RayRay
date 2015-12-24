@@ -23,6 +23,7 @@ endif(UNIX)
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/common")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+include (cotire)
 
 
 
@@ -141,7 +142,8 @@ target_link_libraries(RayRay ${FREEIMAGE_LIBRARIES})
 #-----------------------------------------------------
 
 
-
+set_target_properties(RayRay PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "stdafx.h")
+cotire(RayRay)
 
 
 

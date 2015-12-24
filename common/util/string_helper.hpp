@@ -19,7 +19,7 @@ namespace AString
 	/**
 	Load a file to a string
 	*/
-	std::string LoadFileToString(char * path);
+	std::string LoadFileToString(std::string path);
 	/**
 	Succesfully converts std::string to char*
 	*/

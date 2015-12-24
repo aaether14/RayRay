@@ -7,7 +7,7 @@ namespace AString
 {
 
 
-	std::string LoadFileToString(char * path)
+	std::string LoadFileToString(std::string path)
 	{
 
 		std::string result;
@@ -28,8 +28,7 @@ namespace AString
 		}
 		else
 		{
-			printf("Impossible to open %s.\n", path);
-			getchar();
+			std::cerr<<"Imposible to open:" << path << std::endl;
 			return "ERROR";
 		}
 
