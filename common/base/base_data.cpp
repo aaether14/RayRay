@@ -38,7 +38,7 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
 
-	Debug();
+//	Debug();
 
 
 

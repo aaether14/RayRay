@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Component>
+
+
+<GeneralInfo>
+<Name>Light</Name>
+</GeneralInfo>
+
+
+
+<Vec4>
+<V>LightPosition</V>
+<D>0.0, 0.0, 0.0, 0.0</D>
+</Vec4>
+
+
+
+<Float>
+<V>PlaneDistance</V>
+<D>1.25</D>
+</Float>
+
+
+
+<Int>
+<V>MaterialIndex</V>
+<D>42</D>
+</Int>
+
+
+
+
+</Component>

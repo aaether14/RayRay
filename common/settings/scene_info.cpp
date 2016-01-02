@@ -29,9 +29,9 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 		//Special case for data component
 
 
-		if (static_cast<DataComponent*>(new_component))
+		if (dynamic_cast<DataComponent*>(new_component))
 		{
-			DataComponent * dc = static_cast<DataComponent*>(new_component);
+			DataComponent * dc = dynamic_cast<DataComponent*>(new_component);
 			class_name += ("_" + dc->GetComponentName());
 		}
 
@@ -40,6 +40,7 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 		//Add component to entity
 
 		new_entity->AddComponent(class_name, new_component);
+		std::cout<<class_name<<std::endl;
 
 
 
@@ -101,6 +102,8 @@ void SceneInfo::AddComponentsToEntity(char * path, Entity * new_entity)
 
 void SceneInfo::AddEntity(Entity * new_entity)
 {
+
+
 
 	if (new_entity)
 		if (!new_entity->GetComponentsSize())

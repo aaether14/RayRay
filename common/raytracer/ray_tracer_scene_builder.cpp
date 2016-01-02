@@ -40,15 +40,66 @@ void RayTracerSceneBuilder::Enable()
 
 
 
+
+
+
+
+    //Required data
+    size_t number_of_spheres = 1;
+    size_t number_of_planes = 1;
+    size_t number_of_materials = 3;
+    size_t number_of_lights = 2;
+    
+
+
+    size_t pseudo_pointer = 0;
+    pseudo_pointer+=5;
+
+
 	//Pseudo pointers
-	scene_data.push_back(5);
-	scene_data.push_back(11);
-	scene_data.push_back(17);
-	scene_data.push_back(41);
-	scene_data.push_back(51);
+	size_t starting_pointer = pseudo_pointer;
+	scene_data.push_back(pseudo_pointer);
 
 
 
+
+
+
+//Getting the pseudo pointers
+
+	pseudo_pointer += number_of_spheres * 6;
+	size_t sphere_pointer = pseudo_pointer;
+	scene_data.push_back(sphere_pointer);
+
+
+    
+	pseudo_pointer += number_of_planes * 6;
+	size_t plane_pointer = pseudo_pointer;
+	scene_data.push_back(plane_pointer);
+
+
+
+	pseudo_pointer += number_of_materials * 8;
+	size_t material_pointer = pseudo_pointer;
+	scene_data.push_back(material_pointer);
+
+
+
+	pseudo_pointer += number_of_lights * 5;
+	size_t light_pointer = pseudo_pointer;
+	scene_data.push_back(light_pointer);
+
+
+
+
+//Computing material map
+    std::map<std::string, cl_uint> material_map;
+    size_t material_counter = 0;
+
+
+
+
+//Adding entities to scene pointer
 
 
 
