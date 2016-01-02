@@ -18,7 +18,7 @@ void Application::Init()
 	Add("Controller", new Controller());
 	Add("CLContextWrapper", new CLContextWrapper());
 	Add("DataManager", new DataManager());
-	//Add("UI", new UIManager());
+	Add("UI", new UIManager());
 	Add("Pipeline", new Pipeline());
 
 
@@ -56,7 +56,7 @@ void Application::Enable()
 		Get("Controller")->Enable();
 		Get("DataManager")->Enable();
 		Get("Pipeline")->Enable();
-		//Get("UI")->Enable();
+		Get("UI")->Enable();
 
 
 

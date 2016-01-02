@@ -87,11 +87,7 @@ void Controller::Enable()
 
 
 	ControllerSource::Enable();
-	Camera * camera = static_cast<Camera*>(Get("Camera"));
-
-	camera->ProcessInput(this);
-	camera->ComputeAngles(this);
-	camera->SetFrustum(camera->GetView()->getCamera());
+    Get("Camera")->Enable();
 
 
 

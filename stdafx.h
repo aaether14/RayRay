@@ -35,6 +35,7 @@
 #include <boost/foreach.hpp>
 #include <boost/functional/hash/hash.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/any.hpp>
 
 //---------------------------------------------//
 

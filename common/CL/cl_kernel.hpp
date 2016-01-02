@@ -111,9 +111,9 @@ public:
 	*/
 	void SetFloatBufferArg(std::string buffer_name, cl_uint arg);
 	/**
-	Set kernel arg from int
+	Set kernel arg from value
 	*/
-	void SetArgValue(void * value, cl_uint arg);
+	void SetArgValue(boost::any value, cl_uint arg);
 
 
     //-----------------------------------------------//

@@ -175,7 +175,7 @@ void main()
 
 
 
-	 color = (sphere[ti].col * texture2D(texture_adress1, map_sphere(ray_to_light.o - sphere[ti].pos, sphere[ti].rad, 0.0))) * 
+	 color = (sphere[ti].col * texture2D(texture_adress1, map_sphere(ray_to_light.o - sphere[ti].pos, sphere[ti].rad, 0.0)).rgb) * 
 	 max(ambient_intensity, diffuse_factor) + specular_factor;
 
 

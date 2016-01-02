@@ -49,8 +49,8 @@ void CLRaytracer::Init()
 
 		ray_kernel->Create(cl_cw, L"data/kernels/GodRays.cl", "", "GodRays");
 		ray_kernel->AddFloatBuffer("output", width * height * sizeof(cl_float4), CL_MEM_WRITE_ONLY);
-		ray_kernel->AddFloatBuffer("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR);
-		ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1000, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR);
+		ray_kernel->AddFloatBuffer("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY);
+		ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1000, CL_MEM_READ_ONLY);
 
 	}
 	catch (Error err)
@@ -66,9 +66,9 @@ void CLRaytracer::Init()
 
 	ray_kernel->SetFloatBufferArg("output", 0);
 	ray_kernel->SetFloatBufferArg("view_matrix", 1);
-	ray_kernel->SetArgValue(&width, 2);
-	ray_kernel->SetArgValue(&height, 3);
-	ray_kernel->SetArgValue(&tan_half_fov, 4);
+	ray_kernel->SetArgValue(width, 2);
+	ray_kernel->SetArgValue(height, 3);
+	ray_kernel->SetArgValue(tan_half_fov, 4);
 	ray_kernel->SetFloatBufferArg("scene_data", 5);
 
 

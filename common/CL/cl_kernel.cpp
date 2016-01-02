@@ -137,11 +137,11 @@ void CLKernel::AddFloatBuffer(std::string buffer_name, size_t size, cl_mem_flags
 
 	if (mem_flags == CL_MEM_WRITE_ONLY)
 		buffer_mem = clCreateBuffer(cl_cw_ptr->GetCLContext(), CL_MEM_WRITE_ONLY, size, NULL, &err);
-	else if (mem_flags == CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR)
+	else if (mem_flags == CL_MEM_READ_ONLY)
 		buffer_mem = clCreateBuffer
 		(
 		cl_cw_ptr->GetCLContext(),
-		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		CL_MEM_READ_ONLY,
 		cl_cw_ptr->GetCopyAlignment(size),
 		buffer,
 		&err
@@ -153,7 +153,7 @@ void CLKernel::AddFloatBuffer(std::string buffer_name, size_t size, cl_mem_flags
 
 	SAMPLE_CHECK_ERRORS(err);
 	if (buffer_mem == (cl_mem)0)
-		throw Error("Failed to create" + buffer_name + "!");
+		throw Error("Failed to create " + buffer_name + "!");
 	else
 		kernel_float_mem_buffers.insert(std::pair<std::string, cl_mem>(buffer_name, buffer_mem));
 
@@ -180,7 +180,9 @@ void CLKernel::WriteToFloatBuffer(std::string buffer_name, size_t size, cl_float
 
 
 
-	memcpy(kernel_float_buffers[buffer_name], data, size);
+	int err = clEnqueueWriteBuffer(cl_cw_ptr->GetCLQueue(), kernel_float_mem_buffers[buffer_name], CL_TRUE, 
+    0, size, data, 0, NULL, NULL);
+    SAMPLE_CHECK_ERRORS(err);
 
 
 
@@ -224,16 +226,25 @@ void CLKernel::SetFloatBufferArg(std::string buffer_name, cl_uint arg)
 
 
 
-void CLKernel::SetArgValue(void * value, cl_uint arg)
+void CLKernel::SetArgValue(boost::any value, cl_uint arg)
 {
+
+    size_t size = 0;
+    if (value.type() == typeid(cl_int))
+    	size = sizeof(cl_int);
+    else if (value.type() == typeid(cl_float))
+    	size = sizeof(cl_float);
+
 
 
 	cl_int err = CL_SUCCESS;
-	err = clSetKernelArg(kernel, arg, sizeof(value), value);
+	err = clSetKernelArg(kernel, arg, size ,boost::unsafe_any_cast<void *>(&value));
 	SAMPLE_CHECK_ERRORS(err);
 
 
 }
+
+
 
 
 
