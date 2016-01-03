@@ -11,7 +11,7 @@ void Pipeline::Init()
 
 
 
-	Add("CLRaytracer", new CLRaytracer());
+    Add("CLRaytracer", new CLRaytracer());
 
 
 

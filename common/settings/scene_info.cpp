@@ -17,7 +17,7 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 
 
 
-	if (new_component->isValid(component_extension))
+    if (new_component->isValid(component_extension))
 	{
 
 

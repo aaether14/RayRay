@@ -25,11 +25,11 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 		if (v.first == "Int")
 			SetInt(v.second.get<std::string>("V"), boost::lexical_cast<int>(v.second.get<std::string>("D")));
 		if (v.first == "Vec2")
-			SetVec2(v.second.get<std::string>("V"), Math::GetVec2FromString(v.second.get<std::string>("D")));
+            SetVec2(v.second.get<std::string>("V"), AString::GetVec2FromString(v.second.get<std::string>("D")));
 		if (v.first == "Vec3")
-			SetVec3(v.second.get<std::string>("V"), Math::GetVec3FromString(v.second.get<std::string>("D")));
+            SetVec3(v.second.get<std::string>("V"), AString::GetVec3FromString(v.second.get<std::string>("D")));
 		if (v.first == "Vec4")
-			SetVec4(v.second.get<std::string>("V"), Math::GetVec4FromString(v.second.get<std::string>("D")));
+            SetVec4(v.second.get<std::string>("V"), AString::GetVec4FromString(v.second.get<std::string>("D")));
 
 
 
@@ -100,7 +100,7 @@ void AData::Debug()
 		for (it = vec2_map.begin(); it != vec2_map.end(); it++)
 		{
 			std::cout << it->first << ": ";
-			Math::print_vec2(it->second);
+            AString::print_vec2(it->second);
 		}
 
 
@@ -119,7 +119,7 @@ void AData::Debug()
 		for (it = vec3_map.begin(); it != vec3_map.end(); it++)
 		{
 			std::cout << it->first << ": ";
-			Math::print_vec3(it->second);
+            AString::print_vec3(it->second);
 		}
 
 
@@ -138,7 +138,7 @@ void AData::Debug()
 		for (it = vec4_map.begin(); it != vec4_map.end(); it++)
 		{
 			std::cout << it->first << ": ";
-			Math::print_vec4(it->second);
+            AString::print_vec4(it->second);
 		}
 
 
@@ -232,7 +232,7 @@ boost::property_tree::ptree AData::Save()
 		{
 			boost::property_tree::ptree ptree_float_data;
 			ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it->first)));
-			ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(Math::GetStringFromVec2(it->second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec2(it->second))));
 			ptree_data.push_back(boost::property_tree::ptree::value_type("Vec2", ptree_float_data));
 
 		}
@@ -253,7 +253,7 @@ boost::property_tree::ptree AData::Save()
 		{
 			boost::property_tree::ptree ptree_float_data;
 			ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it->first)));
-			ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(Math::GetStringFromVec3(it->second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec3(it->second))));
 			ptree_data.push_back(boost::property_tree::ptree::value_type("Vec3", ptree_float_data));
 
 		}
@@ -272,7 +272,7 @@ boost::property_tree::ptree AData::Save()
 		{
 			boost::property_tree::ptree ptree_float_data;
 			ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it->first)));
-			ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(Math::GetStringFromVec4(it->second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec4(it->second))));
 			ptree_data.push_back(boost::property_tree::ptree::value_type("Vec4", ptree_float_data));
 
 		}

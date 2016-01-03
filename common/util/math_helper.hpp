@@ -18,11 +18,7 @@
 
 
 /**
-
-
 Some useful math functions for matrix transformations
-
-
 */
 namespace Math
 {
@@ -31,57 +27,13 @@ namespace Math
 
 
 
-/**
-Basic rectangle class
-*/
-class Rectangle
-{
-
-
-public:
 
 
 
-	glm::vec2 point;
-	GLfloat width, height;
-
-
-};
-
-
-
-
-
-/**
-Basic circle class
-*/
-class Circle
-{
-
-
-
-
-public:
-
-
-
-	glm::vec2 point;
-	GLfloat radius;
-
-
-
-
-};
-
-
-
-
-
-/**
-Checks if sphere intersects with frustum
-*/
+    /**
+    Checks if sphere intersects with frustum
+    */
 	GLuint CylinderInFrustum(Frustum *frustum, glm::vec3 pos, GLfloat radius);
-
 
 
 	/**
@@ -119,25 +71,6 @@ Checks if sphere intersects with frustum
 
 
 
-	/**
-	Print matrix to console
-	*/
-	void print_matrix(glm::mat4 m);
-	/**
-	Print vec2 to console
-	*/
-	void print_vec2(glm::vec2 v);
-	/**
-	Print vec3 to console
-	*/
-	void print_vec3(glm::vec3 v);
-	/**
-	Print vec4 to console
-	*/
-	void print_vec4(glm::vec4 v);
-
-
-
 
 	/**
 	Returns a random float number within the boundaries
@@ -147,59 +80,6 @@ Checks if sphere intersects with frustum
 
 
 
-	/**
-	Generate float array from string
-	*/
-	void FloatArrayFromString(GLfloat * _array, GLint &number_of_floats, std::string str);
-
-
-
-	/**
-	Gets 2d vector from string
-	*/
-	glm::vec2 GetVec2FromString(std::string str);
-	/**
-	Gets string from 2d vector
-	*/
-	std::string GetStringFromVec2(glm::vec2 v);
-
-
-
-	/**
-	Gets 3d vector from string
-	*/
-	glm::vec3 GetVec3FromString(std::string str);
-	/**
-	Gets string from 3d vector
-	*/
-	std::string GetStringFromVec3(glm::vec3 v);
-
-
-	/**
-	Gets 4d vector from string
-	*/
-	glm::vec4 GetVec4FromString(std::string str);
-	/**
-	Gets string from 4d vector
-	*/
-	std::string GetStringFromVec4(glm::vec4 v);
-
-
-
-
-	/**
-	Bias matrix for shadow calculations
-	*/
-	inline glm::mat4 GetBiasMatrix()
-	{
-		return glm::mat4(
-			0.5, 0.0, 0.0, 0.0,
-			0.0, 0.5, 0.0, 0.0,
-			0.0, 0.0, 0.5, 0.0,
-			0.5, 0.5, 0.5, 1.0
-			);
-
-	}
 
 
 }

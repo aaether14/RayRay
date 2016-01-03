@@ -107,8 +107,8 @@ void RayTracerSceneBuilder::Enable()
 	AddSphere(glm::vec4(1, -0.5f, 7, 0), 4.0, 5);
 	AddSphere(glm::vec4(-5.5f, -0.5f, 7, 0), 4.0, 1);
 	AddPlane(glm::vec4(0.0, 1.0, 0.0, 0.0), -4.4, 2);
-	AddMaterial(0.0, 1.1, 127.0, 0.1, glm::vec4(0.7f, 0.7f, 0.7f, 0));
-	AddMaterial(1.0, 0.0, 120.0, 0.1, glm::vec4(0.7f, 0.7f, 1.0f, 0));
+    AddMaterial(0.0, 1.1, 127.0, 0.1, glm::vec4(0.7f, 0.7f, 0.7f, 0));
+    AddMaterial(1.0, 0.0, 120.0, 0.1, glm::vec4(0.7f, 0.7f, 1.0f, 0));
 	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.4f, 0.3f, 0.3f, 0));
 	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.4f, 0.4f, 0.4f, 0));
 	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.6f, 0.6f, 0.8f, 0));
