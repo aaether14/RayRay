@@ -5,13 +5,15 @@
 
 
 <EntityInstance>
-<EntityName>ArmourRack</EntityName>
-<Name>ArmourRack2</Name>
+<EntityName>Sphere</EntityName>
+<Name>Sphere</Name>
 		
 		
 		
 		
 <Component>
+
+
 <GeneralInfo>
 <Name>Sphere</Name>
 </GeneralInfo>
@@ -27,15 +29,19 @@
 
 <Float>
 <V>SphereRad</V>
-<D>1.25</D>
+<D>6.25</D>
 </Float>
 
 
 
 <Int>
 <V>MaterialIndex</V>
-<D>42</D>
+<D>0</D>
 </Int>
+
+
+
+
 </Component>
 
 

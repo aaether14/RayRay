@@ -11,8 +11,13 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 
 
 
+    std::string component_extension = boost::filesystem::extension(iterator->path());
+    std::string component_path = iterator->path().string();
 
-	if (new_component->isValid(AString::char_to_str(boost::filesystem::extension(iterator->path()))))
+
+
+
+	if (new_component->isValid(component_extension))
 	{
 
 
@@ -20,8 +25,7 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 
 
 		new_component->Init();
-		new_component->Load(AString::char_to_str(iterator->path().string()),
-			AString::char_to_str(boost::filesystem::extension(iterator->path())));
+		new_component->Load(component_path, component_extension);
 
 
 
@@ -40,7 +44,6 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 		//Add component to entity
 
 		new_entity->AddComponent(class_name, new_component);
-		std::cout<<class_name<<std::endl;
 
 
 
@@ -59,7 +62,7 @@ void SceneInfo::CreateComponentInstance(boost::filesystem::directory_iterator it
 
 
 
-void SceneInfo::AddComponentsToEntity(char * path, Entity * new_entity)
+void SceneInfo::AddComponentsToEntity(std::string path, Entity * new_entity)
 {
 
 
@@ -176,7 +179,7 @@ void SceneInfo::Load()
 
 
 			Entity * new_entity = new Entity();
-			AddComponentsToEntity(AString::char_to_str(iterator->path().string()), new_entity);
+			AddComponentsToEntity(iterator->path().string(), new_entity);
 			AddEntity(new_entity);
 
 
@@ -241,7 +244,7 @@ void SceneInfo::Load()
 
 
 
-			if (entity_map.count(new_instance->GetEntityName()))
+			if (EntityExists(new_instance->GetEntityName()))
 				AddInstance(instance_name, new_instance);
 
 
@@ -280,11 +283,9 @@ void SceneInfo::Save()
 
 
 	std::map<std::string, boost::shared_ptr<EntityInstance>>::iterator it;
-
-
-
 	for (it = instance_map.begin(); it != instance_map.end(); it++)
 	{
+
 
 
 		EntityInstance * instance = it->second.get();

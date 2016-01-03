@@ -13,7 +13,7 @@ GLboolean ControllerSource::fullscreen = false;
 
 GLint ControllerSource::window_width = 0;
 GLint ControllerSource::window_height = 0;
-GLchar *ControllerSource::title = 0;
+std::string ControllerSource::title = "";
 
 
 GLuint ControllerSource::opengl_major_version = 0;
@@ -34,7 +34,7 @@ std::vector<std::string> ControllerSource::drop_files;
 
 GLboolean ControllerSource::CreateWindowContext(GLuint window_width, GLuint window_height,
 	GLboolean fullscreen,
-	char * title,
+	std::string title,
 	GLuint opengl_major_version,
 	GLuint opengl_minor_version)
 {
@@ -46,66 +46,57 @@ GLboolean ControllerSource::CreateWindowContext(GLuint window_width, GLuint wind
 
 	if (!glfwInit())
 	{
-		fprintf(stderr, "Failed to initialize GLFW\n");
+	    std::cerr<<"Failed to initialize GLFW!"<<std::endl;
 		return -1;
 	}
+
 
 
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, opengl_major_version);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, opengl_minor_version);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-
-
 	ControllerSource::window_width = window_width;
 	ControllerSource::window_height = window_height;
 	ControllerSource::fullscreen = fullscreen;
 	ControllerSource::opengl_major_version = opengl_major_version;
 	ControllerSource::opengl_minor_version = opengl_minor_version;
-	ControllerSource::title = new GLchar[strlen(title)];
-	strcpy(ControllerSource::title, title);
+	ControllerSource::title = title;
+
+
 
 
 
 
 
 	ControllerSource::window = glfwCreateWindow(window_width, window_height,
-		title, (fullscreen == true) ? glfwGetPrimaryMonitor() : NULL, NULL);
-
-
-
-
-	if (ControllerSource::window == NULL){
-		fprintf(stderr, "Failed to open GLFW window!\n");
+		title.c_str(), (fullscreen == true) ? glfwGetPrimaryMonitor() : NULL, NULL);
+	if (!ControllerSource::window){
+		std::cerr<<"Failed to open GLFW window!"<<std::endl;
 		glfwTerminate();
 		return -1;
 	}
 
 
 
+
+
+
+
 	glfwMakeContextCurrent(ControllerSource::window);
 	glfwSwapInterval(1);
-
-
 	glewExperimental = true;
 
 
 
+
+
+
 	if (glewInit() != GLEW_OK) {
-		fprintf(stderr, "Failed to initialize GLEW\n");
+		std::cerr<<"Failed to initialize GLEW!"<<std::endl;
 		return -1;
 	}
-
-
-
-
-
 	ControllerSource::InitCallbacks();
-
-
-
-
 	return 1;
 
 	

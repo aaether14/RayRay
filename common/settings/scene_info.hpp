@@ -6,24 +6,15 @@
 
 
 #include <stdafx.h>
-
-
-
-
 #define OBJECT_FOLDER "data/objects/"
 
 
 
 
 
+
 /**
-
-
-
 Entity data is stored here
-
-
-
 */
 class SceneInfo : public AStateSaver
 {
@@ -40,7 +31,6 @@ private:
 
 
 
-
 	/**
 	Function for adding components to entity
 	*/
@@ -48,7 +38,7 @@ private:
 	/**
 	Based on the files in path you provide ScenInfo adds specific components to the given entity
 	*/
-	void AddComponentsToEntity(char * path, Entity * new_entity);
+	void AddComponentsToEntity(std::string path, Entity * new_entity);
 	/**
 	Adds entity to the entity map
 	*/
@@ -62,7 +52,8 @@ public:
 	/**
 	Sets path of the file the class will affect
 	*/
-	inline SceneInfo(char * path){ SetPath(path); }
+	inline SceneInfo(std::string path){ SetPath(path); }
+
 
 
 
@@ -79,7 +70,6 @@ public:
 	Reset data
 	*/
 	void Reset();
-
 
 
 
@@ -141,6 +131,12 @@ public:
 	Clear entity map
 	*/
 	inline void ClearEntities(){ entity_map.clear(); }
+	/**
+	See if entity with 'name' exists
+	*/
+	inline GLboolean EntityExists(std::string name){return entity_map.count(name);}
+
+
 
 
 };

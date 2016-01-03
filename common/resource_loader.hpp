@@ -39,14 +39,14 @@ public:
 
 
 
-	inline char* GetSceneFile(){ return AString::char_to_str(scene_file); }
+	inline std::string GetSceneFile(){ return scene_file;}
 
 
 
 	/**
 	Loads all resrouce paths
 	*/
-	void LoadResourcePaths(char *path);
+	void LoadResourcePaths(std::string path);
 
 
 };

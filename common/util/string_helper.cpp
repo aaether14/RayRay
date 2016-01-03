@@ -38,20 +38,6 @@ namespace AString
 
 
 
-	char * char_to_str(std::string str)
-	{
-
-
-		std::vector<char> writable(str.begin(), str.end());
-		writable.push_back('\0');
-		char*send = new char[writable.size()]; 
-		strcpy(send, &writable[0]); 
-		return send;
-
-
-	}
-
-
 
 
 

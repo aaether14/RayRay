@@ -45,9 +45,9 @@ void RayTracerSceneBuilder::Enable()
 
 
     //Required data
-    size_t number_of_spheres = 1;
+    size_t number_of_spheres = 3;
     size_t number_of_planes = 1;
-    size_t number_of_materials = 3;
+    size_t number_of_materials = 6;
     size_t number_of_lights = 2;
     
 
@@ -103,22 +103,21 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-	AddSphere(glm::vec4(0.0, 1.0, 1.0, 0.0), 6.25, 2);
-	AddPlane(glm::vec4(0.0, 1.0, 0.0, 0.0), -4.4, 0);
-	AddMaterial(0.0, 0.0, 120.0, 0.4, glm::vec4(1.0, 0.0, 0.0, 1.0));
-	AddMaterial(0.0, 0.0, 120.0, 0.8, glm::vec4(1.0, 1.0, 1.0, 1.0));
-	AddMaterial(0.0, 0.0, 120.0, 0.3, glm::vec4(0.0, 1.0, 0.0, 1.0));
-	AddLight(1, glm::vec4(0.0, 5.0, 5.0, 0.0));
-	AddLight(1, glm::vec4(2.0, 5.0, 1.0, 0.0));
-
-
-
-
+	AddSphere(glm::vec4(1, -0.8f, 3, 0), 6.25, 0);
+	AddSphere(glm::vec4(1, -0.5f, 7, 0), 4.0, 5);
+	AddSphere(glm::vec4(-5.5f, -0.5f, 7, 0), 4.0, 1);
+	AddPlane(glm::vec4(0.0, 1.0, 0.0, 0.0), -4.4, 2);
+	AddMaterial(0.0, 1.1, 127.0, 0.1, glm::vec4(0.7f, 0.7f, 0.7f, 0));
+	AddMaterial(1.0, 0.0, 120.0, 0.1, glm::vec4(0.7f, 0.7f, 1.0f, 0));
+	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.4f, 0.3f, 0.3f, 0));
+	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.4f, 0.4f, 0.4f, 0));
+	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.6f, 0.6f, 0.8f, 0));
+	AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.3f, 1.0f, 0.4f, 0));
+	AddLight(3, glm::vec4(0, 5, 5, 0));
+	AddLight(4, glm::vec4(2, 5, 1, 0));
 
 
 }
-
-
 
 
 

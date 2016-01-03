@@ -11,14 +11,17 @@ void Controller::Init()
 
 
 
-	using boost::property_tree::ptree;
-	ptree pt;
+
+    
+    ControllerSource::Init();
+	boost::property_tree::ptree pt;
 	read_xml("data/settings.xml", pt);
 
 
 
 
-	BOOST_FOREACH(ptree::value_type const& v, pt.get_child("GeneralInfo"))
+
+	BOOST_FOREACH(boost::property_tree::ptree::value_type const& v, pt.get_child("GeneralInfo"))
 	{
 
 
@@ -39,7 +42,7 @@ void Controller::Init()
 
 
 
-			CreateWindowContext(window_width, window_height, fullscreen, AString::char_to_str(window_title), opengl_major_version, opengl_minor_version);
+			CreateWindowContext(window_width, window_height, fullscreen, window_title, opengl_major_version, opengl_minor_version);
 			Add("Camera", new Camera());
 
 

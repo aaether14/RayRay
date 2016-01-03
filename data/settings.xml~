@@ -2,8 +2,8 @@
 <GeneralInfo>
   <BaseInfo>
     <WindowTitle>RayRay</WindowTitle>
-    <WindowWidth>800</WindowWidth>
-    <WindowHeight>600</WindowHeight>
+    <WindowWidth>1366</WindowWidth>
+    <WindowHeight>768</WindowHeight>
 	<Fullscreen>0</Fullscreen>
     <OpenGLMajorVersion>3</OpenGLMajorVersion>
 	<OpenGLMinorVersion>3</OpenGLMinorVersion>

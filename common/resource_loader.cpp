@@ -5,35 +5,32 @@
 
 
 
-void ResourceLoader::LoadResourcePaths(char *path)
+void ResourceLoader::LoadResourcePaths(std::string path)
 {
 
 
-	int i = 0;
+	int counter = 0;
+
 
 
 	std::ifstream fin(path);
 	std::string temp_str;
-
-
-
-
 	std::string files[1];
+
+
 
 
 	while (std::getline(fin,temp_str))
 	{
 		if (temp_str == "")continue;
-		files[i] = temp_str;
-		i++;
+		files[counter++] = temp_str;
 	}
 
 
 
+
+
 	scene_file = files[0];
-
-
-
 	fin.close();
 
 }
@@ -44,12 +41,14 @@ void ResourceLoader::Init()
 {
 
 
+
 	Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
 
 
-	LoadResourcePaths(AString::char_to_str(ctrl->GetProjectName()));
-	Add("Entities", new SceneInfo(AString::char_to_str(GetSceneFile())));
+	LoadResourcePaths(ctrl->GetProjectName());
+	Add("Entities", new SceneInfo(GetSceneFile()));
 	LoadChanges();
+
 
 
 }

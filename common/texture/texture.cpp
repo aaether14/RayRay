@@ -3,26 +3,22 @@
 
 
 
-#define ANISO 16.0f
 
 
-
-
-
-FIBITMAP * TextureObject::get_dib(char* file)
+FIBITMAP * TextureObject::get_dib(std::string file)
 {
 
 
 
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	FIBITMAP *dib(0);
-	fif = FreeImage_GetFileType(file, 0);
+	fif = FreeImage_GetFileType(file.c_str(), 0);
 	if (fif == FIF_UNKNOWN)
-		fif = FreeImage_GetFIFFromFilename(file);
+		fif = FreeImage_GetFIFFromFilename(file.c_str());
 	if (fif == FIF_UNKNOWN)
 		return NULL;
 	if (FreeImage_FIFSupportsReading(fif))
-		dib = FreeImage_Load(fif, file);
+		dib = FreeImage_Load(fif, file.c_str());
 	if (!dib)
 		return NULL;
 	FreeImage_FlipVertical(dib);
@@ -38,7 +34,7 @@ FIBITMAP * TextureObject::get_dib(char* file)
 
 
 
-GLuint TextureObject::load_texture(char* file, GLint param_min, GLint param_max)
+GLuint TextureObject::load_texture(std::string file, GLint param_min, GLint param_max)
 {
 
 
@@ -82,18 +78,19 @@ GLuint TextureObject::load_texture(char* file, GLint param_min, GLint param_max)
 
 
 
-GLuint TextureObject::create_texture_from_color(GLfloat r, GLfloat g, GLfloat b)
+GLuint TextureObject::create_texture_from_color(glm::vec4 color)
 {
 
 
 	GLuint gl_texID;
-	BYTE * bits = new BYTE[3];
-	bits[0] = (r * 255);
-	bits[1] = (g * 255);
-	bits[2] = (b * 255);
+	BYTE * bits = new BYTE[4];
+	bits[0] = (color.r * 255);
+	bits[1] = (color.g * 255);
+	bits[2] = (color.b * 255);
+	bits[3] = (color.a * 255);
 	glGenTextures(1, &gl_texID);
 	glBindTexture(GL_TEXTURE_2D, gl_texID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, bits);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB8_ALPHA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, bits);
 	glBindTexture(GL_TEXTURE, 0);
 	delete bits;
 	return gl_texID;
@@ -107,13 +104,13 @@ GLuint TextureObject::create_texture_from_color(GLfloat r, GLfloat g, GLfloat b)
 
 
 
-GLuint TextureObject::load_cube_texture(const char *Directory,
-	const char *PosXFilename,
-	const char *NegXFilename,
-	const char *PosYFilename,
-	const char *NegYFilename,
-	const char *PosZFilename,
-	const char *NegZFilename)
+GLuint TextureObject::load_cube_texture(std::string Directory,
+	std::string PosXFilename,
+	std::string NegXFilename,
+	std::string PosYFilename,
+	std::string NegYFilename,
+	std::string PosZFilename,
+	std::string NegZFilename)
 {
 
 
@@ -155,7 +152,7 @@ GLuint TextureObject::load_cube_texture(const char *Directory,
 	{
 
 
-		dib = get_dib(AString::char_to_str(files[i]));
+		dib = get_dib(files[i]);
 		bits = FreeImage_GetBits(dib);
 		width = FreeImage_GetWidth(dib);
 		height = FreeImage_GetHeight(dib);
@@ -192,7 +189,7 @@ GLuint TextureObject::load_cube_texture(const char *Directory,
 
 
 
-GLuint TextureObject::create_texture_array(char *Directory, char ** textures, GLuint num, GLfloat aniso)
+GLuint TextureObject::create_texture_array(std::string Directory, std::vector<std::string> textures, GLfloat aniso)
 {
 
 
@@ -200,14 +197,13 @@ GLuint TextureObject::create_texture_array(char *Directory, char ** textures, GL
 	GLuint gl_texID(0), width(0), height(0);
 	FIBITMAP ** dibs = 0;
 	BYTE ** bits = 0;
-	dibs = new FIBITMAP*[num];
-	bits = new BYTE*[num];
-	for (GLuint i = 0; i < num; i++)
+	dibs = new FIBITMAP*[textures.size()];
+	bits = new BYTE*[textures.size()];
+	for (GLuint i = 0; i < textures.size(); i++)
 	{
 
 
-		std::string file_path = std::string(std::string(Directory) + std::string(textures[i]));
-		dibs[i] = get_dib(AString::char_to_str(file_path));
+		dibs[i] = get_dib(Directory + textures[i]);
 		assert(dibs[i]);
 		bits[i] = FreeImage_GetBits(dibs[i]);
 
@@ -228,18 +224,25 @@ GLuint TextureObject::create_texture_array(char *Directory, char ** textures, GL
 	glTexParameterf(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 
 
-	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, height, num, 0, GL_BGRA, GL_UNSIGNED_BYTE, 0);
 
 
-	for (GLuint i = 0; i < num; i++)
+	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, height, textures.size(), 0, GL_BGRA, GL_UNSIGNED_BYTE, 0);
+	for (GLuint i = 0; i < textures.size(); i++)
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, width, height, 1, GL_BGRA, GL_UNSIGNED_BYTE, bits[i]);
+
+
+
 
 
 	glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
-	for (GLuint i = 0; i < num; i++)
+
+
+	for (GLuint i = 0; i < textures.size(); i++)
 		FreeImage_Unload(dibs[i]);
+
+
 
 	return gl_texID;
 
@@ -250,16 +253,19 @@ GLuint TextureObject::create_texture_array(char *Directory, char ** textures, GL
 }
 
 
-bool TextureObject::readRawFile(char* path, BYTE*bits)
+bool TextureObject::readRawFile(std::string path, BYTE*bits)
 {
 
-	std::ifstream inputFile(path, std::ios::binary);
 
+
+	std::ifstream inputFile(path, std::ios::binary);
 	int size = getRawSize(path);
+
+
+
 
 	for (int j = size - 1; j >= 0; j--)
 	{
-
 
 		for (int i = 0; i < size; i++)
 
@@ -277,34 +283,35 @@ bool TextureObject::readRawFile(char* path, BYTE*bits)
 
 	}
 
+
 	inputFile.close();
-
-
 	return true;
+
+
 }
 
 
 
 
 
-int TextureObject::getRawSize(char * path)
+int TextureObject::getRawSize(std::string path)
 {
 
 	std::ifstream inputFile(path, std::ios::binary);
-
-
 	int size;
-
-
 	inputFile.seekg(0, std::ios::end);
+
+
 
 	if (!POWER_OF_TWO(int(sqrt((long)inputFile.tellg()))-1))
 		size = sqrt((long)inputFile.tellg() / 2);
 	else
 		size = sqrt((long)inputFile.tellg());
 
-	inputFile.close();
 
+
+
+	inputFile.close();
 	return size;
 
 

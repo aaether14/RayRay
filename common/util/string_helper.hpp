@@ -20,10 +20,6 @@ namespace AString
 	Load a file to a string
 	*/
 	std::string LoadFileToString(std::string path);
-	/**
-	Succesfully converts std::string to char*
-	*/
-	char * char_to_str(std::string str);
 
 
 

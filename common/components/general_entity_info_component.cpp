@@ -26,7 +26,7 @@ void InfoComponent::Load(std::string path, std::string extension)
 
 	//Read if valid file
 
-	info->Read(AString::char_to_str(path));
+	info->Read(path);
 
 
 

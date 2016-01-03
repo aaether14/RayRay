@@ -4,27 +4,19 @@
 
 
 
-
 #include <stdafx.h>
 
 
 
 
 
-typedef char GLchar;
-
-
-
 
 /**
-
-
 Class used to calculate framerate and time between frames
-
-
 */
 class FPS
 {
+
 
 
 	GLfloat fps;
@@ -96,7 +88,7 @@ class ControllerSource : public AModule
 	/**
 	Window data
 	*/
-	static GLchar * title;
+	static std::string title;
 	/**
 	Data regarding OpenGL context version
 	*/
@@ -241,22 +233,13 @@ public:
 
 
 
-	/**
-	Calls Init()
-	*/
-	inline ControllerSource() { this->Init(); }
-	/**
-	Get current framerate
-	*/
-	inline GLfloat returnFps(){ return this->fps->Get(); }
-
 
 	/**
 	Create window out of 'window_window', 'window_height', 'fullscreen', 'title' and OpenGL context version
 	*/
 	static GLboolean CreateWindowContext(GLuint window_width, GLuint window_height,
 		GLboolean fullscreen,
-		char * title,
+		std::string title,
 		GLuint opengl_major_version,
 		GLuint opengl_minor_version);
 
@@ -270,17 +253,10 @@ public:
 	Compute data
 	*/
 	void Enable();
-
-
-
 	/**
 	Clean data
 	*/
 	void Clean();
-	/**
-	Calls Clean()
-	*/
-	inline  ~ControllerSource(){ this->Clean(); }
 	
 
 

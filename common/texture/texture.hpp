@@ -19,6 +19,7 @@
 #define COLOR_TYPE 0x256
 #define DEPTH_TYPE 0x257
 #define G_TYPE 0x258
+#define ANISO 16.0f
 
 
 
@@ -135,37 +136,37 @@ public:
 	/**
 	Load texture from file to OpenGL memory
 	*/
-	static GLuint load_texture(char* file, GLint param_min, GLint param_max);
+	static GLuint load_texture(std::string file, GLint param_min, GLint param_max);
 	/**
 	Load cube map from files to OpenGL memory
 	*/
-	static GLuint load_cube_texture(const char *Directory,
-		const char *PosXFilename,
-		const char *NegXFilename,
-		const char *PosYFilename,
-		const char *NegYFilename,
-		const char *PosZFilename,
-		const char *NegZFilename);
+	static GLuint load_cube_texture(std::string Directory,
+		std::string PosXFilename,
+		std::string NegXFilename,
+		std::string PosYFilename,
+		std::string NegYFilename,
+		std::string PosZFilename,
+		std::string NegZFilename);
 	/**
 	Load textures to texture array in OpenGL memory
 	*/
-	static GLuint create_texture_array(char *Directory, char ** textures, GLuint num, GLfloat aniso);
+	static GLuint create_texture_array(std::string Directory, std::vector<std::string> textures, GLfloat aniso);
 	/**
 	Create a texture from a given color
 	*/
-	static GLuint create_texture_from_color(GLfloat r, GLfloat y, GLfloat z);
+	static GLuint create_texture_from_color(glm::vec4 color);
 	/**
 	Fill FIBITMAP data from image file
 	*/
-	static FIBITMAP *get_dib(char* file);
+	static FIBITMAP *get_dib(std::string file);
 	/**
 	read a .raw file
 	*/
-	static bool readRawFile(char*path, BYTE * bits);
+	static bool readRawFile(std::string path, BYTE * bits);
 	/**
 	Get size of a .raw file
 	*/
-	static int getRawSize(char*path);
+	static int getRawSize(std::string path);
 	/**
 	Create a texture in memory
 	*/
