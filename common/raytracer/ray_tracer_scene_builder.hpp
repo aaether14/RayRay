@@ -9,6 +9,16 @@
 
 
 
+#define SPHERE_DATA 5
+#define PLANE_DATA 5
+#define MATERIAL_DATA 8
+#define LIGHT_DATA 4
+
+
+
+
+
+
 /**
 Provdies functionality for building scene float array from scene manager
 */
@@ -25,11 +35,11 @@ class RayTracerSceneBuilder : public AModule
 	/**
 	Add sphere to scene
 	*/
-	void AddSphere(glm::vec4 pos, cl_float sq_dist, cl_uint mat);
+    void AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint mat);
 	/**
 	Add plane to scene
 	*/
-	void AddPlane(glm::vec4 normal, cl_float dist, cl_uint mat);
+    void AddPlane(glm::vec3 normal, cl_float dist, cl_uint mat);
 	/**
 	Add material to scene
 	*/
@@ -37,7 +47,7 @@ class RayTracerSceneBuilder : public AModule
 	/**
 	Add light scene
 	*/
-	void AddLight(cl_uint mat, glm::vec4 center);
+    void AddLight(cl_uint mat, glm::vec3 center);
 
 
 
@@ -45,19 +55,15 @@ public:
 
 
 
+
 	/**
 	Initailizes data
 	*/
 	void Init();
-
-
 	/**
 	Cleans data
 	*/
 	void Clean();
-
-
-
 	/**
 	Updates scene data
 	*/
@@ -66,12 +72,16 @@ public:
 
 
 
+
+
+    /**
+    Clean scene data
+    */
+    inline void CleanSceneData(){scene_data.clear();}
 	/**
 	Give scene data pointer
 	*/
 	cl_float * GetSceneDataPointer(){ return &scene_data[0]; }
-
-
 	/**
 	Get scene size
 	*/

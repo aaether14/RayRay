@@ -31,7 +31,7 @@ float4 matrixVectorMultiply(__global float* matrix, float4 vector)
 
 
 
-float4 reflect(float4 A, float4 B)
+float3 reflect(float3 A, float3 B)
 {
-	return B - ((float4)2) * (float4)dot(A, B) * A;
+	return B - ((float3)2) * (float3)dot(A, B) * A;
 }

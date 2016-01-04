@@ -4,8 +4,8 @@
 
 struct Ray
 {
-	float4 origin;
-	float4 dir;
+	float3 origin;
+	float3 dir;
 };
 
 
@@ -72,8 +72,8 @@ struct Material GetMaterialFromIndex(__global float * data, int material_index)
 struct IntersectionResult
 {
 	int result;
-	float4 normal;
-	float4 position;
+	float3 normal;
+	float3 position;
 	float distance;
 	int material_index;
 };
@@ -86,7 +86,7 @@ struct IntersectionResult
 
 
 
-int planeintersect(float4 plane_normal, float plane_distance, struct Ray *ray, float *dist)
+int planeintersect(float3 plane_normal, float plane_distance, struct Ray *ray, float *dist)
 {
 	float d = (-dot(plane_normal, ray->origin) + plane_distance) / dot(plane_normal, ray->dir);
 
@@ -109,11 +109,11 @@ int planeintersect(float4 plane_normal, float plane_distance, struct Ray *ray, f
 
 
 
-int sphereintersect(float4 sphere_center, float sphere_radius, struct Ray *r, float *dist)
+int sphereintersect(float3 sphere_center, float sphere_radius, struct Ray *r, float *dist)
 {
 
 
-	float4 v = r->origin - sphere_center;
+	float3 v = r->origin - sphere_center;
 	float b = -dot(v, r->dir);
 	float det = (b * b) - dot(v, v) + sphere_radius;
 
