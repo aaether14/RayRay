@@ -18,6 +18,7 @@ class AData
 
 	std::map<std::string, GLfloat> float_map;
 	std::map<std::string, GLint> int_map;
+    std::map<std::string, std::string> string_map;
 	std::map<std::string, glm::vec2> vec2_map;
 	std::map<std::string, glm::vec3> vec3_map;
 	std::map<std::string, glm::vec4> vec4_map;
@@ -46,6 +47,10 @@ public:
 	*/
 	inline GLint GetInt(std::string name){ return int_map[name]; }
 	
+    /**
+    Get string from map
+    */
+    inline std::string GetString(std::string name){return string_map[name];}
 
 	/**
 	Get vec2 from map
@@ -87,6 +92,11 @@ public:
 	Set int
 	*/
 	inline void SetInt(std::string name, GLint value){ int_map[name] = value; }
+
+    /**
+    Set string
+    */
+    inline void SetString(std::string name, std::string value){string_map[name] = value;}
 
 	/**
 	Set vec2

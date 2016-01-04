@@ -8,24 +8,24 @@
 
 
 
-<Vec4>
+<Vec3>
 <V>PlaneNormal</V>
-<D>0.0, 0.0, 0.0, 0.0</D>
-</Vec4>
+<D>0.0, 1.0, 0.0</D>
+</Vec3>
 
 
 
 <Float>
 <V>PlaneDistance</V>
-<D>4.25</D>
+<D>-4.4</D>
 </Float>
 
 
 
-<Int>
-<V>MaterialIndex</V>
-<D>0</D>
-</Int>
+<String>
+<V>MaterialName</V>
+<D>BlueFloor</D>
+</String>
 
 
 

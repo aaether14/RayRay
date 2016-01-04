@@ -43,11 +43,11 @@ class RayTracerSceneBuilder : public AModule
 	/**
 	Add material to scene
 	*/
-    void AddMaterial(cl_float relf, cl_float refr, cl_float spec, cl_float diff, glm::vec3 amb);
+    void AddMaterial(glm::vec3 amb, cl_float refl, cl_float refr, cl_float spec, cl_float diff);
 	/**
 	Add light scene
 	*/
-    void AddLight(cl_uint mat, glm::vec3 center);
+    void AddLight(glm::vec3 center, cl_uint mat);
 
 
 

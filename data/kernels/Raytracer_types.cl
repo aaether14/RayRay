@@ -35,8 +35,10 @@ struct Material
 	float refr;
 	float diff;
 	float spec;
-	float4 amb;
+	float3 amb;
 };
+
+
 
 
 
@@ -50,11 +52,11 @@ struct Material GetMaterialFromIndex(__global float * data, int material_index)
 
 
 	struct Material material;
-	material.refl = data[material_index];
-	material.refr = data[material_index + 1];
-	material.spec = data[material_index + 2];
-	material.diff = data[material_index + 7];
-	material.amb = (float4)(data[material_index + 3], data[material_index + 4], data[material_index + 5], data[material_index + 6]);
+	material.amb = (float3)(data[material_index], data[material_index + 1], data[material_index + 2]);
+	material.refl = data[material_index + 3];
+	material.refr = data[material_index + 4];
+	material.spec = data[material_index + 5];
+	material.diff = data[material_index + 6];
 
 
 
@@ -77,6 +79,7 @@ struct IntersectionResult
 	float distance;
 	int material_index;
 };
+
 
 
 
@@ -151,8 +154,6 @@ int sphereintersect(float3 sphere_center, float sphere_radius, struct Ray *r, fl
 
 
 
-
-
 void push(struct RayStack *ray_stack, struct Ray *ray, float refr, int depth)
 {
 	if(ray_stack->top < STACK_DEPTH)
@@ -169,4 +170,4 @@ void push(struct RayStack *ray_stack, struct Ray *ray, float refr, int depth)
 
 
 
-//-------------------------------------------------------------------//
+//----------------------------------------------------------------//

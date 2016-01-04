@@ -24,6 +24,8 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 			SetFloat(v.second.get<std::string>("V"),boost::lexical_cast<float>(v.second.get<std::string>("D")));
 		if (v.first == "Int")
 			SetInt(v.second.get<std::string>("V"), boost::lexical_cast<int>(v.second.get<std::string>("D")));
+        if (v.first == "String")
+            SetString(v.second.get<std::string>("V"), v.second.get<std::string>("D"));
 		if (v.first == "Vec2")
             SetVec2(v.second.get<std::string>("V"), AString::GetVec2FromString(v.second.get<std::string>("D")));
 		if (v.first == "Vec3")
@@ -38,7 +40,7 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
 
-//	Debug();
+   //     Debug();
 
 
 
@@ -67,7 +69,7 @@ void AData::Debug()
 
 
 		for (it = float_map.begin(); it != float_map.end(); it++)
-			std::cout << it->first << ": " << it->second;
+            std::cout << it->first << ": " << it->second << std::endl;
 	}
 
 
@@ -83,8 +85,22 @@ void AData::Debug()
 
 
 		for (it = int_map.begin(); it != int_map.end(); it++)
-			std::cout << it->first << ": " << it->second;
+            std::cout << it->first << ": " << it->second << std::endl;
 	}
+
+
+
+        //String debug
+    if (string_map.size() > 0)
+    {
+        std::cout << std::endl;
+        std::cout << "Strings:" << std::endl;
+        std::map<std::string, std::string>::iterator it;
+
+
+        for (it = string_map.begin(); it != string_map.end(); it++)
+            std::cout << it->first << ": " << it->second << std::endl;
+    }
 
 
 
@@ -101,6 +117,7 @@ void AData::Debug()
 		{
 			std::cout << it->first << ": ";
             AString::print_vec2(it->second);
+            std::cout << std::endl;
 		}
 
 
@@ -120,6 +137,7 @@ void AData::Debug()
 		{
 			std::cout << it->first << ": ";
             AString::print_vec3(it->second);
+            std::cout << std::endl;
 		}
 
 
@@ -139,6 +157,7 @@ void AData::Debug()
 		{
 			std::cout << it->first << ": ";
             AString::print_vec4(it->second);
+            std::cout << std::endl;
 		}
 
 
@@ -160,6 +179,7 @@ void AData::Clean()
 
 	int_map.clear();
 	float_map.clear();
+    string_map.clear();
 	vec2_map.clear();
 	vec3_map.clear();
 	vec4_map.clear();
@@ -219,6 +239,24 @@ boost::property_tree::ptree AData::Save()
 
 	}
 
+
+
+    //String saving
+    if (string_map.size() > 0)
+    {
+
+        std::map<std::string, std::string>::iterator it;
+
+        for (it = string_map.begin(); it != string_map.end(); it++)
+        {
+            boost::property_tree::ptree ptree_float_data;
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it->first)));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(it->second)));
+            ptree_data.push_back(boost::property_tree::ptree::value_type("String", ptree_float_data));
+
+        }
+
+    }
 
 
 

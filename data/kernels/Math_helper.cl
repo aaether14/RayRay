@@ -7,11 +7,6 @@ float4 matrixVectorMultiply(__global float* matrix, float4 vector)
 {
 
 
-	//  0  4  8 12
-	//  1  5  9 13
-	//  2  6 10 14
-	//  3  7 11 15
-
 
 	float4 result;
 	result.x = matrix[0] * vector.x + matrix[4] * vector.y + matrix[8] * vector.z + matrix[12] * vector.w;
@@ -35,3 +30,8 @@ float3 reflect(float3 A, float3 B)
 {
 	return B - ((float3)2) * (float3)dot(A, B) * A;
 }
+
+
+
+
+//-------------------------------------------------------------------------//

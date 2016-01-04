@@ -1,18 +1,16 @@
 //--------------------------------------------------Aaether Engine Raytracing kernel-------------------------------------------//
 
 
-#define STACK_DEPTH 20
-#define TRACE_DEPTH 10
-#define EPSILON 0.001f
 
 
 
 
-
-
+#include "Raytracer_defines.cl"
 #include "Math_helper.cl"
 #include "Raytracer_types.cl"
 #include "Raytracer_utility.cl"
+
+
 
 
 
@@ -20,7 +18,7 @@
 
 
 
-__kernel void GodRays(__global float4* output, __global float* view_matrix, const int width, const int height, const float tan_half_fov, __global float* scene_data)
+__kernel void GodRays(__global float3* output, __global float* view_matrix, const int width, const int height, const float tan_half_fov, __global float* scene_data)
 {
 
 
@@ -57,7 +55,7 @@ __kernel void GodRays(__global float4* output, __global float* view_matrix, cons
 
 
 
-	float4 pixel = recursivetrace(scene_data, &ray);
+	float3 pixel = recursivetrace(scene_data, &ray);
 
 
 
@@ -67,7 +65,7 @@ __kernel void GodRays(__global float4* output, __global float* view_matrix, cons
 
 
 
-	pixel = clamp(pixel, (float4)(0.0), (float4)(1.0));
+	pixel = clamp(pixel, (float3)(0.0), (float3)(1.0));
 	output[get_global_id(0)] = pixel;
 
 
