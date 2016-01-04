@@ -11,7 +11,7 @@
 
 #define SPHERE_DATA 5
 #define PLANE_DATA 5
-#define MATERIAL_DATA 8
+#define MATERIAL_DATA 7
 #define LIGHT_DATA 4
 
 
@@ -43,7 +43,7 @@ class RayTracerSceneBuilder : public AModule
 	/**
 	Add material to scene
 	*/
-	void AddMaterial(cl_float relf, cl_float refr, cl_float spec, cl_float diff, glm::vec4 amb);
+    void AddMaterial(cl_float relf, cl_float refr, cl_float spec, cl_float diff, glm::vec3 amb);
 	/**
 	Add light scene
 	*/

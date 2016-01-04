@@ -47,7 +47,7 @@ void CLRaytracer::Init()
 
 
         ray_kernel->Create(cl_cw, L"data/kernels/GodRays.cl", "", "GodRays", "-I data/kernels/");
-		ray_kernel->AddFloatBuffer("output", width * height * sizeof(cl_float4), CL_MEM_WRITE_ONLY);
+        ray_kernel->AddFloatBuffer("output", width * height * sizeof(cl_float3), CL_MEM_WRITE_ONLY);
 		ray_kernel->AddFloatBuffer("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY);
 		ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1000, CL_MEM_READ_ONLY);
 
@@ -105,8 +105,7 @@ void CLRaytracer::Enable()
    
 
 	Controller *ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
-	Camera * cam = static_cast<Camera*>(ctrl->Get("Camera"));
-	ViewInfo * info = cam->GetInfo();
+    Camera * cam = static_cast<Camera*>(ctrl->Get("Camera"));
 	View * view = cam->GetView();
 
 
@@ -144,7 +143,7 @@ void CLRaytracer::Enable()
 	ray_kernel->WriteToFloatBuffer("view_matrix", sizeof(glm::mat4), (cl_float*)(&view_matrix));
 	ray_kernel->WriteToFloatBuffer("scene_data", scene_builder->GetSceneSize(), scene_builder->GetSceneDataPointer());
     ray_kernel->Enable();
-    ray_kernel->ReadFloatBuffer("output", width * height * sizeof(cl_float4));
+    ray_kernel->ReadFloatBuffer("output", width * height * sizeof(cl_float3));
 
 
 
@@ -162,7 +161,7 @@ void CLRaytracer::Enable()
     glBindTexture(GL_TEXTURE_2D, tex_id);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, ray_kernel->GetFloatBuffer("output"));
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_FLOAT, ray_kernel->GetFloatBuffer("output"));
     glBindTexture(GL_TEXTURE_2D, 0);
 
 

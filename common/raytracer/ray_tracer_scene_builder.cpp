@@ -22,6 +22,7 @@ void RayTracerSceneBuilder::Clean()
 
 
 
+    CleanSceneData();
 	CleanModule();
 
 
@@ -102,12 +103,12 @@ void RayTracerSceneBuilder::Enable()
     AddSphere(glm::vec3(1, -0.5f, 7), 4.0, 5);
     AddSphere(glm::vec3(-5.5f, -0.5f, 7), 4.0, 1);
     AddPlane(glm::vec3(0.0, 1.0, 0.0), -4.4, 2);
-    AddMaterial(0.0, 1.1, 127.0, 0.1, glm::vec4(0.7f, 0.7f, 0.7f, 1.0));
-    AddMaterial(1.0, 0.0, 120.0, 0.1, glm::vec4(0.7f, 0.7f, 1.0f, 1.0));
-    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.0f, 0.3f, 0.3f, 1.0));
-    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.8f, 0.4f, 0.4f, 1.0));
-    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.6f, 0.6f, 0.8f, 1.0));
-    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec4(0.3f, 1.0f, 0.4f, 1.0));
+    AddMaterial(0.0, 1.1, 127.0, 0.1, glm::vec3(0.7f, 0.7f, 0.7f));
+    AddMaterial(1.0, 0.0, 120.0, 0.1, glm::vec3(0.7f, 0.7f, 1.0f));
+    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec3(0.0f, 0.3f, 0.3f));
+    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec3(0.8f, 0.4f, 0.4f));
+    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec3(0.6f, 0.6f, 0.8f));
+    AddMaterial(0.0, 0.0, 120.0, 1.0, glm::vec3(0.3f, 1.0f, 0.4f));
     AddLight(3, glm::vec3(0, 5, 5));
     AddLight(4, glm::vec3(2, 5, 1));
 
@@ -151,7 +152,7 @@ void RayTracerSceneBuilder::AddPlane(glm::vec3 normal, cl_float dist, cl_uint ma
 
 
 
-void RayTracerSceneBuilder::AddMaterial(cl_float relf, cl_float refr, cl_float spec, cl_float diff, glm::vec4 amb)
+void RayTracerSceneBuilder::AddMaterial(cl_float relf, cl_float refr, cl_float spec, cl_float diff, glm::vec3 amb)
 {
 
 
@@ -161,7 +162,6 @@ void RayTracerSceneBuilder::AddMaterial(cl_float relf, cl_float refr, cl_float s
 	scene_data.push_back(amb.r);
 	scene_data.push_back(amb.g);
 	scene_data.push_back(amb.b);
-	scene_data.push_back(amb.a);
 	scene_data.push_back(diff);
 
 
