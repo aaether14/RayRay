@@ -27,8 +27,8 @@ void CLRaytracer::Init()
 
 
 	cl_float tan_half_fov = info->getTanHalfFov();
-	cl_int width = ctrl->GetWindowWidth();
-	cl_int height = ctrl->GetWindowHeight();
+    cl_int width = ctrl->GetWindowWidth();
+    cl_int height = ctrl->GetWindowHeight();
 
 
 	//-------------------------------------------//
@@ -65,16 +65,16 @@ void CLRaytracer::Init()
 
 	ray_kernel->SetFloatBufferArg("output", 0);
 	ray_kernel->SetFloatBufferArg("view_matrix", 1);
-	ray_kernel->SetArgValue(width, 2);
-	ray_kernel->SetArgValue(height, 3);
-	ray_kernel->SetArgValue(tan_half_fov, 4);
-	ray_kernel->SetFloatBufferArg("scene_data", 5);
+    ray_kernel->SetArgValue(width, 2);
+    ray_kernel->SetArgValue(height, 3);
+    ray_kernel->SetArgValue(tan_half_fov, 4);
+    ray_kernel->SetFloatBufferArg("scene_data", 5);
 
 
 	//---------------------//
 
 
-	ray_kernel->SetWorkSize(width * height, 64);
+    ray_kernel->SetWorkSize(width * height, 64);
 	
 
 
@@ -120,8 +120,8 @@ void CLRaytracer::Enable()
 
 
 
-	cl_int width = ctrl->GetWindowWidth();
-	cl_int height = ctrl->GetWindowHeight();
+    cl_int width = ctrl->GetWindowWidth();
+    cl_int height = ctrl->GetWindowHeight();
 	glm::mat4 view_matrix = glm::inverse(view->getViewMatrix());
 
 
