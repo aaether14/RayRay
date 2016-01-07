@@ -12,7 +12,7 @@ void Controller::Init()
 
 
 
-    
+    app_info.reset(new AData);
     ControllerSource::Init();
 	boost::property_tree::ptree pt;
 	read_xml("data/settings.xml", pt);
@@ -37,7 +37,7 @@ void Controller::Init()
 			GLboolean fullscreen = v.second.get<GLboolean>("Fullscreen");
 			GLuint opengl_major_version = v.second.get<GLuint>("OpenGLMajorVersion");
 			GLuint opengl_minor_version = v.second.get<GLuint>("OpenGLMinorVersion");
-			project_name = v.second.get<std::string>("ProjectName");
+            GetAppInfo()->SetString("ProjectName", v.second.get<std::string>("ProjectName"));
 
 
 
@@ -51,6 +51,12 @@ void Controller::Init()
 
 
 		}
+        else if (v.first == "OpenCLInfo")
+        {
+            GetAppInfo()->SetString("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
+            GetAppInfo()->SetString("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
+            GetAppInfo()->SetInt("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
+        }
 		
 
 

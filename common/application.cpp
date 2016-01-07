@@ -15,7 +15,7 @@ void Application::Init()
 
 
 
-	Add("Controller", new Controller());
+    Add("Controller", new Controller());
 	Add("CLContextWrapper", new CLContextWrapper());
 	Add("DataManager", new DataManager());
 	Add("UI", new UIManager());
@@ -39,7 +39,6 @@ void Application::Enable()
 
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -48,6 +47,7 @@ void Application::Enable()
 
 
 	Controller * ctrl = static_cast<Controller*>(Get("Controller"));
+
 
 
 	do{
@@ -61,9 +61,9 @@ void Application::Enable()
 
 
 
-
 		glfwSwapBuffers(ctrl->GetWindow());
 		glfwPollEvents();
+
 
 
 

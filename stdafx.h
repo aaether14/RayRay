@@ -150,13 +150,15 @@
 
 //---------------------------------------------//
 
-#include <raytracer/glsl_raytracer.hpp>
 #include <CL/cl_util.hpp>
 #include <CL/cl_context.hpp>
 #include <CL/cl_program.hpp>
 #include <CL/cl_kernel.hpp>
-#include <raytracer/ray_tracer_scene_builder.hpp>
-#include <raytracer/cl_raytracer.hpp>
+
+//---------------------------------------------//
+
+#include <workgroup/raytracer/ray_tracer_scene_builder.hpp>
+#include <workgroup/raytracer/cl_raytracer.hpp>
 
 //---------------------------------------------//
 

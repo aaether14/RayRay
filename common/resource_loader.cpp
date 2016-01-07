@@ -45,7 +45,7 @@ void ResourceLoader::Init()
 	Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
 
 
-	LoadResourcePaths(ctrl->GetProjectName());
+    LoadResourcePaths(ctrl->GetAppInfo()->GetString("ProjectName"));
 	Add("Entities", new SceneInfo(GetSceneFile()));
 	LoadChanges();
 

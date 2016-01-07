@@ -9,4 +9,9 @@
 	<OpenGLMinorVersion>3</OpenGLMinorVersion>
 	<ProjectName>data/map1.AAETHER</ProjectName>
   </BaseInfo>
+  <OpenCLInfo>
+    <Enable>1</Enable>
+    <OpenCLPlatform>0</OpenCLPlatform>
+    <OpenCLDevice>0</OpenCLDevice>
+  </OpenCLInfo>
 </GeneralInfo>
