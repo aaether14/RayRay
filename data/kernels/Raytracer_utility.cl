@@ -4,7 +4,7 @@
 
 
 
-int findintersection(__global float* data, struct Ray *ray, struct IntersectionResult *intersection)
+int findintersection(__global float* data, struct Ray *r, struct IntersectionResult *intersection)
 {
 
 
@@ -21,7 +21,7 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 //Check for sphere intersection
 	for(int i = data[SPHERE_POINTER]; i < data[SPHERE_POINTER + 1]; i += SPHERE_DATA)
 	{
-		int res = sphereintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], ray, &dist);
+		int res = sphereintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], r, &dist);
 		if(res) result = res, sphere = i;
 		if(res && !intersection) return res;
 	}
@@ -32,7 +32,7 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 //Check for plane intersection
 	for(int i = data[PLANE_POINTER]; i < data[PLANE_POINTER + 1]; i += PLANE_DATA)
 	{
-		int res = planeintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], ray, &dist);
+		int res = planeintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], r, &dist);
 		if(res) result = res, plane = i;
 		if(res && !intersection) return res;
 	}
@@ -49,9 +49,8 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 	{
 
 
-		intersection->result = result;
 		intersection->distance = dist;
-		intersection->position = ray->origin + ray->dir * dist;
+		intersection->position = r->origin + r->dir * dist;
 
 
 
@@ -175,10 +174,9 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, flo
 	{
 
 
-
-		float3 refractionNormal = intersection.normal * (float)result;
-		float n = refr / intersection_material.refr;
-    float3 refracted_dir = refract(refractionNormal, r->dir, n);
+    if (refr == intersection_material.refr)
+    intersection.normal = -intersection.normal;
+    float3 refracted_dir = refract(intersection.normal, r->dir, refr / intersection_material.refr);
 		struct Ray refracted_ray;
 		refracted_ray.origin = intersection.position + refracted_dir * EPSILON;
 		refracted_ray.dir = refracted_dir;

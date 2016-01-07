@@ -1,6 +1,6 @@
 #define STACK_DEPTH 20
 #define TRACE_DEPTH 10
-#define EPSILON 0.005f
+#define EPSILON 0.01f
 
 
 

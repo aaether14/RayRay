@@ -73,7 +73,6 @@ struct Material GetMaterialFromIndex(__global float * data, int material_index)
 
 struct IntersectionResult
 {
-	int result;
 	float3 normal;
 	float3 position;
 	float distance;
@@ -95,7 +94,7 @@ int planeintersect(float3 plane_normal, float plane_distance, struct Ray *ray, f
 
 	if(d > 0 && d < *dist)
 	{
-		*dist = d; 
+		*dist = d;
 		return 1;
 	}
 
@@ -132,7 +131,7 @@ int sphereintersect(float3 sphere_center, float sphere_radius, struct Ray *r, fl
 		{
 			if(i1 < 0)
 			{
-				if(i2 < *dist) { *dist = i2; return -1; }
+				if(i2 < *dist) { *dist = i2; return 1; }
 			}
 			else
 			{

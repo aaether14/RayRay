@@ -7,8 +7,8 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material</Name>
-		
-		
+
+
 <Component>
 
 
@@ -71,11 +71,11 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material2</Name>
-		
 
-	
-		
-		
+
+
+
+
 <Component>
 
 
@@ -141,9 +141,9 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material3</Name>
-		
-		
-		
+
+
+
 <Component>
 
 
@@ -210,10 +210,10 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material4</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -278,10 +278,10 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material5</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -347,10 +347,10 @@
 <EntityInstance>
 <EntityName>Material</EntityName>
 <Name>Material6</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -416,10 +416,10 @@
 <EntityInstance>
 <EntityName>Sphere</EntityName>
 <Name>Sphere</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -463,10 +463,10 @@
 <EntityInstance>
 <EntityName>Sphere</EntityName>
 <Name>Sphere2</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -511,10 +511,10 @@
 <EntityInstance>
 <EntityName>Sphere</EntityName>
 <Name>Sphere3</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -558,10 +558,10 @@
 <EntityInstance>
 <EntityName>Sphere</EntityName>
 <Name>Sphere4</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -606,10 +606,10 @@
 <EntityInstance>
 <EntityName>Plane</EntityName>
 <Name>Plane</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -653,10 +653,10 @@
 <EntityInstance>
 <EntityName>Light</EntityName>
 <Name>Light</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -697,10 +697,10 @@
 <EntityInstance>
 <EntityName>Light</EntityName>
 <Name>Light2</Name>
-		
-		
-		
-		
+
+
+
+
 <Component>
 
 
@@ -736,5 +736,5 @@
 </EntityInstance>
 
 
-  
+
 </Scene>
