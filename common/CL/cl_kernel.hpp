@@ -20,15 +20,17 @@ class CLKernel : public CLProgram
 {
 
 
+    size_t global_work_size, local_work_size;
 	CLContextWrapper *cl_cw_ptr;
-
-
 	cl_kernel kernel;
+
+
+
 	std::map<std::string, cl_float*> kernel_float_buffers;
 	std::map<std::string, cl_mem> kernel_float_mem_buffers;
+    std::map<std::string, GLuint> kernel_gl_texture_buffers;
+    std::map<std::string, cl_mem> kernel_gl_texture_mem_buffers;
 
-
-	size_t global_work_size, local_work_size;
 
 
 
@@ -114,6 +116,14 @@ public:
 	Set kernel arg from value
 	*/
 	void SetArgValue(boost::any value, cl_uint arg);
+    /**
+    Add opengl texture
+    */
+    void AddGLTexture(std::string texture_name, size_t width, size_t height, GLint internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags);
+    /**
+    Set kernel arg from gl texture
+    */
+    void SetGLTextureArg(std::string texture_name, cl_uint arg);
 
 
     //-----------------------------------------------//
@@ -124,6 +134,10 @@ public:
 	Get float buffer
 	*/
 	inline cl_float* GetFloatBuffer(std::string buffer_name){ return kernel_float_buffers[buffer_name]; }
+    /**
+    Get gl texture id
+    */
+    inline GLuint GetGLTextureID(std::string texture_name){return kernel_gl_texture_buffers[texture_name];}
 
 
 

@@ -13,5 +13,6 @@
     <Enable>1</Enable>
     <OpenCLPlatform>0</OpenCLPlatform>
     <OpenCLDevice>0</OpenCLDevice>
+    <LinkOpenGLContext>1</LinkOpenGLContext>
   </OpenCLInfo>
 </GeneralInfo>

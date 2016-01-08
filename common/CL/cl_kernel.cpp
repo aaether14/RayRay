@@ -260,3 +260,73 @@ void CLKernel::SetWorkSize(size_t global, size_t local)
 
 
 }
+
+
+
+
+
+
+
+void CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t height, GLint internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags)
+{
+
+
+    GLuint new_texture_id;
+    glGenTextures(1, &new_texture_id);
+    glBindTexture(GL_TEXTURE_2D, new_texture_id);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, format, type, NULL);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+
+    cl_int err = CL_SUCCESS;
+    cl_mem new_texture_mem = clCreateFromGLTexture(cl_cw_ptr->GetCLContext(),
+                                                     mem_flags,
+                                                     GL_TEXTURE_2D,
+                                                     0,
+                                                     new_texture_id,
+                                                     &err);
+    SAMPLE_CHECK_ERRORS(err);
+    clEnqueueAcquireGLObjects(cl_cw_ptr->GetCLQueue(), 1, &new_texture_mem, 0, NULL, NULL);
+
+
+
+
+    kernel_gl_texture_buffers.insert(std::pair<std::string, GLuint>(texture_name, new_texture_id));
+    kernel_gl_texture_mem_buffers.insert(std::pair<std::string, cl_mem>(texture_name, new_texture_mem));
+
+
+
+
+}
+
+
+
+
+
+void CLKernel::SetGLTextureArg(std::string texture_name, cl_uint arg)
+{
+
+
+    cl_int err = CL_SUCCESS;
+    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (void *)&kernel_gl_texture_mem_buffers[texture_name]);
+    SAMPLE_CHECK_ERRORS(err);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

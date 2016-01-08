@@ -56,6 +56,7 @@ void Controller::Init()
             GetAppInfo()->SetString("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
             GetAppInfo()->SetString("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
             GetAppInfo()->SetInt("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
+            GetAppInfo()->SetInt("LinkOpenGLContext", v.second.get<GLboolean>("LinkOpenGLContext"));
         }
 		
 
