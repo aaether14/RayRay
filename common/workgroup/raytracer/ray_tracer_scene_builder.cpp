@@ -23,7 +23,7 @@ void RayTracerSceneBuilder::Clean()
 
 
     CleanSceneData();
-	CleanModule();
+    CleanModule();
 
 
 
@@ -59,30 +59,30 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-    SceneInfo * entities = static_cast<SceneInfo*>(GetManager()->Get("DataManager")->Get("Resources")->Get("Entities"));
+    SceneInfo * instances = static_cast<SceneInfo*>(GetManager()->Get("DataManager")->Get("Resources")->Get("Instances"));
     std::map<std::string, boost::shared_ptr<EntityInstance> >::iterator entity_instance_iterator;
-    for (entity_instance_iterator = entities->GetFirstInstance();
-         entity_instance_iterator != entities->GetLastInstance();
+    for (entity_instance_iterator = instances->GetFirstInstance();
+         entity_instance_iterator != instances->GetLastInstance();
          entity_instance_iterator++)
     {
-          std::map<std::string, boost::shared_ptr<AData> >::iterator instance_adata_iterator;
-          for (instance_adata_iterator = entity_instance_iterator->second->GetFirstAdata();
-               instance_adata_iterator != entity_instance_iterator->second->GetLastAdata();
-               instance_adata_iterator++)
-          {
+        std::map<std::string, boost::shared_ptr<AData> >::iterator instance_adata_iterator;
+        for (instance_adata_iterator = entity_instance_iterator->second->GetFirstAdata();
+             instance_adata_iterator != entity_instance_iterator->second->GetLastAdata();
+             instance_adata_iterator++)
+        {
 
 
-              if (!instance_adata_iterator->second->GetComponentName().compare("Material"))
-                  materials.push_back(instance_adata_iterator->second.get());
-              if (!instance_adata_iterator->second->GetComponentName().compare("Sphere"))
-                  spheres.push_back(instance_adata_iterator->second.get());
-              if (!instance_adata_iterator->second->GetComponentName().compare("Plane"))
-                  planes.push_back(instance_adata_iterator->second.get());
-              if (!instance_adata_iterator->second->GetComponentName().compare("Light"))
-                  lights.push_back(instance_adata_iterator->second.get());
+            if (!instance_adata_iterator->second->GetComponentName().compare("Material"))
+                materials.push_back(instance_adata_iterator->second.get());
+            if (!instance_adata_iterator->second->GetComponentName().compare("Sphere"))
+                spheres.push_back(instance_adata_iterator->second.get());
+            if (!instance_adata_iterator->second->GetComponentName().compare("Plane"))
+                planes.push_back(instance_adata_iterator->second.get());
+            if (!instance_adata_iterator->second->GetComponentName().compare("Light"))
+                lights.push_back(instance_adata_iterator->second.get());
 
 
-          }
+        }
 
     }
 
@@ -97,7 +97,7 @@ void RayTracerSceneBuilder::Enable()
 
     size_t pseudo_pointer = 0;
     pseudo_pointer+=5;
-	scene_data.push_back(pseudo_pointer);
+    scene_data.push_back(pseudo_pointer);
 
 
     pseudo_pointer += materials.size() * MATERIAL_DATA;
@@ -106,20 +106,20 @@ void RayTracerSceneBuilder::Enable()
 
 
     pseudo_pointer += spheres.size() * SPHERE_DATA;
-	size_t sphere_pointer = pseudo_pointer;
-	scene_data.push_back(sphere_pointer);
+    size_t sphere_pointer = pseudo_pointer;
+    scene_data.push_back(sphere_pointer);
 
 
     
     pseudo_pointer += planes.size() * PLANE_DATA;
-	size_t plane_pointer = pseudo_pointer;
-	scene_data.push_back(plane_pointer);
+    size_t plane_pointer = pseudo_pointer;
+    scene_data.push_back(plane_pointer);
 
 
 
     pseudo_pointer += lights.size() * LIGHT_DATA;
-	size_t light_pointer = pseudo_pointer;
-	scene_data.push_back(light_pointer);
+    size_t light_pointer = pseudo_pointer;
+    scene_data.push_back(light_pointer);
 
 
 
@@ -128,7 +128,7 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-//Adding entities to scene pointer
+    //Adding entities to scene pointer
 
 
 
@@ -138,24 +138,24 @@ void RayTracerSceneBuilder::Enable()
 
     for (int i = 0; i < materials.size(); i++)
     {
-    AddMaterial(materials[i]->GetVec3("Ambient"), materials[i]->GetFloat("Reflectivity"),
-                materials[i]->GetFloat("Refractivity"), materials[i]->GetFloat("Specularity"),
-                materials[i]->GetFloat("Diffuse"));
-    material_indices.insert(std::pair<std::string, cl_uint>(materials[i]->GetString("MaterialName"),i));
+        AddMaterial(materials[i]->GetVec3("Ambient"), materials[i]->GetFloat("Reflectivity"),
+                    materials[i]->GetFloat("Refractivity"), materials[i]->GetFloat("Specularity"),
+                    materials[i]->GetFloat("Diffuse"));
+        material_indices.insert(std::pair<std::string, cl_uint>(materials[i]->GetString("MaterialName"),i));
     }
     for (int i = 0; i < spheres.size(); i++)
     {
-    AddSphere(spheres[i]->GetVec3("SpherePosition"), spheres[i]->GetFloat("SphereRadius"),
-              material_indices[spheres[i]->GetString("MaterialName")]);
+        AddSphere(spheres[i]->GetVec3("SpherePosition"), spheres[i]->GetFloat("SphereRadius"),
+                  material_indices[spheres[i]->GetString("MaterialName")]);
     }
     for (int i = 0; i < planes.size(); i++)
     {
-    AddPlane(planes[i]->GetVec3("PlaneNormal"), planes[i]->GetFloat("PlaneDistance"),
-             material_indices[planes[i]->GetString("MaterialName")]);
+        AddPlane(planes[i]->GetVec3("PlaneNormal"), planes[i]->GetFloat("PlaneDistance"),
+                 material_indices[planes[i]->GetString("MaterialName")]);
     }
     for (int i = 0; i < lights.size(); i++)
     {
-    AddLight(lights[i]->GetVec3("LightPosition"), material_indices[lights[i]->GetString("MaterialName")]);
+        AddLight(lights[i]->GetVec3("LightPosition"), material_indices[lights[i]->GetString("MaterialName")]);
     }
 
 
@@ -171,11 +171,11 @@ void RayTracerSceneBuilder::AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint m
 
 
 
-	scene_data.push_back(pos.x);
-	scene_data.push_back(pos.y);
-	scene_data.push_back(pos.z);
-	scene_data.push_back(sq_dist);
-	scene_data.push_back(mat);
+    scene_data.push_back(pos.x);
+    scene_data.push_back(pos.y);
+    scene_data.push_back(pos.z);
+    scene_data.push_back(sq_dist);
+    scene_data.push_back(mat);
 
 
 
@@ -188,11 +188,11 @@ void RayTracerSceneBuilder::AddPlane(glm::vec3 normal, cl_float dist, cl_uint ma
 {
 
 
-	scene_data.push_back(normal.x);
-	scene_data.push_back(normal.y);
-	scene_data.push_back(normal.z);
-	scene_data.push_back(dist);
-	scene_data.push_back(mat);
+    scene_data.push_back(normal.x);
+    scene_data.push_back(normal.y);
+    scene_data.push_back(normal.z);
+    scene_data.push_back(dist);
+    scene_data.push_back(mat);
 
 
 
@@ -209,8 +209,8 @@ void RayTracerSceneBuilder::AddMaterial(glm::vec3 amb, cl_float refl, cl_float r
     scene_data.push_back(amb.g);
     scene_data.push_back(amb.b);
     scene_data.push_back(refl);
-	scene_data.push_back(refr);
-	scene_data.push_back(spec);
+    scene_data.push_back(refr);
+    scene_data.push_back(spec);
     scene_data.push_back(diff);
 
 
@@ -223,10 +223,10 @@ void RayTracerSceneBuilder::AddLight(glm::vec3 center, cl_uint mat)
 {
 
 
-	scene_data.push_back(center.x);
-	scene_data.push_back(center.y);
-	scene_data.push_back(center.z);
-	scene_data.push_back(mat);
+    scene_data.push_back(center.x);
+    scene_data.push_back(center.y);
+    scene_data.push_back(center.z);
+    scene_data.push_back(mat);
 
 
 }

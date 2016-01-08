@@ -7,6 +7,8 @@
 
 
 #include <stdafx.h>
+#define PROJECT_FOLDER "data/projects/"
+
 
 
 
@@ -15,7 +17,6 @@ class ResourceLoader : public BaseResourceLoader
 {
 
 
-	std::string scene_file;
 
 
 
@@ -37,16 +38,13 @@ public:
 	void Clean();
 
 
+    /**
+    Load a certain project
+    */
+    void LoadProject(std::string path);
 
 
-	inline std::string GetSceneFile(){ return scene_file;}
 
-
-
-	/**
-	Loads all resrouce paths
-	*/
-	void LoadResourcePaths(std::string path);
 
 
 };

@@ -49,11 +49,6 @@ private:
 public:
 
 	
-	/**
-	Sets path of the file the class will affect
-	*/
-	inline SceneInfo(std::string path){ SetPath(path); }
-
 
 
 

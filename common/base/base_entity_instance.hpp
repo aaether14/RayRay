@@ -19,6 +19,13 @@ class AEntityInstance
 public:
 
 
+
+
+    /**
+    Cleaning routine
+    */
+    inline void Clean(){child_nodes.clear(); adatas.clear();}
+
 	/**
 	Every instance should have a way to affect scene
 	*/

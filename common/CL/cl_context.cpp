@@ -31,8 +31,8 @@ void CLContextWrapper::Init()
                 0};
 #elif defined _WIN32
             cl_context_properties properties[] = {
-                CL_GL_CONTEXT_KHR, (cl_context_properties) wglGetCurrentContext(),
-                CL_WGL_HDC_KHR, (cl_context_properties) wglGetCurrentDC(),
+                CL_GL_CONTEXT_KHR, (cl_context_properties) glfwGetWGLContext(ctrl->GetWindow()),
+                CL_WGL_HDC_KHR, (cl_context_properties) glfwGetWin32Window(ctrl->GetWindow()),
                 0};
 #endif
 

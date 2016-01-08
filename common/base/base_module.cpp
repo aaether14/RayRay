@@ -16,9 +16,9 @@ void AModule::CleanModule()
 {
 
 
-	std::map<std::string, AModule*>::iterator it;
-	for (it = module_map.begin(); it != module_map.end(); it++)
-		it->second->Clean();
+    std::pair<std::string, AModule*> it;
+    BOOST_FOREACH(it, module_map)
+        it.second->Clean();
 	
 	module_map.clear();
 

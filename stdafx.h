@@ -111,10 +111,6 @@
 
 //---------------------------------------------//
 
-#include <light/light.hpp>
-
-//---------------------------------------------//
-
 #include <filters/basic_filter.hpp>
 #include <filters/fxaa.hpp>
 #include <filters/g_buffer.hpp>
@@ -143,8 +139,8 @@
 
 //---------------------------------------------//
 
-#include <settings/scene_info.hpp>
-#include <resource_loader.hpp>
+#include <entity_loader/scene_info.hpp>
+#include <resources/resource_loader.hpp>
 #include <technique.hpp>
 
 //---------------------------------------------//

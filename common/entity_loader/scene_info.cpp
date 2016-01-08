@@ -305,7 +305,6 @@ void SceneInfo::Save()
 
 			//Adding Adatas
 			{
-				std::map<std::string, boost::shared_ptr<AData>>::iterator it;
 			}
 			rootNode.add_child("EntityInstance", new_info);
 

@@ -133,7 +133,7 @@ enum {CAMERA_SPEED, MOUSE_SPEED, ROTATION_SPEED, CAMERA_BASE_SPEED};
 	/**
 	Get pointer to View
 	*/
-	inline View * GetView() { return this->view; };
+    inline View * GetView() { return this->view; }
 	/**
 	Get pointer to ViewInfo
 	*/

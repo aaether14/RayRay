@@ -34,10 +34,10 @@ void CLKernel::Clean()
 	//-----------------------------------------//
 
 
-	std::map<std::string, cl_mem>::iterator float_mem_buffer_it;
-	for (float_mem_buffer_it = kernel_float_mem_buffers.begin(); float_mem_buffer_it != kernel_float_mem_buffers.end(); float_mem_buffer_it++)
+    std::pair<std::string, cl_mem> float_mem_buffer_it;
+    BOOST_FOREACH(float_mem_buffer_it, kernel_float_mem_buffers)
 	{
-		err = clReleaseMemObject(float_mem_buffer_it->second);
+        err = clReleaseMemObject(float_mem_buffer_it.second);
 		SAMPLE_CHECK_ERRORS(err);
 	}
 	kernel_float_mem_buffers.clear();
