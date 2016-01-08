@@ -35,6 +35,8 @@
 #include <boost/functional/hash/hash.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/any.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/copy.hpp>
 
 //---------------------------------------------//
 
@@ -132,14 +134,12 @@
 //---------------------------------------------//
 
 #include <entity/entity.hpp>
-
-//---------------------------------------------//
-
 #include <entity_instance/entity_instance.hpp>
 
 //---------------------------------------------//
 
-#include <entity_loader/scene_info.hpp>
+#include <entity_loader/entity_collection.hpp>
+#include <resources/instance_collection/instance_collection.hpp>
 #include <resources/resource_loader.hpp>
 #include <technique.hpp>
 

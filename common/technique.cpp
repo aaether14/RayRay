@@ -6,7 +6,7 @@
 
 
 
-bool Techniques::Create(GLuint window_width, GLuint window_height)
+bool Techniques::Create(glm::ivec2 screen_size)
 {
 
 
@@ -14,7 +14,7 @@ bool Techniques::Create(GLuint window_width, GLuint window_height)
 
 	basic_filter_implementation = new BasicFilterImplementation();
 	fxaa_implementation = new FXAAImplementation();
-	g_buffer = new GBuffer(window_width, window_height);
+    g_buffer = new GBuffer(screen_size.x, screen_size.y);
 
 
 

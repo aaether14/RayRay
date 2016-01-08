@@ -7,22 +7,15 @@ void DataManager::Init()
 
 
 
-	ControllerSource * controller_source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
-	GLuint window_width = controller_source->GetWindowWidth();
-	GLuint window_height = controller_source->GetWindowHeight();
-
-
-
-
-
+    ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
 	Techniques * techniques = new Techniques();
-    techniques->Create(window_width, window_height);
-
+    techniques->Create(ctrl->GetWindowSize());
 
 
 
 
 	Add("Techniques", techniques);
+    Add("EntityCollection", new EntityCollection());
 	Add("Resources", new ResourceLoader());
 
 

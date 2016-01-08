@@ -66,7 +66,7 @@ void ResourceLoader::LoadProject(std::string path)
 
             if (project_component_extension == ".scene")
             {
-                Add("Instances", new SceneInfo());
+                Add("Instances", new InstanceCollection());
                 AStateSaver * new_saver = static_cast<AStateSaver*>(Get("Instances"));
                 new_saver->SetPath(project_component_path);
             }
@@ -78,6 +78,16 @@ void ResourceLoader::LoadProject(std::string path)
 
     }
     LoadChanges();
+
+
+
+
+
+       Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
+       std::string new_window_title = ctrl->GetWindowTitle() + " - " + path;
+       glfwSetWindowTitle(ctrl->GetWindow(), new_window_title.c_str());
+
+
 
 
 }

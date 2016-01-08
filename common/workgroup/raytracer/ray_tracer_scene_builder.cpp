@@ -59,7 +59,7 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-    SceneInfo * instances = static_cast<SceneInfo*>(GetManager()->Get("DataManager")->Get("Resources")->Get("Instances"));
+    InstanceCollection * instances = static_cast<InstanceCollection*>(GetManager()->Get("DataManager")->Get("Resources")->Get("Instances"));
     std::map<std::string, boost::shared_ptr<EntityInstance> >::iterator entity_instance_iterator;
     for (entity_instance_iterator = instances->GetFirstInstance();
          entity_instance_iterator != instances->GetLastInstance();

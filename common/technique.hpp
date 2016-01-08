@@ -41,7 +41,7 @@ public:
 	/**
 	Initialize all techniques
 	*/
-	bool Create(GLuint window_width, GLuint window_height);
+    bool Create(glm::ivec2 screen_size);
 
 
 
