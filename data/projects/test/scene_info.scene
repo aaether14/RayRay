@@ -418,11 +418,7 @@
 <Name>Sphere</Name>
 
 
-
-
 <Component>
-
-
 <GeneralInfo>
 <Name>Sphere</Name>
 </GeneralInfo>
@@ -431,7 +427,7 @@
 
 <Vec3>
 <V>SpherePosition</V>
-<D>-5.5, 2.0, 7.0</D>
+<D>0.0, 0.0, 0.0</D>
 </Vec3>
 
 
@@ -447,11 +443,36 @@
 <V>MaterialName</V>
 <D>Reflective</D>
 </String>
+</Component>
 
 
 
 
-</Component>s
+
+<Component>
+<GeneralInfo>
+<Name>Transform</Name>
+</GeneralInfo>
+
+
+
+
+<Vec3>
+<V>Position</V>
+<D>-5.5, 2.0, 7.0</D>
+</Vec3>
+
+
+
+
+<String>
+<V>TransformOffset</V>
+<D></D>
+</String>
+</Component>
+
+
+
 
 
 
@@ -468,8 +489,6 @@
 
 
 <Component>
-
-
 <GeneralInfo>
 <Name>Sphere</Name>
 </GeneralInfo>
@@ -478,7 +497,7 @@
 
 <Vec3>
 <V>SpherePosition</V>
-<D>3.0, 0.0, -10.0</D>
+<D>0.0, 0.0, 0.0</D>
 </Vec3>
 
 
@@ -494,10 +513,30 @@
 <V>MaterialName</V>
 <D>Green</D>
 </String>
+</Component>
+
+
+
+<Component>
+<GeneralInfo>
+<Name>Transform</Name>
+</GeneralInfo>
 
 
 
 
+<Vec3>
+<V>Position</V>
+<D>3.0, 0.0, -10.0</D>
+</Vec3>
+
+
+
+
+<String>
+<V>TransformOffset</V>
+<D></D>
+</String>
 </Component>
 
 
@@ -516,8 +555,6 @@
 
 
 <Component>
-
-
 <GeneralInfo>
 <Name>Sphere</Name>
 </GeneralInfo>
@@ -526,7 +563,7 @@
 
 <Vec3>
 <V>SpherePosition</V>
-<D>10.0, 1.5, 5.0</D>
+<D>0.0, 0.0, 0.0</D>
 </Vec3>
 
 
@@ -542,11 +579,35 @@
 <V>MaterialName</V>
 <D>Refractive</D>
 </String>
-
-
-
-
 </Component>
+
+
+
+
+<Component>
+<GeneralInfo>
+<Name>Transform</Name>
+</GeneralInfo>
+
+
+
+
+<Vec3>
+<V>Position</V>
+<D>10.0, 1.5, 5.0</D>
+</Vec3>
+
+
+
+
+<String>
+<V>TransformOffset</V>
+<D></D>
+</String>
+</Component>
+
+
+
 
 
 
@@ -563,8 +624,6 @@
 
 
 <Component>
-
-
 <GeneralInfo>
 <Name>Sphere</Name>
 </GeneralInfo>
@@ -573,7 +632,7 @@
 
 <Vec3>
 <V>SpherePosition</V>
-<D>15.0, 4, -10</D>
+<D>0.0, 0.0, 0.0</D>
 </Vec3>
 
 
@@ -589,11 +648,33 @@
 <V>MaterialName</V>
 <D>Red</D>
 </String>
-
-
-
-
 </Component>
+
+
+
+<Component>
+<GeneralInfo>
+<Name>Transform</Name>
+</GeneralInfo>
+
+
+
+
+<Vec3>
+<V>Position</V>
+<D>15.0, 4, -10</D>
+</Vec3>
+
+
+
+
+<String>
+<V>TransformOffset</V>
+<D></D>
+</String>
+</Component>
+
+
 
 
 

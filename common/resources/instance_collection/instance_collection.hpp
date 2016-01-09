@@ -71,17 +71,13 @@ public:
         instance_map.insert(std::pair<std::string, boost::shared_ptr<EntityInstance> >(name, boost::shared_ptr<EntityInstance>(new_instance)));
     }
     /**
+    Get instance map pointer
+    */
+    inline std::map<std::string, boost::shared_ptr<EntityInstance> > * GetInstanceMapPointer(){return &instance_map;}
+    /**
     Clear instances
     */
     inline void ClearInstances(){ instance_map.clear(); }
-    /**
-    Get first adress of map
-    */
-    inline std::map<std::string, boost::shared_ptr<EntityInstance> >::iterator GetFirstInstance(){ return instance_map.begin(); }
-    /**
-    Get last adress of map
-    */
-    inline std::map<std::string, boost::shared_ptr<EntityInstance> >::iterator GetLastInstance(){ return instance_map.end(); }
     /**
     See if instance with 'name' exists
     */

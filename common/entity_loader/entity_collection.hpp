@@ -64,10 +64,6 @@ public:
     */
     inline Entity* GetEntity(std::string name){ return entity_map[name].get(); }
     /**
-    Get entity with provided index
-    */
-    inline Entity* GetEntity(GLuint counter){ std::map<std::string, boost::shared_ptr<Entity> >::iterator it(entity_map.begin()); std::advance(it, counter); return it->second.get(); }
-    /**
     Get number of entities in map
     */
     inline GLuint GetNumberOfEntities(){ return entity_map.size(); }

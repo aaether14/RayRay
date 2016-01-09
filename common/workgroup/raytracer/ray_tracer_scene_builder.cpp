@@ -60,26 +60,25 @@ void RayTracerSceneBuilder::Enable()
 
 
     InstanceCollection * instances = static_cast<InstanceCollection*>(GetManager()->Get("DataManager")->Get("Resources")->Get("Instances"));
-    std::map<std::string, boost::shared_ptr<EntityInstance> >::iterator entity_instance_iterator;
-    for (entity_instance_iterator = instances->GetFirstInstance();
-         entity_instance_iterator != instances->GetLastInstance();
-         entity_instance_iterator++)
+    std::pair<std::string, boost::shared_ptr<EntityInstance> > entity_instance_iterator;
+    BOOST_FOREACH(entity_instance_iterator, *instances->GetInstanceMapPointer())
     {
-        std::map<std::string, boost::shared_ptr<AData> >::iterator instance_adata_iterator;
-        for (instance_adata_iterator = entity_instance_iterator->second->GetFirstAdata();
-             instance_adata_iterator != entity_instance_iterator->second->GetLastAdata();
-             instance_adata_iterator++)
+        std::pair<std::string, boost::shared_ptr<AData> > instance_adata_iterator;
+        BOOST_FOREACH(instance_adata_iterator, *entity_instance_iterator.second->GetADatasMapPointer())
         {
 
 
-            if (!instance_adata_iterator->second->GetComponentName().compare("Material"))
-                materials.push_back(instance_adata_iterator->second.get());
-            if (!instance_adata_iterator->second->GetComponentName().compare("Sphere"))
-                spheres.push_back(instance_adata_iterator->second.get());
-            if (!instance_adata_iterator->second->GetComponentName().compare("Plane"))
-                planes.push_back(instance_adata_iterator->second.get());
-            if (!instance_adata_iterator->second->GetComponentName().compare("Light"))
-                lights.push_back(instance_adata_iterator->second.get());
+            if (!instance_adata_iterator.second->GetComponentName().compare("Material"))
+                materials.push_back(instance_adata_iterator.second.get());
+            if (!instance_adata_iterator.second->GetComponentName().compare("Sphere"))
+            {
+                spheres.push_back(instance_adata_iterator.second.get());
+                spheres.push_back(entity_instance_iterator.second->GetAData("DataComponent_Transform"));
+            }
+            if (!instance_adata_iterator.second->GetComponentName().compare("Plane"))
+                planes.push_back(instance_adata_iterator.second.get());
+            if (!instance_adata_iterator.second->GetComponentName().compare("Light"))
+                lights.push_back(instance_adata_iterator.second.get());
 
 
         }
@@ -105,7 +104,7 @@ void RayTracerSceneBuilder::Enable()
     scene_data.push_back(material_pointer);
 
 
-    pseudo_pointer += spheres.size() * SPHERE_DATA;
+    pseudo_pointer += (spheres.size() / 2) * SPHERE_DATA;
     size_t sphere_pointer = pseudo_pointer;
     scene_data.push_back(sphere_pointer);
 
@@ -143,9 +142,10 @@ void RayTracerSceneBuilder::Enable()
                     materials[i]->GetFloat("Diffuse"));
         material_indices.insert(std::pair<std::string, cl_uint>(materials[i]->GetString("MaterialName"),i));
     }
-    for (int i = 0; i < spheres.size(); i++)
+    for (int i = 0; i < spheres.size(); i += 2)
     {
-        AddSphere(spheres[i]->GetVec3("SpherePosition"), spheres[i]->GetFloat("SphereRadius"),
+        AddSphere(spheres[i]->GetVec3("SpherePosition") + spheres[i + 1]->GetVec3("Position"),
+                spheres[i]->GetFloat("SphereRadius"),
                   material_indices[spheres[i]->GetString("MaterialName")]);
     }
     for (int i = 0; i < planes.size(); i++)
