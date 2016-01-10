@@ -37,6 +37,7 @@
 #include <boost/any.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/copy.hpp>
+#include <boost/python.hpp>
 
 //---------------------------------------------//
 
@@ -163,6 +164,7 @@
 //---------------------------------------------//
 
 #include <pipeline.hpp>
+#include <python/python_manager.hpp>
 #include <application.hpp>
 
 //---------------------------------------------//

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 
 
@@ -112,7 +112,7 @@ include_directories(${GLM_INCLUDE_DIR})
 
 #Boost
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+find_package(Boost COMPONENTS system filesystem python REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 target_link_libraries(RayRay ${Boost_LIBRARIES})
 
@@ -140,6 +140,17 @@ target_link_libraries(RayRay ${FREEIMAGE_LIBRARIES})
 
 
 #-----------------------------------------------------
+
+
+#Python
+
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+target_link_libraries(RayRay ${PYTHON_LIBRARIES})
+
+
+
+#----------------------------------------------------
 
 
 set_target_properties(RayRay PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "stdafx.h")

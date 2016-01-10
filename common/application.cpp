@@ -15,11 +15,13 @@ void Application::Init()
 
 
 
+
     Add("Controller", new Controller());
 	Add("CLContextWrapper", new CLContextWrapper());
 	Add("DataManager", new DataManager());
 	Add("UI", new UIManager());
 	Add("Pipeline", new Pipeline());
+    Add("Python", new PythonManager());
 
 
 

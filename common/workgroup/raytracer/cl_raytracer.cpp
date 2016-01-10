@@ -49,7 +49,7 @@ void CLRaytracer::Init()
         ray_kernel->Create(cl_cw, L"data/kernels/GodRays.cl", "", "GodRays", "-I data/kernels/");
         ray_kernel->AddGLTexture("KernelOutput", width, height, GL_RGBA, GL_RGBA, GL_FLOAT, CL_MEM_WRITE_ONLY);
 		ray_kernel->AddFloatBuffer("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY);
-		ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1000, CL_MEM_READ_ONLY);
+        ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1024, CL_MEM_READ_ONLY);
 
 
 
