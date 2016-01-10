@@ -8,6 +8,7 @@
 #include "Raytracer_defines.cl"
 #include "Math_helper.cl"
 #include "Raytracer_types.cl"
+#include "Raymarcher_utility.cl"
 #include "Raytracer_utility.cl"
 
 
@@ -37,7 +38,7 @@ __kernel void GodRays(__write_only image2d_t output, __global float* view_matrix
 
 	struct Ray ray;
 	ray.origin = (float3)(view_matrix[12], view_matrix[13], view_matrix[14]);
-  ray.dir = normalize(cameraTransform(view_matrix,
+  ray.dir = fast_normalize(cameraTransform(view_matrix,
 		 (float3)(current_ray_pixel.x * ((float)(width) / (float)(height)) * tan_half_fov,
 			 current_ray_pixel.y * tan_half_fov,
 			 -1.0)));

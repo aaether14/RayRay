@@ -434,7 +434,7 @@
 
 <Float>
 <V>SphereRadius</V>
-<D>16</D>
+<D>4</D>
 </Float>
 
 
@@ -504,7 +504,7 @@
 
 <Float>
 <V>SphereRadius</V>
-<D>4</D>
+<D>2</D>
 </Float>
 
 
@@ -570,7 +570,7 @@
 
 <Float>
 <V>SphereRadius</V>
-<D>8</D>
+<D>2.25</D>
 </Float>
 
 
@@ -639,7 +639,7 @@
 
 <Float>
 <V>SphereRadius</V>
-<D>4</D>
+<D>2</D>
 </Float>
 
 

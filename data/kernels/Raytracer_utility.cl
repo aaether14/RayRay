@@ -4,15 +4,16 @@
 
 
 
-int findintersection(__global float* data, struct Ray *r, struct IntersectionResult *intersection)
+int findintersection(__global float* data, struct Ray *ray, struct IntersectionResult *intersection)
 {
 
 
 
 	int result = 0;
-	float dist = MAXFLOAT;
-	int sphere = -1;
-	int plane  = -1;
+	float min_distance = MAXFLOAT, current_distance = 0.0f;
+	int object = NO_TYPE;
+	int type = NO_TYPE;
+
 
 
 
@@ -21,22 +22,45 @@ int findintersection(__global float* data, struct Ray *r, struct IntersectionRes
 //Check for sphere intersection
 	for(int i = data[SPHERE_POINTER]; i < data[SPHERE_POINTER + 1]; i += SPHERE_DATA)
 	{
-		int res = sphereintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], r, &dist);
-		if(res) result = res, sphere = i;
-		if(res && !intersection) return res;
+		current_distance = sphereintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], ray);
+		if (current_distance > 0.0f)
+		{
+			if (!intersection)
+			return true;
+
+      if (current_distance < min_distance)
+			{
+			min_distance = current_distance;
+			object = i;
+			type = SPHERE_TYPE;
+			result = true;
+		  }
+
+		}
 	}
 
 
 
 
-//Check for plane intersection
-	for(int i = data[PLANE_POINTER]; i < data[PLANE_POINTER + 1]; i += PLANE_DATA)
-	{
-		int res = planeintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], r, &dist);
-		if(res) result = res, plane = i;
-		if(res && !intersection) return res;
-	}
+	//Check for plane intersection
+		for(int i = data[PLANE_POINTER]; i < data[PLANE_POINTER + 1]; i += PLANE_DATA)
+		{
+			current_distance = planeintersect((float3)(data[i], data[i + 1], data[i + 2]), data[i + 3], ray);
+			if (current_distance > 0.0f)
+			{
+				if (!intersection)
+				return true;
 
+				if (current_distance < min_distance)
+				{
+				min_distance = current_distance;
+				object = i;
+				type = PLANE_TYPE;
+				result = true;
+				}
+
+			}
+		}
 
 
 
@@ -49,21 +73,20 @@ int findintersection(__global float* data, struct Ray *r, struct IntersectionRes
 	{
 
 
-		intersection->distance = dist;
-		intersection->position = r->origin + r->dir * dist;
+		intersection->position = ray->origin + ray->dir * min_distance;
 
 
 
-		if(plane != -1)
+		if(type == PLANE_TYPE)
 		{
-			intersection->normal = (float3)(data[plane], data[plane + 1], data[plane + 2]);
-			intersection->material_index = data[plane + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
+			intersection->normal = (float3)(data[object], data[object + 1], data[object + 2]);
+			intersection->material_index = data[object + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
 
 		}
-		else if(sphere != -1)
+		else if(type == SPHERE_TYPE)
 		{
-			intersection->normal = normalize(intersection->position - (float3)(data[sphere], data[sphere + 1], data[sphere + 2]));
-			intersection->material_index = data[sphere + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
+			intersection->normal = normalize(intersection->position - (float3)(data[object], data[object + 1], data[object + 2]));
+			intersection->material_index = data[object + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
 		}
 
 
@@ -83,17 +106,17 @@ int findintersection(__global float* data, struct Ray *r, struct IntersectionRes
 
 
 
-float shadowray(__global float* data, float3 light_vector, float3 intersection_position)
+float shadowray(__global float* data, float3 intersection_to_light, float3 intersection_position)
 {
 
 
 
-	struct Ray light;
-	light.origin = intersection_position + light_vector * EPSILON;
-	light.dir = light_vector;
+	struct Ray to_light;
+	to_light.origin = intersection_position + intersection_to_light * EPSILON;
+	to_light.dir = intersection_to_light;
 
 
-	return findintersection(data, &light, 0) ? 0.0f : 1.0f;
+	return findintersection(data, &to_light, 0) ? 0.0f : 1.0f;
 }
 
 
@@ -103,7 +126,7 @@ float shadowray(__global float* data, float3 light_vector, float3 intersection_p
 
 
 
-float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, float refr, int depth)
+float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *ray, float refr, int depth)
 {
 
 
@@ -116,7 +139,7 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, flo
 
 
 	struct IntersectionResult intersection;
-	int result = findintersection(data, r, &intersection);
+	int result = findintersection(data, ray, &intersection);
 	if(result == 0) return color;
 	struct Material intersection_material = GetMaterialFromIndex(data, intersection.material_index);
 
@@ -132,14 +155,13 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, flo
 
     int light_material_index = data[i + 3] * MATERIAL_DATA + data[MATERIAL_POINTER];
 		struct Material light_material = GetMaterialFromIndex(data, light_material_index);
-		float3 light_vector = (float3)(data[i], data[i + 1], data[i + 2]) - intersection.position;
+		float3 intersection_to_light = fast_normalize((float3)(data[i], data[i + 1], data[i + 2]) - intersection.position);
 
 
 
-		light_vector = normalize(light_vector);
-		float shade = shadowray(data, light_vector, intersection.position);
-		float cos_theta = fmax(0.0f, dot(intersection.normal, light_vector)) * shade;
-		float specularity = dot(r->dir, reflect(intersection.normal, light_vector)) * shade;
+		float shade = shadowray(data, intersection_to_light, intersection.position);
+		float cos_theta = fmax(0.0f, dot(intersection.normal, intersection_to_light)) * shade;
+		float specularity = dot(ray->dir, reflect(intersection.normal, intersection_to_light)) * shade;
 
 
 
@@ -156,7 +178,7 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, flo
 	{
 
 
-		float3 reflected_dir = reflect(intersection.normal, r->dir);
+		float3 reflected_dir = reflect(intersection.normal, ray->dir);
 		struct Ray reflected_ray;
 	  reflected_ray.origin = intersection.position + reflected_dir * EPSILON;
 		reflected_ray.dir = reflected_dir;
@@ -176,7 +198,7 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *r, flo
 
     if (refr == intersection_material.refr)
     intersection.normal = -intersection.normal;
-    float3 refracted_dir = refract(intersection.normal, r->dir, refr / intersection_material.refr);
+    float3 refracted_dir = refract(intersection.normal, ray->dir, refr / intersection_material.refr);
 		struct Ray refracted_ray;
 		refracted_ray.origin = intersection.position + refracted_dir * EPSILON;
 		refracted_ray.dir = refracted_dir;

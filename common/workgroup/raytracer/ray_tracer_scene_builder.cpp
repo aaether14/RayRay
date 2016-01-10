@@ -230,3 +230,23 @@ void RayTracerSceneBuilder::AddLight(glm::vec3 center, cl_uint mat)
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

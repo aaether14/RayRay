@@ -15,3 +15,10 @@
 #define PLANE_DATA 5
 #define MATERIAL_DATA 7
 #define LIGHT_DATA 4
+
+
+
+
+#define NO_TYPE -1
+#define SPHERE_TYPE  0
+#define PLANE_TYPE  1
