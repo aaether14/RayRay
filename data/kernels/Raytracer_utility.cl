@@ -65,6 +65,30 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 
 
 
+		//Check for box intersection
+			for(int i = data[BOX_POINTER]; i < data[BOX_POINTER + 1]; i += BOX_DATA)
+			{
+				current_distance = cubeintersect((float3)(data[i], data[i + 1], data[i + 2]), (float3)(data[i + 3], data[i + 4], data[i + 5]), ray);
+				if (current_distance > 0.0f)
+				{
+					if (!intersection)
+					return true;
+
+					if (current_distance < min_distance)
+					{
+					min_distance = current_distance;
+					object = i;
+					type = BOX_TYPE;
+					result = true;
+					}
+
+				}
+			}
+
+
+
+
+
 
 
 
@@ -87,6 +111,11 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 		{
 			intersection->normal = normalize(intersection->position - (float3)(data[object], data[object + 1], data[object + 2]));
 			intersection->material_index = data[object + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
+		}
+		else if(type == BOX_TYPE)
+		{
+			intersection->normal = cube_normal(intersection->position, (float3)(data[object], data[object + 1], data[object + 2]), (float3)(data[object + 3], data[object + 4], data[object + 5]));
+			intersection->material_index = data[object + 6] * MATERIAL_DATA + data[MATERIAL_POINTER];
 		}
 
 

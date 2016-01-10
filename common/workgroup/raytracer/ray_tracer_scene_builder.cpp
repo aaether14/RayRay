@@ -50,6 +50,7 @@ void RayTracerSceneBuilder::Enable()
 
     std::vector<AData*> materials;
     std::vector<AData*> spheres;
+    std::vector<AData*> boxes;
     std::vector<AData*> planes;
     std::vector<AData*> lights;
 
@@ -75,6 +76,11 @@ void RayTracerSceneBuilder::Enable()
                 spheres.push_back(instance_adata_iterator.second.get());
                 spheres.push_back(entity_instance_iterator.second->GetAData("DataComponent_Transform"));
             }
+            if (!instance_adata_iterator.second->GetComponentName().compare("Box"))
+            {
+                boxes.push_back(instance_adata_iterator.second.get());
+                boxes.push_back(entity_instance_iterator.second->GetAData("DataComponent_Transform"));
+            }
             if (!instance_adata_iterator.second->GetComponentName().compare("Plane"))
                 planes.push_back(instance_adata_iterator.second.get());
             if (!instance_adata_iterator.second->GetComponentName().compare("Light"))
@@ -95,7 +101,7 @@ void RayTracerSceneBuilder::Enable()
     //Compute some pseudo pointers holding scene data location of each object type
 
     size_t pseudo_pointer = 0;
-    pseudo_pointer+=5;
+    pseudo_pointer+=6;
     scene_data.push_back(pseudo_pointer);
 
 
@@ -108,6 +114,10 @@ void RayTracerSceneBuilder::Enable()
     size_t sphere_pointer = pseudo_pointer;
     scene_data.push_back(sphere_pointer);
 
+
+    pseudo_pointer += (boxes.size() / 2) * BOX_DATA;
+    size_t box_pointer = pseudo_pointer;
+    scene_data.push_back(box_pointer);
 
     
     pseudo_pointer += planes.size() * PLANE_DATA;
@@ -146,7 +156,13 @@ void RayTracerSceneBuilder::Enable()
     {
         AddSphere(spheres[i]->GetVec3("SpherePosition") + spheres[i + 1]->GetVec3("Position"),
                 spheres[i]->GetFloat("SphereRadius"),
-                  material_indices[spheres[i]->GetString("MaterialName")]);
+                material_indices[spheres[i]->GetString("MaterialName")]);
+    }
+    for (int i = 0; i < boxes.size(); i += 2)
+    {
+        AddBox(boxes[i]->GetVec3("NearPoint") + boxes[i + 1]->GetVec3("Position"),
+                boxes[i]->GetVec3("FarPoint") + boxes[i + 1]->GetVec3("Position"),
+                material_indices[boxes[i]->GetString("MaterialName")]);
     }
     for (int i = 0; i < planes.size(); i++)
     {
@@ -180,6 +196,23 @@ void RayTracerSceneBuilder::AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint m
 
 
 }
+
+
+
+void RayTracerSceneBuilder::AddBox(glm::vec3 near_point, glm::vec3 far_point, cl_uint mat)
+{
+
+    scene_data.push_back(near_point.x);
+    scene_data.push_back(near_point.y);
+    scene_data.push_back(near_point.z);
+    scene_data.push_back(far_point.x);
+    scene_data.push_back(far_point.y);
+    scene_data.push_back(far_point.z);
+    scene_data.push_back(mat);
+
+
+}
+
 
 
 

@@ -8,7 +8,6 @@
 #include "Raytracer_defines.cl"
 #include "Math_helper.cl"
 #include "Raytracer_types.cl"
-#include "Raymarcher_utility.cl"
 #include "Raytracer_utility.cl"
 
 

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Component>
+
+
+<GeneralInfo>
+<Name>Transform</Name>
+</GeneralInfo>
+
+
+
+
+<Vec3>
+<V>Position</V>
+<D>-5.5, 2.0, 7.0</D>
+</Vec3>
+
+
+
+
+<String>
+<V>TransformOffset</V>
+<D></D>
+</String>
+
+
+
+
+</Component>

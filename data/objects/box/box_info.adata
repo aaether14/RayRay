@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Component>
+
+
+<GeneralInfo>
+<Name>Box</Name>
+</GeneralInfo>
+
+
+
+<Vec3>
+<V>NearPoint</V>
+<D>0.0, 0.0, 0.0</D>
+</Vec3>
+
+
+<Vec3>
+<V>FarPoint</V>
+<D>2.0, 4.0, 2.0</D>
+</Vec3>
+
+
+
+
+<String>
+<V>MaterialName</V>
+<D>Yellow</D>
+</String>
+
+
+
+
+</Component>

@@ -154,70 +154,33 @@ float sphereintersect(float3 sphere_center, float sphere_radius, struct Ray *r)
 
 
 
-float cubeintersect(float* near_point, float* far_point, float* ray_origin, float* ray_dir)
+float cubeintersect(float3 near_point, float3 far_point, struct Ray * ray)
 {
 
 
+   float tx1 = (near_point.x - ray->origin.x) / ray->dir.x;
+   float tx2 = (far_point.x - ray->origin.x) / ray->dir.x;
 
- float t1,t2,tnear = -MAXFLOAT,tfar = MAXFLOAT, temp;
- bool intersectFlag = true;
+   float tmin = fmin(tx1, tx2);
+   float tmax = fmax(tx1, tx2);
 
+	 float ty1 = (near_point.y - ray->origin.y) / ray->dir.y;
+	 float ty2 = (far_point.y - ray->origin.y) / ray->dir.y;
 
+   tmin = fmax(tmin, fmin(ty1, ty2));
+   tmax = fmin(tmax, fmax(ty1, ty2));
 
+	 float tz1 = (near_point.z - ray->origin.z) / ray->dir.z;
+	 float tz2 = (far_point.z - ray->origin.z) / ray->dir.z;
 
-  for(int i = 0 ;i < 3; i++)
-  {
-
-
-				  if(ray_dir[i] == 0)
-					{
-
-
-				   if(ray_origin[i] < near_point[i] || ray_origin[i] > far_point[i])
-				    intersectFlag = false;
-
-
-				  }
-				  else
-					{
+	 tmin = fmax(tmin, fmin(tz1, tz2));
+	 tmax = fmin(tmax, fmax(tz1, tz2));
 
 
-							   t1 = (near_point[i] - ray_origin[i])/ray_dir[i];
-							   t2 = (far_point[i] - ray_origin[i])/ray_dir[i];
-
-
-							  if(t1 > t2)
-							   swap(t1, t2);
-
-
-
-							  tnear = fmax(tnear, t1);
-								tfar = fmin(tfar, t2);
-
-
-
-							  if(tnear > tfar)
-							   intersectFlag = false;
-							  if(tfar < 0)
-							   intersectFlag = false;
-
-
-
-				  }
-
-
-
-
- }
-
-
-
-
- if(intersectFlag == false)
-  return 0.0f;
- else
-  return tnear;
-
+   if (tmax >= tmin)
+	 return tmin;
+	 else
+	 return 0.0f;
 
 
 
@@ -226,9 +189,32 @@ float cubeintersect(float* near_point, float* far_point, float* ray_origin, floa
 
 
 
-
 //-----------------------------------------------------------------//
 
+
+float3 cube_normal(float3 position, float3 near_point, float3 far_point)
+{
+
+
+       if(fabs(position.x - near_point.x) < BOX_NORMAL_EPSILON)
+       return (float3)(-1,0,0);
+			 if(fabs(position.x - far_point.x) < BOX_NORMAL_EPSILON)
+			 return (float3)(1,0,0);
+			 if(fabs(position.y - near_point.y) < BOX_NORMAL_EPSILON)
+			 return (float3)(0,-1,0);
+			 if(fabs(position.y - far_point.y) < BOX_NORMAL_EPSILON)
+			 return (float3)(0,1,0);
+			 if(fabs(position.z - near_point.z) < BOX_NORMAL_EPSILON)
+			 return (float3)(0,0,-1);
+			 if(fabs(position.z - far_point.z) < BOX_NORMAL_EPSILON)
+		   return (float3)(0,0,1);
+
+
+
+}
+
+
+//-----------------------------------------------------------------//
 
 
 
