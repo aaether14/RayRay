@@ -4,26 +4,6 @@
 
 
 
-using namespace boost::python;
-
-class World
-{
-public:
-    void set(std::string msg) { this->msg = msg; }
-    void greet() {  std::cout<<msg<<std::endl; }
-    std::string msg;
-};
-
-
-
-BOOST_PYTHON_MODULE(hello)
-{
-    class_<World>("World")
-            .def("greet", &World::greet)
-            .def("set", &World::set)
-            ;
-}
-
 
 
 void PythonManager::Init()
@@ -35,13 +15,18 @@ void PythonManager::Init()
     try
     {
 
-        inithello();
-        std::string py_source = AString::LoadFileToString("data/python_scripts/test.py");
-        PyRun_SimpleString(py_source.c_str());
+        GLM_Wrapper::Init();
+        boost::python::object main_module = boost::python::import("__main__");
+        boost::python::object main_namespace = main_module.attr("__dict__");
+        boost::python::scope main_scope(main_module);
+        boost::python::def("print_vec2", &AString::print_vec2);
+        boost::python::def("print_vec3", &AString::print_vec3);
+        boost::python::object ignored = exec_file("data/python_scripts/test.py", main_namespace);
 
 
 
-    } catch (error_already_set)
+    }
+    catch (boost::python::error_already_set)
     {
         PyErr_Print();
     }

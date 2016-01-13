@@ -164,6 +164,7 @@
 //---------------------------------------------//
 
 #include <pipeline.hpp>
+#include <python/glm_python_wrapper.hpp>
 #include <python/python_manager.hpp>
 #include <application.hpp>
 

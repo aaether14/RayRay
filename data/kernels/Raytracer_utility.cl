@@ -109,7 +109,7 @@ int findintersection(__global float* data, struct Ray *ray, struct IntersectionR
 		}
 		else if(type == SPHERE_TYPE)
 		{
-			intersection->normal = normalize(intersection->position - (float3)(data[object], data[object + 1], data[object + 2]));
+			intersection->normal = fast_normalize(intersection->position - (float3)(data[object], data[object + 1], data[object + 2]));
 			intersection->material_index = data[object + 4] * MATERIAL_DATA + data[MATERIAL_POINTER];
 		}
 		else if(type == BOX_TYPE)
