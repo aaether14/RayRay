@@ -158,29 +158,24 @@ float cubeintersect(float3 near_point, float3 far_point, struct Ray * ray)
 {
 
 
-   float tx1 = (near_point.x - ray->origin.x) / ray->dir.x;
-   float tx2 = (far_point.x - ray->origin.x) / ray->dir.x;
-
-   float tmin = fmin(tx1, tx2);
-   float tmax = fmax(tx1, tx2);
-
-	 float ty1 = (near_point.y - ray->origin.y) / ray->dir.y;
-	 float ty2 = (far_point.y - ray->origin.y) / ray->dir.y;
-
-   tmin = fmax(tmin, fmin(ty1, ty2));
-   tmax = fmin(tmax, fmax(ty1, ty2));
-
-	 float tz1 = (near_point.z - ray->origin.z) / ray->dir.z;
-	 float tz2 = (far_point.z - ray->origin.z) / ray->dir.z;
-
-	 tmin = fmax(tmin, fmin(tz1, tz2));
-	 tmax = fmin(tmax, fmax(tz1, tz2));
+  float3 tmin = (near_point - ray->origin) / ray->dir;
+	float3 tmax = (far_point - ray->origin) / ray->dir;
 
 
-   if (tmax >= tmin)
-	 return tmin;
-	 else
-	 return 0.0f;
+	float3 t1 = fmin(tmin, tmax);
+	float3 t2 = fmax(tmin, tmax);
+
+
+	float tnear = fmax(fmax(t1.x, t1.y), t1.z);
+  float tfar = fmin(fmin(t2.x, t2.y), t2.z);
+
+
+
+    if (tnear > tfar)
+		return 0.0f;
+		else
+		return tnear;
+
 
 
 

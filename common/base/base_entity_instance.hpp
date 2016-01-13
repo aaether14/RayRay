@@ -4,7 +4,11 @@
 
 
 
+
 #include <stdafx.h>
+
+
+
 
 
 
@@ -21,30 +25,18 @@ public:
 
 
 
+
+
     /**
     Cleaning routine
     */
-    inline void Clean(){child_nodes.clear(); adatas.clear();}
+    inline void Clean(){adatas.clear();}
 
     /**
     Every instance should have a way to affect scene
     */
     virtual void Enable(AModule * manager) = 0;
 
-
-
-    /**
-    Get vector of child nodes
-    */
-    inline AEntityInstance* GetChildNode(GLuint i){ return child_nodes[i].get(); }
-    /**
-    Get number of childs
-    */
-    inline GLuint GetNumberOfChilds(){ return child_nodes.size(); }
-    /**
-    Add child node
-    */
-    inline void AddChildNode(AEntityInstance* new_child){ child_nodes.push_back(boost::shared_ptr<AEntityInstance>(new_child)); }
 
 
 
@@ -73,7 +65,6 @@ public:
 
 
 
-
     /**
     Get entity name
     */
@@ -85,14 +76,12 @@ public:
 
 
 
+
 private:
 
 
 
-    std::vector<boost::shared_ptr<AEntityInstance> > child_nodes;
     std::map<std::string, boost::shared_ptr<AData> > adatas;
-
-
     std::string entity_name;
 
 

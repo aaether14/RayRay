@@ -226,15 +226,21 @@ float3 raytrace(__global float* data, struct RayStack *stack, struct Ray *ray, f
 
 
     if (refr == intersection_material.refr)
-    intersection.normal = -intersection.normal;
-    float3 refracted_dir = refract(intersection.normal, ray->dir, refr / intersection_material.refr);
-		struct Ray refracted_ray;
-		refracted_ray.origin = intersection.position + refracted_dir * EPSILON;
-		refracted_ray.dir = refracted_dir;
-		push(stack, &refracted_ray, intersection_material.refr, depth + 1);
+    intersection.normal = dot(intersection.normal, ray->dir) < 0 ? intersection.normal : intersection.normal * (-1.0f);
 
 
+		float n = refr / intersection_material.refr;
+		float cos_i = -dot(intersection.normal, ray->dir);
+		float cos_t2 = 1.f - n * n * (1 - cos_i * cos_i);
 
+							if(cos_t2 > 0)
+							{
+											float3 refracted_dir = n * ray->dir + (n * cos_i - sqrt(cos_t2)) * intersection.normal;
+											struct Ray refracted_ray;
+											refracted_ray.origin = intersection.position + refracted_dir * EPSILON;
+											refracted_ray.dir = refracted_dir;
+											push(stack, &refracted_ray, intersection_material.refr, depth + 1);
+							}
 
 
 	}
