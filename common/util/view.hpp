@@ -10,19 +10,6 @@
 
 
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
-
-
-
-#define RENDER_DISTANCE 256
-
-
-
-
-
 /**
 Storing info that can ve used by View to create view projection matrix
 */

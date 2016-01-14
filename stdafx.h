@@ -70,7 +70,6 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/OpenGL/GL3Renderer.h>
 #include <CEGUI/CommonDialogs/ColourPicker/ColourPicker.h>
-#include <CEGUI/CEGUI.h>
 #include <FreeImage.h>
 
 //---------------------------------------------//
@@ -165,6 +164,7 @@
 
 #include <pipeline.hpp>
 #include <python/glm_python_wrapper.hpp>
+#include <python/controller_python_wrapper.hpp>
 #include <python/python_manager.hpp>
 #include <application.hpp>
 

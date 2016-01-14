@@ -116,8 +116,7 @@ void AData::Debug()
         BOOST_FOREACH(it, vec2_map)
         {
             std::cout << it.first << ": ";
-            AString::print_vec2(it.second);
-            std::cout << std::endl;
+            std::cout<<AString::GetStringFromVec2(it.second)<<std::endl;
         }
 
 
@@ -136,8 +135,7 @@ void AData::Debug()
         BOOST_FOREACH(it, vec3_map)
         {
             std::cout << it.first << ": ";
-            AString::print_vec3(it.second);
-            std::cout << std::endl;
+            std::cout<<AString::GetStringFromVec3(it.second)<<std::endl;
         }
 
 
@@ -156,8 +154,7 @@ void AData::Debug()
         BOOST_FOREACH(it, vec4_map)
         {
             std::cout << it.first << ": ";
-            AString::print_vec4(it.second);
-            std::cout << std::endl;
+            std::cout<<AString::GetStringFromVec4(it.second)<<std::endl;
         }
 
 

@@ -63,15 +63,12 @@ void ViewInfo::Init()
 {
 
 
-	/*EVEN MORE INFO*/
-
-	FoV = 60.0;
-	direction = glm::vec3(0, 0, 0);
+    FoV = 60.0f;
+    direction = glm::vec3(0.0f);
 	distance = 50.0f;
-	render_distance = RENDER_DISTANCE;
-	position = glm::vec3(0, 0, 0);
+    render_distance = 200.0f;
+    position = glm::vec3(0.0f);
 
-	/*END OF EVEN MORE INFO*/
 
 }
 

@@ -59,6 +59,7 @@ void Application::Enable()
 		Get("DataManager")->Enable();
 		Get("Pipeline")->Enable();
 		Get("UI")->Enable();
+        Get("Python")->Enable();
 
 
 

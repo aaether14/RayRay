@@ -7,6 +7,10 @@ namespace AString
 {
 
 
+
+
+
+
 	std::string LoadFileToString(std::string path)
 	{
 
@@ -35,6 +39,12 @@ namespace AString
 
 
 	}
+
+
+
+
+    //----------------------------------------------------//
+
 
 
 
@@ -76,68 +86,6 @@ namespace AString
 
     //--------------------------------------------------------//
 
-
-
-    void print_matrix(glm::mat4 m)
-    {
-
-
-        printf("%1.2f, %1.2f, %1.2f, %1.2f,\n%1.2f, %1.2f, %1.2f, %1.2f,\n%1.2f, %1.2f, %1.2f, %1.2f,\n%1.2f, %1.2f, %1.2f, %1.2f\n\n",
-            m[0][0], m[0][1], m[0][2], m[0][3],
-            m[1][0], m[1][1], m[1][2], m[1][3],
-            m[2][0], m[2][1], m[2][2], m[2][3],
-            m[3][0], m[3][1], m[3][2], m[3][3]
-            );
-
-    }
-
-
-
-    //----------------------------------------------------------//
-
-
-
-    void print_vec2(glm::vec2 v)
-    {
-
-
-
-        std::cout << v.x << ", " << v.y << std::endl;
-
-
-
-    }
-
-
-
-    //----------------------------------------------------------//
-
-
-
-
-    void print_vec3(glm::vec3 v)
-    {
-
-
-        std::cout << v.x << ", " << v.y << ", " << v.z << std::endl;
-
-
-    }
-
-
-
-    //--------------------------------------------------------//
-
-
-
-    void print_vec4(glm::vec4 v)
-    {
-
-
-        std::cout << v.x << ", " << v.y << ", " << v.z << ", " << v.w << std::endl;
-
-
-    }
 
 
 
@@ -284,6 +232,51 @@ namespace AString
         return stream.str();
 
     }
+
+
+
+
+    //-------------------------------------------------//
+
+
+
+    glm::mat4 GetMat4FromString(std::string str)
+    {
+
+        GLfloat * values = new GLfloat[16];
+        GLint number_of_floats;
+        FloatArrayFromString(values, number_of_floats, str);
+
+
+        glm::mat4 v;
+        memcpy(&v[0], &values[0], number_of_floats * sizeof(GLfloat));
+
+
+        return v;
+
+    }
+
+
+    //-------------------------------------------------//
+
+
+
+    std::string GetStringFromMat4(glm::mat4 v)
+    {
+
+        std::ostringstream stream;
+        stream << v[0][0] << ", " << v[0][1] << ", " << v[0][2] << ", " << v[0][3] << std::endl;
+        stream << v[1][0] << ", " << v[1][1] << ", " << v[1][2] << ", " << v[1][3] << std::endl;
+        stream << v[2][0] << ", " << v[2][1] << ", " << v[2][2] << ", " << v[2][3] << std::endl;
+        stream << v[3][0] << ", " << v[3][1] << ", " << v[3][2] << ", " << v[3][3] << std::endl;
+        return stream.str();
+
+    }
+
+
+
+
+    //-------------------------------------------------//
 
 
 
