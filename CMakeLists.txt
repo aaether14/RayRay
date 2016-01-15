@@ -112,7 +112,7 @@ include_directories(${GLM_INCLUDE_DIR})
 
 #Boost
 
-find_package(Boost COMPONENTS system filesystem python REQUIRED)
+find_package(Boost COMPONENTS system filesystem python thread REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 target_link_libraries(RayRay ${Boost_LIBRARIES})
 

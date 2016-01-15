@@ -32,12 +32,14 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
+#include <boost/make_shared.hpp>
 #include <boost/functional/hash/hash.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/any.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/python.hpp>
+#include <boost/thread.hpp>
 
 //---------------------------------------------//
 

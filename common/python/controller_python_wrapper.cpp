@@ -7,7 +7,10 @@ BOOST_PYTHON_MODULE(Controller)
 {
 
 
-    boost::python::def("GetKey", &ControllerSource::GetKey);
+        boost::python::class_<Controller>("Controller")
+                .def("GetKey", &Controller::GetKey)
+                .def("GetKeyOnce", &Controller::GetKeyOnce)
+                .def("GetWindowTitle", &Controller::GetWindowTitle);
 
 
 
