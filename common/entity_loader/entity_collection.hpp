@@ -74,7 +74,7 @@ public:
     /**
     See if entity with 'name' exists
     */
-    inline GLboolean EntityExists(std::string name){return entity_map.count(name);}
+    inline GLboolean EntityExists(std::string name){return entity_map.count(name) > 0;}
 
 
 
