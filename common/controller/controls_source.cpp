@@ -112,7 +112,7 @@ void ControllerSource::Init()
 
 
 	srand(time(NULL));
-	fps = new FPS();
+    fps.reset(new FPS);
 
 
 

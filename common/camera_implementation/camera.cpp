@@ -7,19 +7,19 @@ void Camera::Init()
 {
 
 
-	//Initialising
+    //Initialising
 
 
-	camera_angles = glm::vec2(-M_PI / 24, M_PI);
-	camera_speed[CAMERA_BASE_SPEED] = camera_speed[CAMERA_SPEED] = 30.0;
-	camera_speed[MOUSE_SPEED] = 0.25f;
-	camera_speed[ROTATION_SPEED] = M_PI;
+    camera_angles = glm::vec2(-M_PI / 24, M_PI);
+    camera_speed[CAMERA_BASE_SPEED] = camera_speed[CAMERA_SPEED] = 30.0;
+    camera_speed[MOUSE_SPEED] = 0.25f;
+    camera_speed[ROTATION_SPEED] = M_PI;
 
 
 
-	view = new View();
-	info = new ViewInfo();
-	frustum = new Frustum();
+    view = new View();
+    info = new ViewInfo();
+    frustum = new Frustum();
 
 
 
@@ -31,20 +31,20 @@ void Camera::Clean()
 {
 
 
-	//Cleaning up...
+    //Cleaning up...
 
 
 
-	if (view)
-	delete view;
+    if (view)
+        delete view;
 
 
-	if (info)
-	delete info;
+    if (info)
+        delete info;
 
 
-	if (frustum)
-	delete frustum;
+    if (frustum)
+        delete frustum;
 
 
 }
@@ -56,37 +56,37 @@ void Camera::ProcessInput()
 
 
 
-      ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
+    ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
 
 
 
 
-	if (source->GetKey(GLFW_KEY_LEFT_SHIFT))
-		camera_speed[CAMERA_SPEED] = 3 * camera_speed[CAMERA_BASE_SPEED];
-	else
-		camera_speed[CAMERA_SPEED] = camera_speed[CAMERA_BASE_SPEED];
+    if (source->GetKey(GLFW_KEY_LEFT_SHIFT))
+        camera_speed[CAMERA_SPEED] = 3 * camera_speed[CAMERA_BASE_SPEED];
+    else
+        camera_speed[CAMERA_SPEED] = camera_speed[CAMERA_BASE_SPEED];
 
 
 
-	if (source->GetKey(GLFW_KEY_W))
-		info->SetCameraPos(info->getCameraPos() + info->getDirection() * GLfloat(source->GetFpsPointer()->Delta() * camera_speed[CAMERA_SPEED]));
+    if (source->GetKey(GLFW_KEY_W))
+        info->SetCameraPos(info->getCameraPos() + info->getDirection() * GLfloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
 
 
 
-	if (source->GetKey(GLFW_KEY_S))
-		info->SetCameraPos(info->getCameraPos() - info->getDirection() * GLfloat(source->GetFpsPointer()->Delta() * camera_speed[CAMERA_SPEED]));
+    if (source->GetKey(GLFW_KEY_S))
+        info->SetCameraPos(info->getCameraPos() - info->getDirection() * GLfloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
 
 
 
 
 
-	if (source->GetKey(GLFW_KEY_A))
-	    camera_angles.x += source->GetFpsPointer()->Delta()*camera_speed[ROTATION_SPEED];
+    if (source->GetKey(GLFW_KEY_A))
+        camera_angles.x += source->GetFPSCounter()->Delta()*camera_speed[ROTATION_SPEED];
 
 
 
-	if (source->GetKey(GLFW_KEY_D))
-		camera_angles.x -= source->GetFpsPointer()->Delta()*camera_speed[ROTATION_SPEED];
+    if (source->GetKey(GLFW_KEY_D))
+        camera_angles.x -= source->GetFPSCounter()->Delta()*camera_speed[ROTATION_SPEED];
 
 
 
@@ -105,32 +105,32 @@ void Camera::ComputeAngles(){
 
 
 
-         ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
+    ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
 
 
-	//Preparing mouse input for world movement
-
-
-
-	if (source->GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT))
-	{
-
-
-		glfwSetCursorPos(source->GetWindow(), last_mouse_position.x, last_mouse_position.y);
-
-
-		camera_angles.x += camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.x - source->GetMousePosition().x) * source->GetFpsPointer()->Delta();
-		camera_angles.y -= camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.y - source->GetMousePosition().y) * source->GetFpsPointer()->Delta();
+    //Preparing mouse input for world movement
 
 
 
+    if (source->GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT))
+    {
 
-	}
-	else
-	{
-		last_mouse_position.x = source->GetMousePosition().x;
-		last_mouse_position.y = source->GetMousePosition().y;
-	}
+
+        glfwSetCursorPos(source->GetWindow(), last_mouse_position.x, last_mouse_position.y);
+
+
+        camera_angles.x += camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.x - source->GetMousePosition().x) * source->GetFPSCounter()->Delta();
+        camera_angles.y -= camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.y - source->GetMousePosition().y) * source->GetFPSCounter()->Delta();
+
+
+
+
+    }
+    else
+    {
+        last_mouse_position.x = source->GetMousePosition().x;
+        last_mouse_position.y = source->GetMousePosition().y;
+    }
 
 
 
@@ -154,37 +154,37 @@ void Camera::SetInfo()
 
 
 
-	//converting mouse movement to spherical coodrs to view direction
+    //converting mouse movement to spherical coodrs to view direction
 
 
 
-	info->setDirection(glm::vec3(
-		cos(camera_angles.y) * sin(camera_angles.x),
-		sin(camera_angles.y),
-		cos(camera_angles.y) * cos(camera_angles.x)
-		));
+    info->setDirection(glm::vec3(
+                           cos(camera_angles.y) * sin(camera_angles.x),
+                           sin(camera_angles.y),
+                           cos(camera_angles.y) * cos(camera_angles.x)
+                           ));
 
 
 
-	glm::vec3 right = glm::vec3(
-		sin(camera_angles.x - M_PI / 2.0f),
-		0,
-		cos(camera_angles.x - M_PI / 2.0f)
-		);
+    glm::vec3 right = glm::vec3(
+                sin(camera_angles.x - M_PI / 2.0f),
+                0,
+                cos(camera_angles.x - M_PI / 2.0f)
+                );
 
 
 
 
-	info->setUpVec(glm::cross(info->getDirection(), right));
-	info->setRatio(GLfloat(source->GetWindowWidth()) / GLfloat(source->GetWindowHeight()));
-	info->setNear(1.0f);
+    info->setUpVec(glm::cross(info->getDirection(), right));
+    info->setRatio(GLfloat(source->GetWindowWidth()) / GLfloat(source->GetWindowHeight()));
+    info->setNear(1.0f);
 
 
 
-	//Computing the view state
+    //Computing the view state
 
 
-	view->Create1st(info);
+    view->Create1st(info);
 
 
 
@@ -197,14 +197,14 @@ void Camera::Enable()
 {
 
 
-   ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
+    ControllerSource * source = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
 
 
-   ProcessInput();
-   ComputeAngles();
-   SetInfo();
-   SetFrustum(GetView()->getCamera());
-   glfwSetInputMode(source->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    ProcessInput();
+    ComputeAngles();
+    SetInfo();
+    SetFrustum(GetView()->getCamera());
+    glfwSetInputMode(source->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 
 

@@ -105,7 +105,7 @@ class ControllerSource : public AModule
     /**
     Pointer to FPS counter
     */
-    FPS * fps;
+    boost::shared_ptr<FPS> fps;
 
 
 
@@ -198,7 +198,7 @@ public:
     /**
     Get pointer to FPS counter
     */
-    inline FPS*GetFpsPointer(){ return fps; }
+    inline FPS * GetFPSCounter(){ return fps.get(); }
     /**
     Return window size
     */
@@ -215,6 +215,10 @@ public:
     Get window title
     */
     inline std::string GetWindowTitle(){return title;}
+    /**
+    Set window title
+    */
+    inline void SetWindowTitle(std::string new_title){title = new_title; glfwSetWindowTitle(window, title.c_str()); }
     /**
     Set the key to be used for switching to fullscreen
     */

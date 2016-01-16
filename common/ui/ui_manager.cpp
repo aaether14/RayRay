@@ -97,8 +97,8 @@ void UIManager::Enable()
 
 
 	CEGUI::GUIContext& context = CEGUI::System::getSingleton().getDefaultGUIContext();
-	context.injectTimePulse(ctrl->GetFpsPointer()->Delta());
-	CEGUI::System::getSingleton().injectTimePulse(ctrl->GetFpsPointer()->Delta());
+    context.injectTimePulse(ctrl->GetFPSCounter()->Delta());
+    CEGUI::System::getSingleton().injectTimePulse(ctrl->GetFPSCounter()->Delta());
 
 	
 

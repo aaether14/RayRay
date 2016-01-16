@@ -20,7 +20,7 @@ void Application::Init()
 	Add("CLContextWrapper", new CLContextWrapper());
 	Add("DataManager", new DataManager());
 	Add("UI", new UIManager());
-	Add("Pipeline", new Pipeline());
+    Add("Pipeline", new Pipeline());
     Add("Python", new PythonManager());
 
 
@@ -57,7 +57,7 @@ void Application::Enable()
 
 		Get("Controller")->Enable();
 		Get("DataManager")->Enable();
-		Get("Pipeline")->Enable();
+        Get("Pipeline")->Enable();
 		Get("UI")->Enable();
         Get("Python")->Enable();
 
