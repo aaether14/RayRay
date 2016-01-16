@@ -3,9 +3,9 @@ import Controller
 
 
 
-MainController = None
+AController = None
 
 
 def setupController(instanced_ctrl):
-    global MainController
-    MainController = instanced_ctrl
+    global AController
+    AController = instanced_ctrl

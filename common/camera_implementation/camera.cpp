@@ -116,7 +116,7 @@ void Camera::ComputeAngles(){
     {
 
 
-        glfwSetCursorPos(source->GetWindow(), last_mouse_position.x, last_mouse_position.y);
+        source->SetMousePosition(last_mouse_position);
 
 
         camera_angles.x += camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.x - source->GetMousePosition().x) * source->GetFPSCounter()->Delta();
@@ -204,7 +204,7 @@ void Camera::Enable()
     ComputeAngles();
     SetInfo();
     SetFrustum(GetView()->getCamera());
-    glfwSetInputMode(source->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    source->HideCursor();
 
 
 

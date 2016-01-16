@@ -8,7 +8,7 @@ namespace AFile
 {
 
 
-	bool copyDir(
+    bool CopyDirectory(
 		boost::filesystem::path const & source,
 		boost::filesystem::path const & destination
 		)
@@ -61,7 +61,7 @@ namespace AFile
 				{
 					// Found directory: Recursion
 					if (
-						!copyDir(
+                        !CopyDirectory(
 						current,
 						destination / current.filename()
 						)

@@ -16,16 +16,6 @@ using std::string;
 string opencl_error_to_str(cl_int error);
 
 
-// Base class for all exception in samples
-class Error : public std::runtime_error
-{
-public:
-	Error(const string& msg) :
-		std::runtime_error(msg)
-	{
-	}
-};
-
 
 
 // Allocates piece of aligned memory
@@ -66,7 +56,7 @@ T str_to(const string& s)
 
 	if (!ss || (ss.get(), ss))
 	{
-		throw Error(
+        throw AError(
 			"Cannot interpret string " + inquotes(s) +
 			" as object of type " + inquotes(typeid(T).name())
 			);
@@ -86,7 +76,7 @@ string to_str(const T x, std::streamsize width = 0, char fill = ' ')
 	os << setw(width) << setfill(fill) << x;
 	if (!os)
 	{
-		throw Error("Cannot represent object as a string");
+        throw AError("Cannot represent object as a string");
 	}
 	return os.str();
 }
@@ -99,7 +89,7 @@ string to_str(const T x, std::streamsize width = 0, char fill = ' ')
 #define SAMPLE_CHECK_ERRORS(ERR)                        \
     if(ERR != CL_SUCCESS)                               \
 	    {                                                   \
-        throw Error(                                    \
+        throw AError(                                    \
             "OpenCL error " +                           \
             opencl_error_to_str(ERR) +                  \
             " happened in file " + to_str(__FILE__) +   \

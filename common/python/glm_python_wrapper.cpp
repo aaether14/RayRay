@@ -86,6 +86,11 @@ BOOST_PYTHON_MODULE(GLM)
 
 
 
+    boost::python::def("perspective", &glm::perspective<float>);
+    boost::python::def("lookAt", &glm::lookAt<float, glm::highp>);
+
+
+
 
 }
 

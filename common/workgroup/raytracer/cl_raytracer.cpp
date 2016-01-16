@@ -48,13 +48,13 @@ void CLRaytracer::Init()
 
         ray_kernel->Create(cl_cw, L"data/kernels/GodRays.cl", "", "GodRays", "-I data/kernels/");
         ray_kernel->AddGLTexture("KernelOutput", width, height, GL_RGBA, GL_RGBA, GL_FLOAT, CL_MEM_WRITE_ONLY);
-		ray_kernel->AddFloatBuffer("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY);
-        ray_kernel->AddFloatBuffer("scene_data", sizeof(cl_float) * 1024, CL_MEM_READ_ONLY);
+        ray_kernel->AddDataBuffer<cl_float*>("view_matrix", sizeof(glm::mat4), CL_MEM_READ_ONLY);
+        ray_kernel->AddDataBuffer<cl_float*>("scene_data", sizeof(cl_float) * 1024, CL_MEM_READ_ONLY);
 
 
 
 	}
-	catch (Error err)
+    catch (AError err)
 	{
 
 		std::cerr << err.what() << std::endl;
@@ -66,11 +66,11 @@ void CLRaytracer::Init()
 
 
     ray_kernel->SetGLTextureArg("KernelOutput", 0);
-    ray_kernel->SetFloatBufferArg("view_matrix", 1);
+    ray_kernel->SetDataBufferArg("view_matrix", 1);
     ray_kernel->SetArgValue(width, 2);
     ray_kernel->SetArgValue(height, 3);
     ray_kernel->SetArgValue(tan_half_fov, 4);
-    ray_kernel->SetFloatBufferArg("scene_data", 5);
+    ray_kernel->SetDataBufferArg("scene_data", 5);
 
 
 	//---------------------//
@@ -142,8 +142,8 @@ void CLRaytracer::Enable()
     //Run kernel
 
 
-    ray_kernel->WriteToFloatBuffer("view_matrix", sizeof(glm::mat4), (cl_float*)(&view_matrix));
-    ray_kernel->WriteToFloatBuffer("scene_data", scene_builder->GetSceneSize(), scene_builder->GetSceneDataPointer());
+    ray_kernel->WriteToDataBuffer<cl_float*>("view_matrix", sizeof(glm::mat4), (cl_float*)(&view_matrix));
+    ray_kernel->WriteToDataBuffer<cl_float*>("scene_data", scene_builder->GetSceneSize(), scene_builder->GetSceneDataPointer());
     ray_kernel->Enable();
 
 

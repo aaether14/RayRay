@@ -9,13 +9,15 @@
 
 
 
+
+typedef boost::variant<cl_float*, cl_int*> dtype;
+
+
+
+
 /**
 Provides functionality for OpenCL kernels. Derives CLProgram
 */
-
-
-
-
 class CLKernel : public CLProgram
 {
 
@@ -26,8 +28,8 @@ class CLKernel : public CLProgram
 
 
 
-    std::map<std::string, cl_float*> kernel_float_buffers;
-    std::map<std::string, cl_mem> kernel_float_mem_buffers;
+    std::map<std::string, dtype> kernel_data_buffers;
+    std::map<std::string, cl_mem> kernel_data_mem_buffers;
     std::map<std::string, GLuint> kernel_gl_texture_buffers;
     std::map<std::string, cl_mem> kernel_gl_texture_mem_buffers;
 
@@ -95,27 +97,30 @@ public:
     /**
     Add kernel buffer memory
     */
-    void AddFloatBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
+    template <class T>
+    void AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
     /**
     Release float buffer
     */
-    void ReleaseFloatBuffer(std::string buffer_name);
+    void ReleaseDataBuffer(std::string buffer_name);
     /**
     Add float data to buffer
     */
-    void WriteToFloatBuffer(std::string buffer_name, size_t size, cl_float * data);
+    template<class T>
+    void WriteToDataBuffer(std::string buffer_name, size_t size, dtype data);
     /**
     Read float buffer
     */
-    void ReadFloatBuffer(std::string buffer_name, size_t size);
+    void ReadDataBuffer(std::string buffer_name, size_t size);
     /**
     Set kernel arg from float buffer
     */
-    void SetFloatBufferArg(std::string buffer_name, cl_uint arg);
+    void SetDataBufferArg(std::string buffer_name, cl_uint arg);
     /**
     Set kernel arg from value
     */
-    void SetArgValue(boost::any value, cl_uint arg);
+    template <class T>
+    void SetArgValue(T value, cl_uint arg);
     /**
     Add opengl texture
     */
@@ -137,7 +142,7 @@ public:
     /**
     Get float buffer
     */
-    inline cl_float* GetFloatBuffer(std::string buffer_name){ return kernel_float_buffers[buffer_name]; }
+    inline dtype GetDataBuffer(std::string buffer_name){ return kernel_data_buffers[buffer_name]; }
     /**
     Get gl texture id
     */

@@ -173,10 +173,23 @@ public:
 
 
 
+
     /**
     Return mouse position
     */
     inline glm::vec2 GetMousePosition(){ return ControllerSource::mouse_position; }
+    /**
+    Set mouse position
+    */
+    inline void SetMousePosition(glm::vec2 new_position){glfwSetCursorPos(window, new_position.x, new_position.y); }
+    /**
+    Show cursor
+    */
+    inline void ShowCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
+    /**
+    Hide cursor
+    */
+    inline void HideCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
     /**
     Check is mouse button with 'code' was clicked
     */
@@ -193,6 +206,9 @@ public:
     Reset wheel offset
     */
     inline GLvoid ResetWheelOffset(){ wheel_offset = 0.0; }
+
+
+
 
 
     /**
@@ -229,6 +245,12 @@ public:
     inline GLFWwindow * GetWindow(){ return window; }
 
 
+
+
+
+
+
+
     /**
     Get current list of files dropped inside window
     */
@@ -238,6 +260,8 @@ public:
     Reset list of files dropped inside window
     */
     inline void ResetDropList(){ drop_files.clear(); }
+
+
 
 
 

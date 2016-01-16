@@ -36,6 +36,7 @@
 #include <boost/functional/hash/hash.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/any.hpp>
+#include <boost/variant.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/python.hpp>

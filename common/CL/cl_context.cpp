@@ -185,7 +185,7 @@ void CLContextWrapper::selectPlatform(const std::string& platform_name_or_index)
 
     if (by_index && selected_platform_index >= num_of_platforms)
     {
-        throw Error(
+        throw AError(
                     "Given index of platform (" + platform_name_or_index + ") "
                     "is out of range of available platforms"
                     );
@@ -193,7 +193,7 @@ void CLContextWrapper::selectPlatform(const std::string& platform_name_or_index)
 
     if (!by_index && selected_platform_index >= num_of_platforms)
     {
-        throw Error(
+        throw AError(
                     "There is no found platform with name containing \"" +
                     required_platform_subname + "\" as a substring\n"
                     );
@@ -214,7 +214,7 @@ void CLContextWrapper::selectDevice(const std::string& device_name_or_index, con
 
     if (!platform)
     {
-        throw Error("Platform is not selected");
+        throw AError("Platform is not selected");
     }
 
     // List devices of a given type only
@@ -322,7 +322,7 @@ void CLContextWrapper::selectDevice(const std::string& device_name_or_index, con
 
     if (by_index && selected_device_index >= num_of_devices)
     {
-        throw Error(
+        throw AError(
                     "Given index of device (" + device_name_or_index + ") "
                     "is out of range of available devices" +
                     (device_type != CL_DEVICE_TYPE_ALL ?
@@ -334,7 +334,7 @@ void CLContextWrapper::selectDevice(const std::string& device_name_or_index, con
 
     if (!by_index && selected_device_index >= num_of_devices)
     {
-        throw Error(
+        throw AError(
                     "There is no found device with name containing \"" +
                     required_device_subname + "\" as a substring\n"
                     );
@@ -355,12 +355,12 @@ void CLContextWrapper::createContext(const cl_context_properties* additional_con
 
     if (!platform)
     {
-        throw Error("Platform is not selected");
+        throw AError("Platform is not selected");
     }
 
     if (!device)
     {
-        throw Error("Device is not selected");
+        throw AError("Device is not selected");
     }
 
     size_t number_of_additional_props = 0;
@@ -412,7 +412,7 @@ void CLContextWrapper::createQueue(cl_command_queue_properties queue_properties)
 
     if (!device)
     {
-        throw Error("Device is not selected");
+        throw AError("Device is not selected");
     }
 
     cl_int err = 0;

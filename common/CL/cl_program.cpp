@@ -69,7 +69,7 @@ void CLProgram::Create(
 
 	if (!program_file_name.empty() && !program_text.empty())
 	{
-		throw Error(
+        throw AError(
 			"Both program file name and program text are specified. "
 			"Should be one of them only."
 			);
@@ -77,7 +77,7 @@ void CLProgram::Create(
 
 	if (program_file_name.empty() && program_text.empty())
 	{
-		throw Error(
+        throw AError(
 			"Neither of program file name or program text are specified. "
 			"One of them is required."
 			);

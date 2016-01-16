@@ -134,7 +134,7 @@ bool is_number(const string& x)
 		// success: x is a number
 		return true;
 	}
-	catch (const Error&)
+    catch (const AError&)
 	{
 		// fail: x is not a number
 		return false;
@@ -149,7 +149,7 @@ double time_stamp()
 		struct timeval t;
 		if (gettimeofday(&t, 0) != 0)
 		{
-			throw Error(
+            throw AError(
 				"Linux-specific time measurement counter (gettimeofday) "
 				"is not available."
 				);
@@ -165,7 +165,7 @@ double time_stamp()
 			!QueryPerformanceFrequency(&freq)
 			)
 		{
-			throw Error(
+            throw AError(
 				"Windows-specific time measurement counter (QueryPerformanceCounter, "
 				"QueryPerformanceFrequency) is not available."
 				);
@@ -319,7 +319,7 @@ string exe_dir()
 
 			if (len < 0)
 			{
-				throw Error(
+                throw AError(
 					"Cannot retrieve path to the executable: "
 					"readlink returned error code " +
 					to_str(errno) + "."
@@ -341,7 +341,7 @@ string exe_dir()
 			}
 			else
 			{
-				throw Error("Cannot retrieve path to the executable: path is too long.");
+                throw AError("Cannot retrieve path to the executable: path is too long.");
 			}
 		}
 
@@ -361,7 +361,7 @@ string exe_dir()
 			if (len == 0)
 			{
 				int err = GetLastError();
-				throw Error(
+                throw AError(
 					"Getting executable path failed with error " +
 					to_str(err)
 					);
@@ -381,7 +381,7 @@ string exe_dir()
 			}
 			else
 			{
-				throw Error(
+                throw AError(
 					"Cannot retrieve path to the executable: "
 					"path is too long."
 					);
@@ -422,7 +422,7 @@ string exe_dir()
 				}
 				else
 				{
-					throw Error(
+                    throw AError(
 						"Getting executable path failed: "
 						"Splitting path " + exe + " to components failed: "
 						"Buffers of " + to_str(drv.size()) + " and " +
@@ -432,7 +432,7 @@ string exe_dir()
 			}
 			else
 			{
-				throw Error(
+                throw AError(
 					"Getting executable path failed: "
 					"Splitting path " + exe +
 					" to components failed with code " + to_str(rc)
@@ -445,7 +445,7 @@ string exe_dir()
 	}
 #else
 	{
-		throw Error(
+        throw AError(
 			"There is no method to retrieve the directory path "
 			"where executable is placed: unsupported platform."
 			);
@@ -473,7 +473,7 @@ std::wstring exe_dir_w()
 			if (len == 0)
 			{
 				int err = GetLastError();
-				throw Error(
+                throw AError(
 					"Getting executable path failed with error " +
 					to_str(err)
 					);
@@ -493,7 +493,7 @@ std::wstring exe_dir_w()
 			}
 			else
 			{
-				throw Error(
+                throw AError(
 					"Cannot retrieve path to the executable: "
 					"path is too long."
 					);
@@ -534,7 +534,7 @@ std::wstring exe_dir_w()
 				}
 				else
 				{
-					throw Error(
+                    throw AError(
 						"Getting executable path failed: "
 						"Splitting path " + wstringToString(exe) + " to components failed: "
 						"Buffers of " + to_str(drv.size()) + " and " +
@@ -544,7 +544,7 @@ std::wstring exe_dir_w()
 			}
 			else
 			{
-				throw Error(
+                throw AError(
 					"Getting executable path failed: "
 					"Splitting path " + wstringToString(exe) +
 					" to components failed with code " + to_str(rc)
@@ -557,7 +557,7 @@ std::wstring exe_dir_w()
 	}
 #else
 	{
-		throw Error(
+        throw AError(
 			"There is no method to retrieve the directory path "
 			"where executable is placed: unsupported platform."
 			);
@@ -582,7 +582,7 @@ std::string wstringToString(const std::wstring w)
 	size_t count = wcsrtombs(NULL, &src, 0, NULL);
 	if (count == size_t(-1))
 	{
-		throw Error(
+        throw AError(
 			"Cannot convert wstring to string"
 			);
 	}
@@ -692,7 +692,7 @@ cl_device_type parseDeviceType(const string& device_type_name)
 			continue;
 		}
 
-		throw Error(
+        throw AError(
 			"Cannot recognize " + device_type_name + " as a device type"
 			);
 	}
@@ -752,7 +752,7 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 		if (!file)
 		{
 			cerr << " FAILED\n";
-			throw Error(
+            throw AError(
 				"Cannot open file " + inquotes(dir + wstringToString(file_name))
 				);
 		}
@@ -771,7 +771,7 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 		if (!file)
 		{
 			cerr << " FAILED\n";
-			throw Error(
+            throw AError(
 				"Cannot open file " + wstringToString(dir + file_name)
 				);
 		}
@@ -789,7 +789,7 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 
 	if (file_length == -1)
 	{
-		throw Error(
+        throw AError(
 			"Cannot determine the length of file " +
 			wstringToString(inquotes_w(file_name))
 			);
@@ -858,7 +858,7 @@ cl_program createAndBuildProgram(
 				);
 			SAMPLE_CHECK_ERRORS(err);
 
-			throw Error(
+            throw AError(
 				"Error happened during the build of OpenCL program.\n"
 				"Build log:\n" +
 				string(&log[0])

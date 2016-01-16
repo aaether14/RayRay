@@ -33,14 +33,14 @@ void CLKernel::Clean()
 
     //Cleaning float buffers
 
-    std::pair<std::string, cl_mem> float_mem_buffer_it;
-    BOOST_FOREACH(float_mem_buffer_it, kernel_float_mem_buffers)
+    std::pair<std::string, cl_mem> data_mem_buffer_it;
+    BOOST_FOREACH(data_mem_buffer_it, kernel_data_mem_buffers)
     {
-        err = clReleaseMemObject(float_mem_buffer_it.second);
+        err = clReleaseMemObject(data_mem_buffer_it.second);
         SAMPLE_CHECK_ERRORS(err);
     }
-    kernel_float_mem_buffers.clear();
-    kernel_float_buffers.clear();
+    kernel_data_mem_buffers.clear();
+    kernel_data_buffers.clear();
 
 
 
@@ -147,13 +147,13 @@ void CLKernel::Create(
 
 
 
-
-void CLKernel::AddFloatBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags)
+template <class T>
+void CLKernel::AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags)
 {
 
 
-    cl_float * buffer = (cl_float*)aligned_malloc(size, cl_cw_ptr->GetDeviceCopyAlignment());
-    kernel_float_buffers.insert(std::pair<std::string, cl_float*>(buffer_name, buffer));
+    T buffer = (T)aligned_malloc(size, cl_cw_ptr->GetDeviceCopyAlignment());
+    kernel_data_buffers.insert(std::pair<std::string, dtype>(buffer_name, buffer));
 
 
     //-------------------------------------------//
@@ -184,52 +184,69 @@ void CLKernel::AddFloatBuffer(std::string buffer_name, size_t size, cl_mem_flags
 
     SAMPLE_CHECK_ERRORS(err);
     if (buffer_mem == (cl_mem)0)
-        throw Error("Failed to create " + buffer_name + "!");
+        throw AError("Failed to create " + buffer_name + "!");
     else
-        kernel_float_mem_buffers.insert(std::pair<std::string, cl_mem>(buffer_name, buffer_mem));
+        kernel_data_mem_buffers.insert(std::pair<std::string, cl_mem>(buffer_name, buffer_mem));
 
 
 
 
 }
+template void CLKernel::AddDataBuffer<cl_float*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
+template void CLKernel::AddDataBuffer<cl_int*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
 
 
-void CLKernel::ReleaseFloatBuffer(std::string buffer_name)
+
+
+
+
+
+void CLKernel::ReleaseDataBuffer(std::string buffer_name)
 {
 
-    cl_int err = clReleaseMemObject(kernel_float_mem_buffers[buffer_name]);
+    cl_int err = clReleaseMemObject(kernel_data_mem_buffers[buffer_name]);
     SAMPLE_CHECK_ERRORS(err);
-    kernel_float_mem_buffers.erase(buffer_name);
+    kernel_data_mem_buffers.erase(buffer_name);
+    kernel_data_buffers.erase(buffer_name);
 
 
 }
 
 
 
-void CLKernel::WriteToFloatBuffer(std::string buffer_name, size_t size, cl_float * data)
+
+
+
+template <class T>
+void CLKernel::WriteToDataBuffer(std::string buffer_name, size_t size, dtype data)
 {
 
 
 
-    int err = clEnqueueWriteBuffer(cl_cw_ptr->GetCLQueue(), kernel_float_mem_buffers[buffer_name], CL_TRUE,
-                                   0, size, data, 0, NULL, NULL);
+    int err = clEnqueueWriteBuffer(cl_cw_ptr->GetCLQueue(), kernel_data_mem_buffers[buffer_name], CL_TRUE,
+                                   0, size, boost::get<T>(data), 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(err);
 
 
 
 }
+template void CLKernel::WriteToDataBuffer<cl_float*>(std::string buffer_name, size_t size, dtype data);
+template void CLKernel::WriteToDataBuffer<cl_int*>(std::string buffer_name, size_t size, dtype data);
 
 
 
 
-void CLKernel::ReadFloatBuffer(std::string buffer_name, size_t size)
+
+
+
+void CLKernel::ReadDataBuffer(std::string buffer_name, size_t size)
 {
 
 
     cl_int err = CL_SUCCESS;
 
 
-    err = clEnqueueReadBuffer(cl_cw_ptr->GetCLQueue(), kernel_float_mem_buffers[buffer_name], CL_TRUE, 0, size, kernel_float_buffers[buffer_name], 0, NULL, NULL);
+    err = clEnqueueReadBuffer(cl_cw_ptr->GetCLQueue(), kernel_data_mem_buffers[buffer_name], CL_TRUE, 0, size, &kernel_data_buffers[buffer_name], 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(err);
     err = clFinish(cl_cw_ptr->GetCLQueue());
     SAMPLE_CHECK_ERRORS(err);
@@ -240,12 +257,12 @@ void CLKernel::ReadFloatBuffer(std::string buffer_name, size_t size)
 
 
 
-void CLKernel::SetFloatBufferArg(std::string buffer_name, cl_uint arg)
+void CLKernel::SetDataBufferArg(std::string buffer_name, cl_uint arg)
 {
 
 
     cl_int err = CL_SUCCESS;
-    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (void *)&kernel_float_mem_buffers[buffer_name]);
+    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (void *)&kernel_data_mem_buffers[buffer_name]);
     SAMPLE_CHECK_ERRORS(err);
 
 
@@ -257,23 +274,19 @@ void CLKernel::SetFloatBufferArg(std::string buffer_name, cl_uint arg)
 
 
 
-void CLKernel::SetArgValue(boost::any value, cl_uint arg)
+template <class T>
+void CLKernel::SetArgValue(T value, cl_uint arg)
 {
-
-    size_t size = 0;
-    if (value.type() == typeid(cl_int))
-        size = sizeof(cl_int);
-    else if (value.type() == typeid(cl_float))
-        size = sizeof(cl_float);
-
 
 
     cl_int err = CL_SUCCESS;
-    err = clSetKernelArg(kernel, arg, size ,boost::unsafe_any_cast<void *>(&value));
+    err = clSetKernelArg(kernel, arg, sizeof(T), &value);
     SAMPLE_CHECK_ERRORS(err);
 
 
 }
+template void CLKernel::SetArgValue<cl_float>(cl_float value, cl_uint arg);
+template void CLKernel::SetArgValue<cl_int>(cl_int value, cl_uint arg);
 
 
 

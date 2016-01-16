@@ -14,10 +14,10 @@
 Storing info that can ve used by View to create view projection matrix
 */
 class ViewInfo
-
 {
 
-	/*SOME INFO*/
+
+
 
 	glm::vec3 position;
 	glm::vec3 direction;
@@ -35,7 +35,7 @@ public:
 	void Init();
 
 
-	/*SOME MORE INFO*/
+
 
 
 	/**
@@ -54,9 +54,10 @@ public:
 
 	}
 
-	/*
-	Setters and getters
-	*/
+
+
+
+
 	inline glm::vec3 getCameraPos() { return position; }
 	inline void setUpVec(glm::vec3 t_vec) { this->up = t_vec; }
 	inline glm::vec3 getDirection() { return direction; }
@@ -74,10 +75,8 @@ public:
 	inline GLfloat getTanHalfFov(){ return tanf((FoV / 2.0f) * M_PI / 180.0); }
 	inline void setFov(GLfloat FoV) { this->FoV = FoV; }
 	inline GLfloat getRenderDistance() { return this->render_distance; }
-	inline GLfloat getDistance() { return this->distance; };
+    inline GLfloat getDistance() { return this->distance; }
 
-
-	/*END OF MORE INFO*/
 
 
 
