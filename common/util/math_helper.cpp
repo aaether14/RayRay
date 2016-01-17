@@ -58,7 +58,7 @@ namespace Math
 		{
 
 
-			d = glm::dot(frustum->getPlanes()[p].normal, pos) + frustum->getPlanes()[p].distance;
+            d = glm::dot(glm::vec3(frustum->getPlanes()[p]) , pos) + frustum->getPlanes()[p].w;
 			if (d <= -radius)
 				return 0;
 			if (d > radius)

@@ -7,8 +7,8 @@
 void View::Create3rd(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, GLfloat distance, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
 {
 
-	ProjectionMatrix = glm::perspective(FoV, ratio, z_near, z_far);
-	ViewMatrix = glm::lookAt(position-direction*distance, position, up);
+    ProjectionMatrix = glm::perspective(FoV, ratio, z_near, z_far);
+    ViewMatrix = glm::lookAt(position-direction*distance, position, up);
 
 
 }
@@ -18,15 +18,15 @@ void View::Create3rd(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, 
 void View::Create3rd(ViewInfo*info)
 {
 
-	this->Create3rd(info->getFoV(),
-		info->getRatio(),
-		info->getNear(),
-		info->getRenderDistance(),
-		info->getDistance(),
-		info->getCameraPos(),
-		info->getDirection(),
-		info->getUpVec()
-		);
+    this->Create3rd(info->getFoV(),
+                    info->getRatio(),
+                    info->getNear(),
+                    info->getRenderDistance(),
+                    info->getDistance(),
+                    info->getCameraPos(),
+                    info->getDirection(),
+                    info->getUpVec()
+                    );
 
 
 }
@@ -35,8 +35,8 @@ void View::Create1st(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, 
 {
 
 
-	ProjectionMatrix = glm::perspective(FoV, ratio, z_near, z_far);
-	ViewMatrix = glm::lookAt(position, position + direction, up);
+    ProjectionMatrix = glm::perspective(FoV, ratio, z_near, z_far);
+    ViewMatrix = glm::lookAt(position, position + direction, up);
 
 
 }
@@ -46,14 +46,14 @@ void View::Create1st(ViewInfo * info)
 {
 
 
-	this->Create1st(info->getFoV(),
-		info->getRatio(),
-		info->getNear(),
-		info->getRenderDistance(),
-		info->getCameraPos(),
-		info->getDirection(),
-		info->getUpVec()
-		);
+    this->Create1st(info->getFoV(),
+                    info->getRatio(),
+                    info->getNear(),
+                    info->getRenderDistance(),
+                    info->getCameraPos(),
+                    info->getDirection(),
+                    info->getUpVec()
+                    );
 
 
 }
@@ -65,7 +65,7 @@ void ViewInfo::Init()
 
     FoV = 60.0f;
     direction = glm::vec3(0.0f);
-	distance = 50.0f;
+    distance = 50.0f;
     render_distance = 200.0f;
     position = glm::vec3(0.0f);
 
@@ -74,16 +74,6 @@ void ViewInfo::Init()
 
 
 
-void Plane::Normalize()
-
-{
-
-
-	GLfloat temp = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
-	normal /= temp;
-	distance /= temp;
-
-}
 
 
 
@@ -91,77 +81,77 @@ void Frustum::Create(glm::mat4 MVP)
 {
 
 
-	//LEFT
+    //LEFT
 
 
-	planes[0].normal.x = MVP[0].w - MVP[0].x;
-	planes[0].normal.y = MVP[1].w - MVP[1].x;
-	planes[0].normal.z = MVP[2].w - MVP[2].x;
-	planes[0].distance = MVP[3].w - MVP[3].x;
+    planes[0].x = MVP[0].w - MVP[0].x;
+    planes[0].y = MVP[1].w - MVP[1].x;
+    planes[0].z = MVP[2].w - MVP[2].x;
+    planes[0].w = MVP[3].w - MVP[3].x;
 
-	planes[0].Normalize();
-
-
-	//RIGHT
-
-	planes[1].normal.x = MVP[0].w + MVP[0].x;
-	planes[1].normal.y = MVP[1].w + MVP[1].x;
-	planes[1].normal.z = MVP[2].w + MVP[2].x;
-	planes[1].distance = MVP[3].w + MVP[3].x;
+    planes[0] = Math::NormalizePlane(planes[0]);
 
 
+    //RIGHT
 
-	planes[1].Normalize();
-
-
-	//TOP
-
-
-	planes[4].normal.x = MVP[0].w + MVP[0].y;
-	planes[4].normal.y = MVP[1].w + MVP[1].y;
-	planes[4].normal.z = MVP[2].w + MVP[2].y;
-	planes[4].distance = MVP[3].w + MVP[3].y;
+    planes[1].x = MVP[0].w + MVP[0].x;
+    planes[1].y = MVP[1].w + MVP[1].x;
+    planes[1].z = MVP[2].w + MVP[2].x;
+    planes[1].w = MVP[3].w + MVP[3].x;
 
 
 
-	planes[4].Normalize();
+    planes[1] = Math::NormalizePlane(planes[1]);
+
+
+    //TOP
+
+
+    planes[4].x = MVP[0].w + MVP[0].y;
+    planes[4].y = MVP[1].w + MVP[1].y;
+    planes[4].z = MVP[2].w + MVP[2].y;
+    planes[4].w = MVP[3].w + MVP[3].y;
 
 
 
-	//BOTTOM
-
-	planes[5].normal.x = MVP[0].w - MVP[0].y;
-	planes[5].normal.y = MVP[1].w - MVP[1].y;
-	planes[5].normal.z = MVP[2].w - MVP[2].y;
-	planes[5].distance = MVP[3].w - MVP[3].y;
-
-
-	planes[5].Normalize();
-
-
-	//FAR
-
-	planes[2].normal.x = MVP[0].w - MVP[0].z;
-	planes[2].normal.y = MVP[1].w - MVP[1].z;
-	planes[2].normal.z = MVP[2].w - MVP[2].z;
-	planes[2].distance = MVP[3].w - MVP[3].z;
+    planes[4] = Math::NormalizePlane(planes[4]);
 
 
 
-	planes[2].Normalize();
+    //BOTTOM
+
+    planes[5].x = MVP[0].w - MVP[0].y;
+    planes[5].y = MVP[1].w - MVP[1].y;
+    planes[5].z = MVP[2].w - MVP[2].y;
+    planes[5].w = MVP[3].w - MVP[3].y;
 
 
-	//NEAR
+    planes[5] = Math::NormalizePlane(planes[5]);
 
 
-	planes[3].normal.x = MVP[0].w + MVP[0].z;
-	planes[3].normal.y = MVP[1].w + MVP[1].z;
-	planes[3].normal.z = MVP[2].w + MVP[2].z;
-	planes[3].distance = MVP[3].w + MVP[3].z;
+    //FAR
 
-	
+    planes[2].x = MVP[0].w - MVP[0].z;
+    planes[2].y = MVP[1].w - MVP[1].z;
+    planes[2].z = MVP[2].w - MVP[2].z;
+    planes[2].w = MVP[3].w - MVP[3].z;
 
-	planes[3].Normalize();
+
+
+    planes[2] = Math::NormalizePlane(planes[2]);
+
+
+    //NEAR
+
+
+    planes[3].x = MVP[0].w + MVP[0].z;
+    planes[3].y = MVP[1].w + MVP[1].z;
+    planes[3].z = MVP[2].w + MVP[2].z;
+    planes[3].w = MVP[3].w + MVP[3].z;
+
+
+
+    planes[3] = Math::NormalizePlane(planes[3]);
 
 
 

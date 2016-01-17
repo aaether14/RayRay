@@ -124,7 +124,7 @@ public:
 	/**
 	Returns view matrix aka world matrix
 	*/
-	inline glm::mat4 getViewMatrix() { return ViewMatrix; };
+    inline glm::mat4 getViewMatrix() { return ViewMatrix; }
 	/**
 	Returns projection matrix aka camera matrix
 	*/
@@ -148,28 +148,7 @@ public:
 
 
 
-/**
-Class storing plane equation ax + by + cz + d = 0
-*/
-class Plane
 
-{
-
-
-public:
-
-	
-	glm::vec3 normal;
-	GLfloat distance;
-
-
-	/**
-	Normalizes plane
-	*/
-	void Normalize();
-
-
-};
 
 
 
@@ -181,28 +160,18 @@ class Frustum
 
 
 	
-	Plane*planes;
+    glm::vec4 planes[6];
 
 
 
 public:
 
 
-
-	/**
-	Initialize planes
-	*/
-	inline Frustum() { planes = new Plane[6]; }
-	/**
-	Delete planes
-	*/
-	inline ~Frustum() { delete planes; }
-
     
 	/**
 	Pointer to plane array
 	*/
-	inline Plane*getPlanes(){ return planes; }
+    inline glm::vec4* getPlanes(){ return planes; }
 
 
 	/**

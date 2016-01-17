@@ -15,7 +15,7 @@
 /**
 Entity data is stored here
 */
-class InstanceCollection : public AStateSaver
+class InstanceCollection : public AStateSaver, public ACollection
 {
 
 
@@ -81,7 +81,7 @@ public:
     /**
     See if instance with 'name' exists
     */
-    inline GLboolean InstanceExists(std::string name){ return instance_map.count(name); }
+    inline bool InCollection(std::string name){ return instance_map.count(name) > 0; }
 
 
 

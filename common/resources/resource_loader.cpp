@@ -83,9 +83,9 @@ void ResourceLoader::LoadProject(std::string path)
 
 
 
-       Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
-       std::string new_window_title = ctrl->GetWindowTitle() + " - " + path;
-       ctrl->SetWindowTitle(new_window_title);
+    Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
+    std::string new_window_title = ctrl->GetWindowTitle() + " - " + path;
+    ctrl->SetWindowTitle(new_window_title);
 
 
 

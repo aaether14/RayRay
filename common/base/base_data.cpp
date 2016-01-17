@@ -198,6 +198,13 @@ boost::property_tree::ptree AData::Save()
 
 
 
+    boost::property_tree::ptree ptree_general_info;
+    ptree_general_info.push_back(boost::property_tree::ptree::value_type("Name", boost::property_tree::ptree(GetComponentName())));
+    ptree_data.push_back(boost::property_tree::ptree::value_type("GeneralInfo", ptree_general_info));
+
+
+
+
     //Float saving
     if (float_map.size() > 0)
     {

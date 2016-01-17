@@ -42,7 +42,7 @@ void EntityCollection::CreateComponentInstance(boost::filesystem::directory_iter
 
 
         //Add component to entity
-
+        class_name = new_entity->GetAvailableName(class_name);
         new_entity->AddComponent(class_name, new_component);
 
 

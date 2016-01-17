@@ -122,10 +122,13 @@ void InstanceCollection::Save()
         new_info.push_back(ptree::value_type("Name", ptree(it.first)));
 
 
+
         //Components
 
-        //Adding Adatas
+        std::pair<std::string, boost::shared_ptr<AData> > adatas_iterator;
+        BOOST_FOREACH(adatas_iterator, *instance->GetADatasMapPointer())
         {
+            new_info.add_child("Component", adatas_iterator.second.get()->Save());
         }
         rootNode.add_child("EntityInstance", new_info);
 

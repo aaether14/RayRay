@@ -16,7 +16,7 @@ Stores components
 
 
 */
-class Entity
+class Entity : public ACollection
 {
 
 
@@ -53,6 +53,13 @@ public:
 	Get number of components
 	*/
 	inline GLuint GetComponentsSize(){ return components.size(); }
+
+
+
+    /**
+    See if component with 'name' exists
+    */
+    inline bool InCollection(std::string name){return components.count(name) > 0;}
 
 
 
