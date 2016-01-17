@@ -10,7 +10,7 @@ void Shader::Add(std::string path, GLenum type)
 
 
 	GLuint ShaderID = glCreateShader(type);
-	std::string ShaderCode = AString::LoadFileToString(path);
+    std::string ShaderCode = AString::LoadFileToString(path).get();
 	ShaderCode = AString::ManageDirective(path, ShaderCode, "#include", "\"");
 
 

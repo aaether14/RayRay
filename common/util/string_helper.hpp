@@ -19,7 +19,7 @@ namespace AString
 /**
     Load a file to a string
     */
-std::string LoadFileToString(std::string path);
+boost::optional<std::string> LoadFileToString(std::string path);
 /**
     Gives the posibility to recursive load files through directives
     */

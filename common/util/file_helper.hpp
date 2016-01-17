@@ -25,8 +25,6 @@ namespace AFile
 
 
 
-    #define STRING_ERROR "_$#$_STRING_ERROR"
-
 
 	template <class T>
 	/**
@@ -52,11 +50,11 @@ namespace AFile
 	/**
     If in the folder specified by 'path' exists a file that has 'extension' return path of that file. Returns NULL otherwise
 	*/
-	std::string GetFileWithExtension(std::string path, std::string extension);
+    boost::optional<std::string> GetFileWithExtension(std::string path, std::string extension);
 	/**
 	Same as GetFileWithExtension but for multiple extensions
 	*/
-	std::string GetFileWithExtensionList(std::string path, std::vector<std::string>extensions);
+    boost::optional<std::string> GetFileWithExtensionList(std::string path, std::vector<std::string>extensions);
 
 
 	/**

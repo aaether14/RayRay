@@ -89,7 +89,7 @@ namespace AFile
 
 
 
-	std::string GetFileWithExtension(std::string path, std::string extension)
+    boost::optional<std::string> GetFileWithExtension(std::string path, std::string extension)
 	{
 
 
@@ -100,25 +100,25 @@ namespace AFile
 			std::string file_extension = boost::filesystem::extension(iterator->path());
 			std::transform(file_extension.begin(), file_extension.end(), file_extension.begin(), ::tolower);
 			if (!extension.compare(file_extension))
-				return iterator->path().string();
+                return boost::optional<std::string>(iterator->path().string());
 			}
 
-		return STRING_ERROR;
+        return boost::optional<std::string>();
 
 
 	}
 
 
 
-	std::string GetFileWithExtensionList(std::string path, std::vector<std::string>extensions)
+    boost::optional<std::string> GetFileWithExtensionList(std::string path, std::vector<std::string>extensions)
 	{
 
 		for (GLuint i = 0; i < extensions.size(); i++)
-			if (GetFileWithExtension(path, extensions[i]).compare(STRING_ERROR) != 0)
+            if (GetFileWithExtension(path, extensions[i]))
 			return GetFileWithExtension(path, extensions[i]);
 
 
-		return STRING_ERROR;
+        return boost::optional<std::string>();
 
 	}
 

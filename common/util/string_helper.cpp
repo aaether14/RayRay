@@ -11,7 +11,7 @@ namespace AString
 
 
 
-	std::string LoadFileToString(std::string path)
+    boost::optional<std::string> LoadFileToString(std::string path)
 	{
 
 		std::string result;
@@ -27,14 +27,14 @@ namespace AString
 			FileStream.close();
 
 
-			return result;
+            return boost::optional<std::string>(result);
 
 
 		}
 		else
 		{
 			std::cerr<<"Imposible to open:" << path << std::endl;
-			return "ERROR";
+            return boost::optional<std::string>();
 		}
 
 
@@ -68,7 +68,7 @@ namespace AString
 
 			std::string t_file = path.substr(0, path.find_last_of("//") + 1) + code.substr(t_pos + 1, pos - (t_pos + 1));
 			code.erase(f_pos, pos - f_pos + 1);
-			code.insert(f_pos, AString::LoadFileToString(t_file));
+            code.insert(f_pos, AString::LoadFileToString(t_file).get());
 			pos = code.find(first_delimiter, f_pos + 1);
 
 
