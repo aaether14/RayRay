@@ -65,7 +65,7 @@ void InstanceCollection::Load()
 
 
             EntityCollection * entity_collection = static_cast<EntityCollection*>(GetManager()->Get("DataManager")->Get("EntityCollection"));
-            if (entity_collection->EntityExists(new_instance->GetEntityName()))
+            if (entity_collection->InCollection(new_instance->GetEntityName()))
                 AddInstance(instance_name, new_instance);
 
 

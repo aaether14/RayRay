@@ -103,6 +103,7 @@
 
 
 #include <base/base_error.hpp>
+#include <base/base_collection.hpp>
 #include <base/base_data.hpp>
 #include <base/base_component.hpp>
 #include <base/base_module.hpp>
@@ -118,7 +119,6 @@
 //---------------------------------------------//
 
 #include <filters/basic_filter.hpp>
-#include <filters/fxaa.hpp>
 #include <filters/g_buffer.hpp>
 
 //---------------------------------------------//

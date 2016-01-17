@@ -13,7 +13,6 @@
 
 
 #define NULL_FILTER 11
-#define FXAA_FILTER 20
 
 
 
@@ -26,7 +25,6 @@ class Techniques : public AModule
 
 
 	BasicFilterImplementation * basic_filter_implementation;
-	FXAAImplementation * fxaa_implementation;
 	GBuffer * g_buffer;
 
 
@@ -85,7 +83,6 @@ public:
 
 
 	inline BasicFilterImplementation * GetBasic(){ return basic_filter_implementation; }
-	inline FXAAImplementation * GetFXAA(){ return fxaa_implementation; }
 	inline GBuffer * GetGBuffer(){ return g_buffer; }
 
 

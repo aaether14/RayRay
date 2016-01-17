@@ -14,7 +14,7 @@
 /**
 Stores entity information
 */
-class EntityCollection : public AModule
+class EntityCollection : public AModule, public ACollection
 {
 
 
@@ -74,7 +74,7 @@ public:
     /**
     See if entity with 'name' exists
     */
-    inline GLboolean EntityExists(std::string name){return entity_map.count(name) > 0;}
+    inline bool InCollection(std::string name) {return entity_map.count(name) > 0;}
 
 
 

@@ -61,7 +61,7 @@ public:
 	/**
 	Get GBuffer pointer
 	*/
-	inline TextureObject * GetBuffer(){ return this->buffer; }
+    inline TextureObject * GetBuffer(){ return buffer; }
 	/**
 	Ping pong primary texture
 	*/

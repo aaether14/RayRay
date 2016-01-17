@@ -126,17 +126,9 @@ void EntityCollection::AddEntity(Entity * new_entity)
 
 
                 InfoComponent * ic = static_cast<InfoComponent*>(new_entity->GetComponent("InfoComponent"));
-                if (!EntityExists(ic->GetInfo()->entity_name))
-                    entity_map[ic->GetInfo()->entity_name].reset(new_entity);
-                else
-                {
-                    GLuint number_sufix = 2;
-                    while (EntityExists(ic->GetInfo()->entity_name + std::to_string(number_sufix)))
-                        number_sufix++;
-                    ic->GetInfo()->entity_name += std::to_string(number_sufix);
-                    entity_map[ic->GetInfo()->entity_name].reset(new_entity);
+                ic->GetInfo()->entity_name = GetAvailableName(ic->GetInfo()->entity_name);
+                entity_map[ic->GetInfo()->entity_name].reset(new_entity);
 
-                }
 
 
 
