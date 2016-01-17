@@ -91,6 +91,15 @@ BOOST_PYTHON_MODULE(GLM)
 
 
 
+    glm::detail::tvec2<float, glm::highp> (*vec2_normalize)(glm::detail::tvec2<float, glm::highp> const &) = &glm::normalize;
+    glm::detail::tvec3<float, glm::highp> (*vec3_normalize)(glm::detail::tvec3<float, glm::highp> const &) = &glm::normalize;
+    glm::detail::tvec4<float, glm::highp> (*vec4_normalize)(glm::detail::tvec4<float, glm::highp> const &) = &glm::normalize;
+    boost::python::def("normalize", vec2_normalize);
+    boost::python::def("normalize", vec3_normalize);
+    boost::python::def("normalize", vec4_normalize);
+
+
+
 
 }
 
