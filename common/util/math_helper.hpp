@@ -33,7 +33,7 @@ namespace Math
 /**
     Checks if sphere intersects with frustum
     */
-GLuint CylinderInFrustum(Frustum *frustum, glm::vec3 pos, GLfloat radius);
+AUInt CylinderInFrustum(Frustum *frustum, glm::vec3 pos, AFloat radius);
 
 
 /**
@@ -43,7 +43,7 @@ glm::mat4 Translation(glm::vec3 t_vec);
 /**
     Returns translation matrix from 3D vector(x,y,z)
     */
-inline glm::mat4 Translation(GLfloat x, GLfloat y, GLfloat z){ return Translation(glm::vec3(x, y, z)); }
+inline glm::mat4 Translation(AFloat x, AFloat y, AFloat z){ return Translation(glm::vec3(x, y, z)); }
 
 
 /**
@@ -53,17 +53,17 @@ glm::mat4 Scale(glm::vec3 t_vec);
 /**
     Returns scale matrix from 3D vector(x,y,z)
     */
-inline glm::mat4 Scale(GLfloat x, GLfloat y, GLfloat z){ return Scale(glm::vec3(x, y, z)); }
+inline glm::mat4 Scale(AFloat x, AFloat y, AFloat z){ return Scale(glm::vec3(x, y, z)); }
 /**
     Returns scale matrix from 3D vector(v,v,v)
     */
-inline glm::mat4 Scale(GLfloat v) { return Scale(v, v, v); }
+inline glm::mat4 Scale(AFloat v) { return Scale(v, v, v); }
 
 
 /**
     Returns rotation matrix from euler angles x,y,z
     */
-inline glm::mat4 Rotate(GLfloat x, GLfloat y, GLfloat z){ return glm::mat4_cast(glm::fquat(glm::vec3(x, y, z))); }
+inline glm::mat4 Rotate(AFloat x, AFloat y, AFloat z){ return glm::mat4_cast(glm::fquat(glm::vec3(x, y, z))); }
 /**
     Returns rotation matrix from euler angles v.x,v.y,v.z
     */
@@ -73,9 +73,9 @@ inline glm::mat4 Rotate(glm::vec3 v){ return Rotate(v.x, v.y, v.z); }
 
 
 /**
-    Returns a random float number within the boundaries
+    Returns a random AFloat number within the boundaries
     */
-inline GLfloat randomf(GLfloat LO, GLfloat HI){ return LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO))); }
+inline AFloat randomf(AFloat LO, AFloat HI){ return LO + static_cast <AFloat> (rand()) / (static_cast <AFloat> (RAND_MAX / (HI - LO))); }
 
 
 /**

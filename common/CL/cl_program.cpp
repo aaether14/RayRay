@@ -3,7 +3,7 @@
 
 
 
-void CLProgram::Init()
+AVoid CLProgram::Init()
 {
 
 
@@ -14,7 +14,7 @@ void CLProgram::Init()
 
 
 
-void CLProgram::Clean()
+AVoid CLProgram::Clean()
 {
 
 
@@ -41,7 +41,7 @@ void CLProgram::Clean()
 
 
 
-void CLProgram::Enable()
+AVoid CLProgram::Enable()
 {
 
 
@@ -55,11 +55,11 @@ void CLProgram::Enable()
 
 
 
-void CLProgram::Create(
+AVoid CLProgram::Create(
 	CLContextWrapper *cl_cw,
 	const std::wstring& program_file_name,
-	const string& program_text,
-	const string& build_options
+    const std::string& program_text,
+    const std::string& build_options
 	)
 {
 
@@ -84,9 +84,9 @@ void CLProgram::Create(
 	}
 
 	assert(program_file_name.empty() + program_text.empty() == 1);
+    std::vector<AChar> program_text_prepared;
 
-	// use vector for automatic memory management
-	std::vector<char> program_text_prepared;
+
 
 	if (!program_file_name.empty())
 	{
@@ -94,7 +94,7 @@ void CLProgram::Create(
 	}
 	else
 	{
-		program_text_prepared.resize(program_text.length() + 1);  // +1 for terminating zero
+        program_text_prepared.resize(program_text.length() + 1);
 		copy(program_text.begin(), program_text.end(), program_text_prepared.begin());
 	}
 

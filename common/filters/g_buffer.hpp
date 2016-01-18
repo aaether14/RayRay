@@ -28,7 +28,7 @@ class GBuffer
 	TextureObject * color_textures[2];
 
 
-	GLuint texture_index;
+	AUInt texture_index;
 
 
 public:
@@ -37,11 +37,11 @@ public:
 	/**
 	Calls Init()
 	*/
-	inline GBuffer(GLuint window_width, GLuint window_height){ Init(window_width, window_height); }
+	inline GBuffer(AUInt window_width, AUInt window_height){ Init(window_width, window_height); }
 	/**
 	Initialize GBuffer with screen size
 	*/
-	void Init(GLuint window_width, GLuint window_height);
+	AVoid Init(AUInt window_width, AUInt window_height);
 
 
 	/**
@@ -51,7 +51,7 @@ public:
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 	/**
@@ -75,11 +75,11 @@ public:
 	/**
 	Reset ping pong counter
 	*/
-	inline void Reset(){ texture_index = 0; }
+	inline AVoid Reset(){ texture_index = 0; }
 	/**
 	Ping pong ( Switching active texture)
 	*/
-	inline void Switch(){ texture_index = !texture_index; }
+	inline AVoid Switch(){ texture_index = !texture_index; }
 
 
 

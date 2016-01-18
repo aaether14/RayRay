@@ -90,13 +90,13 @@ std::string ManageDirective(std::string path, std::string code, std::string firs
 
 
 
-void FloatArrayFromString(GLfloat * _array, GLint &number_of_floats, std::string str)
+AVoid FloatArrayFromString(AFloat * _array, AInt &number_of_floats, std::string str)
 {
 
 
 
     std::string delimeter = ", ";
-    GLint k = 0;
+    AInt k = 0;
 
 
 
@@ -104,12 +104,12 @@ void FloatArrayFromString(GLfloat * _array, GLint &number_of_floats, std::string
     std::string token;
     while ((pos = str.find(delimeter)) != std::string::npos) {
         token = str.substr(0, pos);
-        _array[k++] = boost::lexical_cast<float>(token);
+        _array[k++] = boost::lexical_cast<AFloat>(token);
         str.erase(0, pos + delimeter.length());
     }
 
 
-    _array[k++] = boost::lexical_cast<float>(str);
+    _array[k++] = boost::lexical_cast<AFloat>(str);
     number_of_floats = k;
 
 
@@ -129,13 +129,13 @@ glm::vec2 GetVec2FromString(std::string str)
 {
 
 
-    GLfloat * values = new GLfloat[2];
-    GLint number_of_floats;
+    AFloat * values = new AFloat[2];
+    AInt number_of_floats;
     FloatArrayFromString(values, number_of_floats, str);
 
 
     glm::vec2 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(GLfloat));
+    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
 
 
     return v;
@@ -166,14 +166,14 @@ glm::vec3 GetVec3FromString(std::string str)
 {
 
 
-    GLfloat * values = new GLfloat[3];
-    GLint number_of_floats;
+    AFloat * values = new AFloat[3];
+    AInt number_of_floats;
     FloatArrayFromString(values, number_of_floats, str);
 
 
 
     glm::vec3 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(GLfloat));
+    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
 
 
     return v;
@@ -204,13 +204,13 @@ glm::vec4 GetVec4FromString(std::string str)
 {
 
 
-    GLfloat * values = new GLfloat[4];
-    GLint number_of_floats;
+    AFloat * values = new AFloat[4];
+    AInt number_of_floats;
     FloatArrayFromString(values, number_of_floats, str);
 
 
     glm::vec4 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(GLfloat));
+    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
 
 
     return v;
@@ -243,13 +243,13 @@ std::string GetStringFromVec4(glm::vec4 v)
 glm::mat4 GetMat4FromString(std::string str)
 {
 
-    GLfloat * values = new GLfloat[16];
-    GLint number_of_floats;
+    AFloat * values = new AFloat[16];
+    AInt number_of_floats;
     FloatArrayFromString(values, number_of_floats, str);
 
 
     glm::mat4 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(GLfloat));
+    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
 
 
     return v;

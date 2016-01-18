@@ -4,7 +4,7 @@
 
 
 
-void BasicFilterImplementation::Init()
+AVoid BasicFilterImplementation::Init()
 {
 
 
@@ -60,7 +60,7 @@ void BasicFilterImplementation::Init()
 
 
 
-void BasicFilterImplementation::Clean()
+AVoid BasicFilterImplementation::Clean()
 {
 
 
@@ -89,7 +89,7 @@ void BasicFilterImplementation::Clean()
 
 
 
-void BasicFilterImplementation::MultTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size)
+AVoid BasicFilterImplementation::MultTextures(TextureObject * target, AUInt tex1, AUInt tex2, glm::ivec2 window_size)
 {
 
 
@@ -113,7 +113,7 @@ void BasicFilterImplementation::MultTextures(TextureObject * target, GLuint tex1
 }
 
 
-void BasicFilterImplementation::AddTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size)
+AVoid BasicFilterImplementation::AddTextures(TextureObject * target, AUInt tex1, AUInt tex2, glm::ivec2 window_size)
 {
 
 

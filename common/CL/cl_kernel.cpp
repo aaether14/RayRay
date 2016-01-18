@@ -6,7 +6,7 @@
 
 
 
-void CLKernel::Init()
+AVoid CLKernel::Init()
 {
 
 
@@ -18,11 +18,11 @@ void CLKernel::Init()
 
 
 
-void CLKernel::Clean()
+AVoid CLKernel::Clean()
 {
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
 
 
 
@@ -31,7 +31,7 @@ void CLKernel::Clean()
 
 
 
-    //Cleaning float buffers
+    //Cleaning AFloat buffers
 
     std::pair<std::string, cl_mem> data_mem_buffer_it;
     BOOST_FOREACH(data_mem_buffer_it, kernel_data_mem_buffers)
@@ -93,11 +93,11 @@ void CLKernel::Clean()
 
 
 
-void CLKernel::Enable()
+AVoid CLKernel::Enable()
 {
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
     std::vector<cl_mem> gl_mem_textures;
     boost::copy(kernel_gl_texture_mem_buffers | boost::adaptors::map_values, std::back_inserter(gl_mem_textures));
 
@@ -123,12 +123,12 @@ void CLKernel::Enable()
 
 
 
-void CLKernel::Create(
+AVoid CLKernel::Create(
         CLContextWrapper * cl_cw,
         const std::wstring& program_file_name,
-        const string& program_text,
-        const string& kernel_name,
-        const string& build_options
+        const std::string& program_text,
+        const std::string& kernel_name,
+        const std::string& build_options
         )
 {
 
@@ -137,7 +137,7 @@ void CLKernel::Create(
     CLProgram::Create(cl_cw, program_file_name, program_text, build_options);
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
     kernel = clCreateKernel(GetCLProgram(), kernel_name.c_str(), &err);
     SAMPLE_CHECK_ERRORS(err);
 
@@ -148,7 +148,7 @@ void CLKernel::Create(
 
 
 template <class T>
-void CLKernel::AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags)
+AVoid CLKernel::AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags)
 {
 
 
@@ -160,7 +160,7 @@ void CLKernel::AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags 
 
 
     cl_mem buffer_mem = (cl_mem)0;
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
 
 
     //------------------------------------------//
@@ -192,8 +192,8 @@ void CLKernel::AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags 
 
 
 }
-template void CLKernel::AddDataBuffer<cl_float*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
-template void CLKernel::AddDataBuffer<cl_int*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
+template AVoid CLKernel::AddDataBuffer<AFloat*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
+template AVoid CLKernel::AddDataBuffer<AInt*>(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
 
 
 
@@ -201,10 +201,10 @@ template void CLKernel::AddDataBuffer<cl_int*>(std::string buffer_name, size_t s
 
 
 
-void CLKernel::ReleaseDataBuffer(std::string buffer_name)
+AVoid CLKernel::ReleaseDataBuffer(std::string buffer_name)
 {
 
-    cl_int err = clReleaseMemObject(kernel_data_mem_buffers[buffer_name]);
+    AInt err = clReleaseMemObject(kernel_data_mem_buffers[buffer_name]);
     SAMPLE_CHECK_ERRORS(err);
     kernel_data_mem_buffers.erase(buffer_name);
     kernel_data_buffers.erase(buffer_name);
@@ -218,20 +218,20 @@ void CLKernel::ReleaseDataBuffer(std::string buffer_name)
 
 
 template <class T>
-void CLKernel::WriteToDataBuffer(std::string buffer_name, size_t size, dtype data)
+AVoid CLKernel::WriteToDataBuffer(std::string buffer_name, size_t size, dtype data)
 {
 
 
 
-    int err = clEnqueueWriteBuffer(cl_cw_ptr->GetCLQueue(), kernel_data_mem_buffers[buffer_name], CL_TRUE,
+    AInt err = clEnqueueWriteBuffer(cl_cw_ptr->GetCLQueue(), kernel_data_mem_buffers[buffer_name], CL_TRUE,
                                    0, size, boost::get<T>(data), 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(err);
 
 
 
 }
-template void CLKernel::WriteToDataBuffer<cl_float*>(std::string buffer_name, size_t size, dtype data);
-template void CLKernel::WriteToDataBuffer<cl_int*>(std::string buffer_name, size_t size, dtype data);
+template AVoid CLKernel::WriteToDataBuffer<AFloat*>(std::string buffer_name, size_t size, dtype data);
+template AVoid CLKernel::WriteToDataBuffer<AInt*>(std::string buffer_name, size_t size, dtype data);
 
 
 
@@ -239,11 +239,11 @@ template void CLKernel::WriteToDataBuffer<cl_int*>(std::string buffer_name, size
 
 
 
-void CLKernel::ReadDataBuffer(std::string buffer_name, size_t size)
+AVoid CLKernel::ReadDataBuffer(std::string buffer_name, size_t size)
 {
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
 
 
     err = clEnqueueReadBuffer(cl_cw_ptr->GetCLQueue(), kernel_data_mem_buffers[buffer_name], CL_TRUE, 0, size, &kernel_data_buffers[buffer_name], 0, NULL, NULL);
@@ -257,12 +257,12 @@ void CLKernel::ReadDataBuffer(std::string buffer_name, size_t size)
 
 
 
-void CLKernel::SetDataBufferArg(std::string buffer_name, cl_uint arg)
+AVoid CLKernel::SetDataBufferArg(std::string buffer_name, AUInt arg)
 {
 
 
-    cl_int err = CL_SUCCESS;
-    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (void *)&kernel_data_mem_buffers[buffer_name]);
+    AInt err = CL_SUCCESS;
+    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (AVoid *)&kernel_data_mem_buffers[buffer_name]);
     SAMPLE_CHECK_ERRORS(err);
 
 
@@ -275,18 +275,18 @@ void CLKernel::SetDataBufferArg(std::string buffer_name, cl_uint arg)
 
 
 template <class T>
-void CLKernel::SetArgValue(T value, cl_uint arg)
+AVoid CLKernel::SetArgValue(T value, AUInt arg)
 {
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
     err = clSetKernelArg(kernel, arg, sizeof(T), &value);
     SAMPLE_CHECK_ERRORS(err);
 
 
 }
-template void CLKernel::SetArgValue<cl_float>(cl_float value, cl_uint arg);
-template void CLKernel::SetArgValue<cl_int>(cl_int value, cl_uint arg);
+template AVoid CLKernel::SetArgValue<AFloat>(AFloat value, AUInt arg);
+template AVoid CLKernel::SetArgValue<AInt>(AInt value, AUInt arg);
 
 
 
@@ -295,7 +295,7 @@ template void CLKernel::SetArgValue<cl_int>(cl_int value, cl_uint arg);
 
 
 
-void CLKernel::SetWorkSize(size_t global, size_t local)
+AVoid CLKernel::SetWorkSize(size_t global, size_t local)
 {
 
 
@@ -311,11 +311,11 @@ void CLKernel::SetWorkSize(size_t global, size_t local)
 
 
 
-void CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t height, GLint internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags)
+AVoid CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t height, AInt internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags)
 {
 
 
-    GLuint new_texture_id;
+    AUInt new_texture_id;
     glGenTextures(1, &new_texture_id);
     glBindTexture(GL_TEXTURE_2D, new_texture_id);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -326,7 +326,7 @@ void CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t heigh
 
 
 
-    cl_int err = CL_SUCCESS;
+    AInt err = CL_SUCCESS;
     cl_mem new_texture_mem = clCreateFromGLTexture(cl_cw_ptr->GetCLContext(),
                                                    mem_flags,
                                                    GL_TEXTURE_2D,
@@ -338,7 +338,7 @@ void CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t heigh
 
 
     SAMPLE_CHECK_ERRORS(err);
-    kernel_gl_texture_buffers.insert(std::pair<std::string, GLuint>(texture_name, new_texture_id));
+    kernel_gl_texture_buffers.insert(std::pair<std::string, AUInt>(texture_name, new_texture_id));
     kernel_gl_texture_mem_buffers.insert(std::pair<std::string, cl_mem>(texture_name, new_texture_mem));
 
 
@@ -350,12 +350,12 @@ void CLKernel::AddGLTexture(std::string texture_name, size_t width, size_t heigh
 
 
 
-void CLKernel::SetGLTextureArg(std::string texture_name, cl_uint arg)
+AVoid CLKernel::SetGLTextureArg(std::string texture_name, AUInt arg)
 {
 
 
-    cl_int err = CL_SUCCESS;
-    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (void *)&kernel_gl_texture_mem_buffers[texture_name]);
+    AInt err = CL_SUCCESS;
+    err = clSetKernelArg(kernel, arg, sizeof(cl_mem), (AVoid *)&kernel_gl_texture_mem_buffers[texture_name]);
     SAMPLE_CHECK_ERRORS(err);
 
 
@@ -365,12 +365,12 @@ void CLKernel::SetGLTextureArg(std::string texture_name, cl_uint arg)
 
 
 
-void CLKernel::ReleaseGLTexture(std::string texture_name)
+AVoid CLKernel::ReleaseGLTexture(std::string texture_name)
 {
 
 
     glDeleteTextures(1, &kernel_gl_texture_buffers[texture_name]);
-    cl_int err = clReleaseMemObject(kernel_gl_texture_mem_buffers[texture_name]);
+    AInt err = clReleaseMemObject(kernel_gl_texture_mem_buffers[texture_name]);
     SAMPLE_CHECK_ERRORS(err);
 
 

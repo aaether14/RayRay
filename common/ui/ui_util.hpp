@@ -26,11 +26,11 @@ namespace UI_UTIL
 	/**
 	Convert key codes from a library to another
 	*/
-	CEGUI::Key::Scan GlfwToCeguiKey(int glfwKey);
+	CEGUI::Key::Scan GlfwToCeguiKey(AInt glfwKey);
 	/**
 	Convert mouse codes from a library to another
 	*/
-	CEGUI::MouseButton GlfwToCeguiMouseButton(int glfwButton);
+	CEGUI::MouseButton GlfwToCeguiMouseButton(AInt glfwButton);
 	/**
 	Convert colour from a library to another
 	*/

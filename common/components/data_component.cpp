@@ -4,7 +4,7 @@
 
 
 
-bool DataComponent::isValid(std::string extension)
+ABoolean DataComponent::isValid(std::string extension)
 {
 
 
@@ -21,7 +21,7 @@ bool DataComponent::isValid(std::string extension)
 
 
 
-void DataComponent::Load(std::string path, std::string extension)
+AVoid DataComponent::Load(std::string path, std::string extension)
 {
 
 
@@ -38,7 +38,7 @@ void DataComponent::Load(std::string path, std::string extension)
 
 
 
-void DataComponent::Init()
+AVoid DataComponent::Init()
 {
 
 
@@ -49,7 +49,7 @@ void DataComponent::Init()
 
 
 
-void DataComponent::Clean()
+AVoid DataComponent::Clean()
 {
 
 

@@ -3,7 +3,7 @@
 
 
 
-void AData::LoadInterface(boost::property_tree::ptree base_index)
+AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
 {
 
 
@@ -21,9 +21,9 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
         if (v.first == "Float")
-            SetFloat(v.second.get<std::string>("V"),boost::lexical_cast<float>(v.second.get<std::string>("D")));
+            SetFloat(v.second.get<std::string>("V"),boost::lexical_cast<AFloat>(v.second.get<std::string>("D")));
         if (v.first == "Int")
-            SetInt(v.second.get<std::string>("V"), boost::lexical_cast<int>(v.second.get<std::string>("D")));
+            SetInt(v.second.get<std::string>("V"), boost::lexical_cast<AInt>(v.second.get<std::string>("D")));
         if (v.first == "String")
             SetString(v.second.get<std::string>("V"), v.second.get<std::string>("D"));
         if (v.first == "Vec2")
@@ -49,7 +49,7 @@ void AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
 
-void AData::Debug()
+AVoid AData::Debug()
 {
 
 
@@ -65,7 +65,7 @@ void AData::Debug()
     {
         std::cout << std::endl;
         std::cout << "Floats:" << std::endl;
-        std::pair<std::string, GLfloat> it;
+        std::pair<std::string, AFloat> it;
 
 
         BOOST_FOREACH(it, float_map)
@@ -81,7 +81,7 @@ void AData::Debug()
     {
         std::cout << std::endl;
         std::cout << "Integers:" << std::endl;
-        std::pair<std::string, GLint> it;
+        std::pair<std::string, AInt> it;
 
 
         BOOST_FOREACH(it, int_map)
@@ -170,7 +170,7 @@ void AData::Debug()
 
 
 
-void AData::Clean()
+AVoid AData::Clean()
 {
 
 
@@ -209,7 +209,7 @@ boost::property_tree::ptree AData::Save()
     if (float_map.size() > 0)
     {
 
-        std::pair<std::string, GLfloat> it;
+        std::pair<std::string, AFloat> it;
 
         BOOST_FOREACH(it, float_map)
         {
@@ -230,7 +230,7 @@ boost::property_tree::ptree AData::Save()
     if (int_map.size() > 0)
     {
 
-        std::pair<std::string, GLint> it;
+        std::pair<std::string, AInt> it;
 
         BOOST_FOREACH(it, int_map)
         {

@@ -4,7 +4,7 @@
 
 
 
-bool InfoComponent::isValid(std::string extension)
+ABoolean InfoComponent::isValid(std::string extension)
 {
 
 
@@ -21,7 +21,7 @@ bool InfoComponent::isValid(std::string extension)
 
 
 
-void InfoComponent::Load(std::string path, std::string extension)
+AVoid InfoComponent::Load(std::string path, std::string extension)
 {
 
 	//Read if valid file
@@ -35,7 +35,7 @@ void InfoComponent::Load(std::string path, std::string extension)
 
 
 
-void InfoComponent::Init()
+AVoid InfoComponent::Init()
 {
 
 
@@ -46,7 +46,7 @@ void InfoComponent::Init()
 
 
 
-void InfoComponent::Clean()
+AVoid InfoComponent::Clean()
 {
 
 
@@ -58,7 +58,7 @@ void InfoComponent::Clean()
 
 
 
-void InfoComponent::GeneralEntityInfo::Read(std::string path)
+AVoid InfoComponent::GeneralEntityInfo::Read(std::string path)
 {
 
 

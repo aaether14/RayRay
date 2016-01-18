@@ -7,7 +7,7 @@
 
 
 
-void BaseResourceLoader::SaveChanges()
+AVoid BaseResourceLoader::SaveChanges()
 {
 
 
@@ -34,7 +34,7 @@ void BaseResourceLoader::SaveChanges()
 
 
 
-void BaseResourceLoader::LoadChanges()
+AVoid BaseResourceLoader::LoadChanges()
 {
 
 
@@ -65,7 +65,7 @@ void BaseResourceLoader::LoadChanges()
 
 
 
-void BaseResourceLoader::NoChanges()
+AVoid BaseResourceLoader::NoChanges()
 {
 
 
@@ -95,7 +95,7 @@ void BaseResourceLoader::NoChanges()
 
 
 
-void BaseResourceLoader::Init()
+AVoid BaseResourceLoader::Init()
 {
 
 
@@ -105,7 +105,7 @@ void BaseResourceLoader::Init()
 
 
 
-void BaseResourceLoader::Clean()
+AVoid BaseResourceLoader::Clean()
 {
 
 
@@ -115,7 +115,7 @@ void BaseResourceLoader::Clean()
 
 
 
-void BaseResourceLoader::Enable()
+AVoid BaseResourceLoader::Enable()
 {
 
 

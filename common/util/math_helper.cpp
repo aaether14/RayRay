@@ -45,13 +45,13 @@ namespace Math
 	//----------------------------------------------------------------------//
 
 
-	GLuint CylinderInFrustum(Frustum *frustum, glm::vec3 pos, GLfloat radius)
+	AUInt CylinderInFrustum(Frustum *frustum, glm::vec3 pos, AFloat radius)
 	{
 
 
-		GLuint p;
-		GLuint c = 0;
-		GLfloat d;
+		AUInt p;
+		AUInt c = 0;
+		AFloat d;
 
 
 		for (p = 0; p < 4; p++)

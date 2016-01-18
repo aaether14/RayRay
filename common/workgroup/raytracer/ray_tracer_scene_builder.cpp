@@ -3,7 +3,7 @@
 
 
 
-void RayTracerSceneBuilder::Init()
+AVoid RayTracerSceneBuilder::Init()
 {
 
 
@@ -17,7 +17,7 @@ void RayTracerSceneBuilder::Init()
 
 
 
-void RayTracerSceneBuilder::Clean()
+AVoid RayTracerSceneBuilder::Clean()
 {
 
 
@@ -32,7 +32,7 @@ void RayTracerSceneBuilder::Clean()
 
 
 
-void RayTracerSceneBuilder::Enable()
+AVoid RayTracerSceneBuilder::Enable()
 {
 
 
@@ -141,35 +141,35 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-    std::map<std::string, cl_uint> material_indices;
+    std::map<std::string, AUInt> material_indices;
 
 
 
-    for (int i = 0; i < materials.size(); i++)
+    for (AInt i = 0; i < materials.size(); i++)
     {
         AddMaterial(materials[i]->GetVec3("Ambient"), materials[i]->GetFloat("Reflectivity"),
                     materials[i]->GetFloat("Refractivity"), materials[i]->GetFloat("Specularity"),
                     materials[i]->GetFloat("Diffuse"));
-        material_indices.insert(std::pair<std::string, cl_uint>(materials[i]->GetString("MaterialName"),i));
+        material_indices.insert(std::pair<std::string, AUInt>(materials[i]->GetString("MaterialName"),i));
     }
-    for (int i = 0; i < spheres.size(); i += 2)
+    for (AInt i = 0; i < spheres.size(); i += 2)
     {
         AddSphere(spheres[i]->GetVec3("SpherePosition") + spheres[i + 1]->GetVec3("Position"),
                 spheres[i]->GetFloat("SphereRadius"),
                 material_indices[spheres[i]->GetString("MaterialName")]);
     }
-    for (int i = 0; i < boxes.size(); i += 2)
+    for (AInt i = 0; i < boxes.size(); i += 2)
     {
         AddBox(boxes[i]->GetVec3("NearPoint") + boxes[i + 1]->GetVec3("Position"),
                 boxes[i]->GetVec3("FarPoint") + boxes[i + 1]->GetVec3("Position"),
                 material_indices[boxes[i]->GetString("MaterialName")]);
     }
-    for (int i = 0; i < planes.size(); i++)
+    for (AInt i = 0; i < planes.size(); i++)
     {
         AddPlane(planes[i]->GetVec3("PlaneNormal"), planes[i]->GetFloat("PlaneDistance"),
                  material_indices[planes[i]->GetString("MaterialName")]);
     }
-    for (int i = 0; i < lights.size(); i++)
+    for (AInt i = 0; i < lights.size(); i++)
     {
         AddLight(lights[i]->GetVec3("LightPosition"), material_indices[lights[i]->GetString("MaterialName")]);
     }
@@ -182,7 +182,7 @@ void RayTracerSceneBuilder::Enable()
 
 
 
-void RayTracerSceneBuilder::AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint mat)
+AVoid RayTracerSceneBuilder::AddSphere(glm::vec3 pos, cl_float sq_dist, AUInt mat)
 {
 
 
@@ -199,7 +199,7 @@ void RayTracerSceneBuilder::AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint m
 
 
 
-void RayTracerSceneBuilder::AddBox(glm::vec3 near_point, glm::vec3 far_point, cl_uint mat)
+AVoid RayTracerSceneBuilder::AddBox(glm::vec3 near_point, glm::vec3 far_point, AUInt mat)
 {
 
     scene_data.push_back(near_point.x);
@@ -217,7 +217,7 @@ void RayTracerSceneBuilder::AddBox(glm::vec3 near_point, glm::vec3 far_point, cl
 
 
 
-void RayTracerSceneBuilder::AddPlane(glm::vec3 normal, cl_float dist, cl_uint mat)
+AVoid RayTracerSceneBuilder::AddPlane(glm::vec3 normal, cl_float dist, AUInt mat)
 {
 
 
@@ -233,7 +233,7 @@ void RayTracerSceneBuilder::AddPlane(glm::vec3 normal, cl_float dist, cl_uint ma
 
 
 
-void RayTracerSceneBuilder::AddMaterial(glm::vec3 amb, cl_float refl, cl_float refr, cl_float spec, cl_float diff)
+AVoid RayTracerSceneBuilder::AddMaterial(glm::vec3 amb, cl_float refl, cl_float refr, cl_float spec, cl_float diff)
 {
 
 
@@ -252,7 +252,7 @@ void RayTracerSceneBuilder::AddMaterial(glm::vec3 amb, cl_float refl, cl_float r
 
 
 
-void RayTracerSceneBuilder::AddLight(glm::vec3 center, cl_uint mat)
+AVoid RayTracerSceneBuilder::AddLight(glm::vec3 center, AUInt mat)
 {
 
 

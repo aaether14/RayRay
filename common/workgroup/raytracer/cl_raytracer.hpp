@@ -28,20 +28,20 @@ public:
 	/**
 	Initailizes data
 	*/
-	void Init();
+	AVoid Init();
 
 
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 
 	/**
 	Determines how raytracer will affect scene
 	*/
-	void Enable();
+	AVoid Enable();
 
 
 

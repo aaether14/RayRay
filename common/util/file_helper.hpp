@@ -30,18 +30,18 @@ namespace AFile
 	/**
 	Writes anytype of data to binary file
 	*/
-	inline void WriteToFile(std::ofstream& os, const T& obj){ os.write((const char*)&(obj), sizeof(T)); }
+	inline AVoid WriteToFile(std::ofstream& os, const T& obj){ os.write((const AChar*)&(obj), sizeof(T)); }
 	template <class T>
 	/**
 	Reads anytype of data from binary file
 	*/
-	inline void ReadFromFile(std::ifstream& is, const T& obj){ is.read((char*)&(obj), sizeof(T)); }
+	inline AVoid ReadFromFile(std::ifstream& is, const T& obj){ is.read((AChar*)&(obj), sizeof(T)); }
 
 
 	/**
 	Copy folder from a location to another. Returns true if succesful
 	*/
-    bool CopyDirectory(
+    ABoolean CopyDirectory(
 		boost::filesystem::path const & source,
 		boost::filesystem::path const & destination
 		);
@@ -60,19 +60,19 @@ namespace AFile
 	/**
 	Return size of file
 	*/
-	long GetFileSize(const char* filePath);
+    ALong GetFileSize(const AChar* filePath);
 	/**
 	Read file content into memory and return pointer
 	*/
-	unsigned char * ReadFile(const char * filePath);
+	AUChar * ReadFile(const AChar * filePath);
 	/**
 	Encrypt file from 'path' using Blowfish algorithm
 	*/
-	void BlowfishEncryptFile(const char * path);
+	AVoid BlowfishEncryptFile(const AChar * path);
 	/**
 	Get decrytpted file from 'path' to string using Blowfish algorithm
 	*/
-	std::string BlowfishDecryptFile(const char * path);
+	std::string BlowfishDecryptFile(const AChar * path);
 	/**
 	Get ptree from xml
 	*/
@@ -80,7 +80,7 @@ namespace AFile
 	/**
 	Save ptree to xml
 	*/
-	void SavePtree(std::string path, boost::property_tree::ptree ptree);
+	AVoid SavePtree(std::string path, boost::property_tree::ptree ptree);
 
 
 }

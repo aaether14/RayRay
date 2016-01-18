@@ -25,7 +25,7 @@ public:
 	/**
 	Add 'module' to 'key'
 	*/
-	virtual void Add(std::string key, AModule*module);
+    virtual AVoid Add(std::string key, AModule*module);
 	/**
 	Get module from 'key'
 	*/
@@ -36,15 +36,15 @@ public:
 	/**
 	Determine how module affects engine
 	*/
-	virtual void Enable() = 0;
+    virtual AVoid Enable() = 0;
 	/**
 	Clean data
 	*/
-	virtual void Clean() = 0;
+    virtual AVoid Clean() = 0;
 	/**
 	Initialize data
 	*/
-	virtual void Init() = 0;
+    virtual AVoid Init() = 0;
 	/**
 	Get manager
 	*/
@@ -60,11 +60,11 @@ protected:
 	/**
 	Set manager of module
 	*/
-	virtual void SetManager(AModule * module);
+    virtual AVoid SetManager(AModule * module);
 	/**
 	Standardized cleaning routine
 	*/
-	virtual void CleanModule();
+    virtual AVoid CleanModule();
 
 
 

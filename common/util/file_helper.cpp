@@ -8,7 +8,7 @@ namespace AFile
 {
 
 
-    bool CopyDirectory(
+    ABoolean CopyDirectory(
 		boost::filesystem::path const & source,
 		boost::filesystem::path const & destination
 		)
@@ -113,7 +113,7 @@ namespace AFile
     boost::optional<std::string> GetFileWithExtensionList(std::string path, std::vector<std::string>extensions)
 	{
 
-		for (GLuint i = 0; i < extensions.size(); i++)
+		for (AUInt i = 0; i < extensions.size(); i++)
             if (GetFileWithExtension(path, extensions[i]))
 			return GetFileWithExtension(path, extensions[i]);
 
@@ -124,7 +124,7 @@ namespace AFile
 
 
 
-	long GetFileSize(const char* filePath)
+	ALong GetFileSize(const AChar* filePath)
 	{
 		FILE* pFile = fopen(filePath, "rb");
 
@@ -132,7 +132,7 @@ namespace AFile
 			exit(1);
 
 		fseek(pFile, 0, SEEK_END);
-		long lSize = ftell(pFile);
+		ALong lSize = ftell(pFile);
 		rewind(pFile);
 		fclose(pFile);
 
@@ -141,11 +141,11 @@ namespace AFile
 
 
 
-	unsigned char * ReadFile(const char * filePath)
+	AUChar * ReadFile(const AChar * filePath)
 	{
 		FILE * pFile;
-		long lSize;
-		unsigned char * buffer;
+		ALong lSize;
+		AUChar * buffer;
 		size_t result;
 
 		pFile = fopen(filePath, "rb");
@@ -157,7 +157,7 @@ namespace AFile
 		rewind(pFile);
 
 		// allocate memory to contain the whole file:
-		buffer = (unsigned char*)malloc(sizeof(unsigned char)*lSize);
+		buffer = (AUChar*)malloc(sizeof(AUChar)*lSize);
 		if (buffer == NULL) { fputs("Memory error", stderr); exit(1); }
 
 		// copy the file into the buffer:
@@ -174,13 +174,13 @@ namespace AFile
 
 
 
-	void BlowfishEncryptFile(const char * path)
+	AVoid BlowfishEncryptFile(const AChar * path)
 	{
 
  
-		long multiple_of_eight_size;
-		long file_size = GetFileSize(path);
-		if (double(file_size / 8.0) != long(file_size / 8))
+		ALong multiple_of_eight_size;
+		ALong file_size = GetFileSize(path);
+        if (ADouble(file_size / 8.0) != ALong(file_size / 8))
 			multiple_of_eight_size = (file_size / 8 + 1) * 8;
 		else
 			multiple_of_eight_size = file_size;
@@ -188,15 +188,15 @@ namespace AFile
 
 
 
-		int byte_pad = multiple_of_eight_size - file_size;
-		unsigned char * file = ReadFile(path);
-		unsigned char * buffer = (unsigned char*)malloc(multiple_of_eight_size);
-		unsigned char * buffer2 = (unsigned char*)malloc(multiple_of_eight_size);
+		AInt byte_pad = multiple_of_eight_size - file_size;
+		AUChar * file = ReadFile(path);
+		AUChar * buffer = (AUChar*)malloc(multiple_of_eight_size);
+		AUChar * buffer2 = (AUChar*)malloc(multiple_of_eight_size);
 		memcpy(buffer, file, file_size);
 
 
 
-		for (int i = 0; i < byte_pad; i++)
+		for (AInt i = 0; i < byte_pad; i++)
 			buffer[file_size + i] = '\0';
 
 
@@ -206,10 +206,10 @@ namespace AFile
 		{
 
 
-			CBlowFish oBlowFish((unsigned char*)"abcdefgh", 8);
-			oBlowFish.Encrypt((unsigned char*)buffer, (unsigned char*)buffer2, multiple_of_eight_size);
+			CBlowFish oBlowFish((AUChar*)"abcdefgh", 8);
+			oBlowFish.Encrypt((AUChar*)buffer, (AUChar*)buffer2, multiple_of_eight_size);
 			std::ofstream fout(path, std::ios::binary);
-			fout.write((const char*)(buffer2), multiple_of_eight_size);
+			fout.write((const AChar*)(buffer2), multiple_of_eight_size);
 			fout.close();
 
 
@@ -224,14 +224,14 @@ namespace AFile
 
 
 
-	std::string BlowfishDecryptFile(const char * path)
+	std::string BlowfishDecryptFile(const AChar * path)
 	{
 
 
 
-		long multiple_of_eight_size;
-		long file_size = GetFileSize(path);
-		if (double(file_size / 8.0) != long(file_size / 8))
+		ALong multiple_of_eight_size;
+		ALong file_size = GetFileSize(path);
+        if (ADouble(file_size / 8.0) != ALong(file_size / 8))
 			multiple_of_eight_size = (file_size / 8 + 1) * 8;
 		else
 			multiple_of_eight_size = file_size;
@@ -241,9 +241,9 @@ namespace AFile
 
 
 
-		unsigned char * file = ReadFile(path);
-		unsigned char * buffer = (unsigned char*)malloc(multiple_of_eight_size);
-		unsigned char * buffer2 = (unsigned char*)malloc(multiple_of_eight_size);
+		AUChar * file = ReadFile(path);
+		AUChar * buffer = (AUChar*)malloc(multiple_of_eight_size);
+		AUChar * buffer2 = (AUChar*)malloc(multiple_of_eight_size);
 		memcpy(buffer, file, file_size);
 
 
@@ -257,8 +257,8 @@ namespace AFile
 		{
 
 
-			CBlowFish oBlowFish((unsigned char*)"abcdefgh", 8);
-			oBlowFish.Decrypt((unsigned char*)buffer, (unsigned char*)buffer2, multiple_of_eight_size);
+			CBlowFish oBlowFish((AUChar*)"abcdefgh", 8);
+			oBlowFish.Decrypt((AUChar*)buffer, (AUChar*)buffer2, multiple_of_eight_size);
 
 
 			file_size--;
@@ -305,11 +305,11 @@ namespace AFile
 
 
 
-	void SavePtree(std::string path, boost::property_tree::ptree ptree)
+	AVoid SavePtree(std::string path, boost::property_tree::ptree ptree)
 	{
 
 
-		boost::property_tree::xml_writer_settings<char> settings(' ', 4);
+		boost::property_tree::xml_writer_settings<AChar> settings(' ', 4);
 		write_xml(path, ptree, std::locale(), settings);
 
 

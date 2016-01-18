@@ -2,7 +2,7 @@
 
 
 
-void GBuffer::Init(GLuint window_width, GLuint window_height)
+AVoid GBuffer::Init(AUInt window_width, AUInt window_height)
 {
 
 
@@ -34,7 +34,7 @@ void GBuffer::Init(GLuint window_width, GLuint window_height)
 
 
 	
-	for (GLuint i = 0; i < 2; i++)
+	for (AUInt i = 0; i < 2; i++)
 	{
 
 
@@ -54,7 +54,7 @@ void GBuffer::Init(GLuint window_width, GLuint window_height)
 
 
 
-void GBuffer::Clean()
+AVoid GBuffer::Clean()
 {
 
 
@@ -62,7 +62,7 @@ void GBuffer::Clean()
 	delete buffer;
 
 
-	for (GLuint i = 0; i < 2; i++)
+	for (AUInt i = 0; i < 2; i++)
 		if (color_textures[i])
 		delete color_textures[i];
 

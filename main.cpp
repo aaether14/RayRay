@@ -9,7 +9,7 @@
 
 
 
-int main(int argc, char *argv[])
+AInt main(AInt argc, AChar *argv[])
 {
 
 

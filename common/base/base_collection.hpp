@@ -20,7 +20,7 @@ public:
 
 
 
-    virtual bool InCollection(std::string name) = 0;
+    virtual ABoolean InCollection(std::string name) = 0;
 
 
 
@@ -36,7 +36,7 @@ public:
             return initial_name;
         else
         {
-            GLuint number_sufix = 2;
+            AUInt number_sufix = 2;
             while (InCollection(initial_name + std::to_string(number_sufix)))
                 number_sufix++;
 

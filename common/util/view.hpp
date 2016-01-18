@@ -22,17 +22,17 @@ class ViewInfo
 	glm::vec3 position;
 	glm::vec3 direction;
 	glm::vec3 up;
-	GLfloat distance;
-	GLfloat render_distance;
-	GLfloat z_near;
-	GLfloat FoV;
-	GLfloat ratio;
+	AFloat distance;
+	AFloat render_distance;
+	AFloat z_near;
+	AFloat FoV;
+	AFloat ratio;
 
 
 public:
 
 	inline ViewInfo() { this->Init(); }
-	void Init();
+	AVoid Init();
 
 
 
@@ -41,7 +41,7 @@ public:
 	/**
 	Gets values of another ViewInfo
 	*/
-	inline void SetFromOther(ViewInfo * other)
+	inline AVoid SetFromOther(ViewInfo * other)
 	{
 		this->position = other->getCameraPos();
 		this->direction = other->getDirection();
@@ -59,23 +59,23 @@ public:
 
 
 	inline glm::vec3 getCameraPos() { return position; }
-	inline void setUpVec(glm::vec3 t_vec) { this->up = t_vec; }
+	inline AVoid setUpVec(glm::vec3 t_vec) { this->up = t_vec; }
 	inline glm::vec3 getDirection() { return direction; }
-	inline GLfloat getRatio(){ return this->ratio; }
-	inline void setRatio(GLfloat ratio) { this->ratio = ratio; }
+	inline AFloat getRatio(){ return this->ratio; }
+	inline AVoid setRatio(AFloat ratio) { this->ratio = ratio; }
 	inline glm::vec3 getUpVec() { return this->up; }
-	inline GLfloat getNear() { return this->z_near; }
-	inline void setNear(GLfloat _near) { this->z_near = _near; }
-	inline void SetRenderDistance(GLfloat r_d) { this->render_distance = r_d; }
-	inline void SetCameraPos(glm::vec3 pos) { this->position = pos; }
-	inline void SetCameraY(GLfloat y) { this->position.y = y; }
-	inline void SetDistance(GLfloat new_distance) { this->distance = new_distance; }
-	inline void setDirection(glm::vec3 dir) { this->direction = dir; }
-	inline GLfloat getFoV() { return this->FoV; }
-	inline GLfloat getTanHalfFov(){ return tanf((FoV / 2.0f) * M_PI / 180.0); }
-	inline void setFov(GLfloat FoV) { this->FoV = FoV; }
-	inline GLfloat getRenderDistance() { return this->render_distance; }
-    inline GLfloat getDistance() { return this->distance; }
+	inline AFloat getNear() { return this->z_near; }
+	inline AVoid setNear(AFloat _near) { this->z_near = _near; }
+	inline AVoid SetRenderDistance(AFloat r_d) { this->render_distance = r_d; }
+	inline AVoid SetCameraPos(glm::vec3 pos) { this->position = pos; }
+	inline AVoid SetCameraY(AFloat y) { this->position.y = y; }
+	inline AVoid SetDistance(AFloat new_distance) { this->distance = new_distance; }
+	inline AVoid setDirection(glm::vec3 dir) { this->direction = dir; }
+	inline AFloat getFoV() { return this->FoV; }
+	inline AFloat getTanHalfFov(){ return tanf((FoV / 2.0f) * M_PI / 180.0); }
+	inline AVoid setFov(AFloat FoV) { this->FoV = FoV; }
+	inline AFloat getRenderDistance() { return this->render_distance; }
+    inline AFloat getDistance() { return this->distance; }
 
 
 
@@ -101,11 +101,11 @@ class View
 	/**
 	Creates a 3rd person view from parameters
 	*/
-	void Create3rd(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, GLfloat distance, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+	AVoid Create3rd(AFloat FoV, AFloat ratio, AFloat z_near, AFloat z_far, AFloat distance, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 	/**
 	Creates a 1st person view from parameters
 	*/
-	void Create1st(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+	AVoid Create1st(AFloat FoV, AFloat ratio, AFloat z_near, AFloat z_far, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
 
 
@@ -116,11 +116,11 @@ public:
 	/**
 	Creates a 3rd person view from a ViewInfo
 	*/
-	void Create3rd(ViewInfo *info);
+	AVoid Create3rd(ViewInfo *info);
 	/**
 	Creates a 1st person view from a ViewInfo
 	*/
-	void Create1st(ViewInfo *info);
+	AVoid Create1st(ViewInfo *info);
 	/**
 	Returns view matrix aka world matrix
 	*/
@@ -136,11 +136,11 @@ public:
 	/**
 	Set projection
 	*/
-	inline void SetProjection(glm::mat4 ProjectionMatrix){ this->ProjectionMatrix = ProjectionMatrix; }
+	inline AVoid SetProjection(glm::mat4 ProjectionMatrix){ this->ProjectionMatrix = ProjectionMatrix; }
 	/**
 	Set view matrix
 	*/
-	inline void SetView(glm::mat4 ViewMatrix){ this->ViewMatrix = ViewMatrix; }
+	inline AVoid SetView(glm::mat4 ViewMatrix){ this->ViewMatrix = ViewMatrix; }
 
 
 
@@ -177,7 +177,7 @@ public:
 	/**
 	Create out of matrix
 	*/
-	void Create(glm::mat4 MVP);
+	AVoid Create(glm::mat4 MVP);
 
 
 

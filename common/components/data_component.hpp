@@ -21,22 +21,22 @@ public:
 	/**
 	Initialize data
 	*/
-	void Init();
+	AVoid Init();
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 
 	/**
 	Provide definition for pure virtual function
 	*/
-	bool isValid(std::string extension);
+	ABoolean isValid(std::string extension);
 	/**
 	Provide definition for pure virtual function
 	*/
-	void Load(std::string path, std::string extension);
+	AVoid Load(std::string path, std::string extension);
 
 
 

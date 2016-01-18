@@ -2,7 +2,7 @@
 
 
 
-void DataManager::Init()
+AVoid DataManager::Init()
 {
 
 
@@ -30,7 +30,7 @@ void DataManager::Init()
 
 
 
-void DataManager::Enable()
+AVoid DataManager::Enable()
 {
 
 
@@ -39,7 +39,7 @@ void DataManager::Enable()
 }
 
 
-void DataManager::Clean()
+AVoid DataManager::Clean()
 {
 
 

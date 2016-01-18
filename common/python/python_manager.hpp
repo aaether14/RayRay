@@ -29,15 +29,15 @@ public:
     /**
      Initialization
      */
-    void Init();
+    AVoid Init();
     /**
      Cleaning up
      */
-    void Clean();
+    AVoid Clean();
     /**
      Matching interface
      */
-    void Enable();
+    AVoid Enable();
 
 
 

@@ -31,7 +31,7 @@ class Camera : public AModule
 	/**
 	Variable used by the camera controller
 	*/
-	GLdouble camera_speed[4];
+	ADouble camera_speed[4];
 	/**
 	Angles to compute spherical coords
 	*/
@@ -61,15 +61,15 @@ class Camera : public AModule
 	/**
 	Process input to get ViewInfo
 	*/
-	void ProcessInput();
+    AVoid ProcessInput();
 	/**
 	Compute angles out of mouse movement
 	*/
-	void ComputeAngles();
+    AVoid ComputeAngles();
 	/**
 	Fill ViewInfo
 	*/
-	void SetInfo();
+    AVoid SetInfo();
 
 
 
@@ -88,15 +88,15 @@ enum {CAMERA_SPEED, MOUSE_SPEED, ROTATION_SPEED, CAMERA_BASE_SPEED};
 	/**
 	Initializes data
 	*/
-	void Init();
+    AVoid Init();
 	/**
 	Cleans data
 	*/
-	void Clean();
+    AVoid Clean();
 	/**
 	Matches interface
 	*/
-	void Enable();
+    AVoid Enable();
 
 
 
@@ -106,23 +106,23 @@ enum {CAMERA_SPEED, MOUSE_SPEED, ROTATION_SPEED, CAMERA_BASE_SPEED};
 	/**
 	Get speed
 	*/
-	inline GLfloat GetSpeed(GLuint ind){ return camera_speed[ind];}
+	inline AFloat GetSpeed(AUInt ind){ return camera_speed[ind];}
 	/**
 	Set speed
 	*/
-	inline void SetSpeed(GLuint ind, GLdouble speed){camera_speed[ind] = speed;}
+    inline AVoid SetSpeed(AUInt ind, ADouble speed){camera_speed[ind] = speed;}
 	/**
 	Create frustum out of Projection*View
 	*/
-	inline void SetFrustum(glm::mat4 MV) { this->frustum->Create(MV); }
+    inline AVoid SetFrustum(glm::mat4 MV) { this->frustum->Create(MV); }
 	/**
 	Set camera angles
 	*/
-	void SetCameraAngles(glm::vec2 angles){camera_angles = angles;}
+    inline AVoid SetCameraAngles(glm::vec2 angles){camera_angles = angles;}
 	/**
 	Get camera angles
 	*/
-	glm::vec2 GetCameraAngles(){return camera_angles;}
+    inline glm::vec2 GetCameraAngles(){return camera_angles;}
 
 
 

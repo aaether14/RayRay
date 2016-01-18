@@ -27,7 +27,7 @@ public:
 	/**
 	Match interface and determine how instance affects scene
 	*/
-	void Enable(AModule * manager);
+	AVoid Enable(AModule * manager);
 
 
 

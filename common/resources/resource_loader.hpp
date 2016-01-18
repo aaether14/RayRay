@@ -28,20 +28,20 @@ public:
 	/**
 	Initialize state savers and resource paths
 	*/
-	void Init();
+	AVoid Init();
 
 
 
 	/**
 	Cleans scene data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
     /**
     Load a certain project
     */
-    void LoadProject(std::string path);
+    AVoid LoadProject(std::string path);
 
 
 

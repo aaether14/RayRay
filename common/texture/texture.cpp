@@ -34,14 +34,14 @@ FIBITMAP * TextureObject::get_dib(std::string file)
 
 
 
-GLuint TextureObject::load_texture(std::string file, GLint param_min, GLint param_max)
+AUInt TextureObject::load_texture(std::string file, AInt param_min, AInt param_max)
 {
 
 
 
 	BYTE* bits(0);
-	unsigned int width(0), height(0);
-	GLuint gl_texID;
+    AUInt width(0), height(0);
+	AUInt gl_texID;
 	FIBITMAP *dib = get_dib(file);
 	if (!dib)
 		return -1;
@@ -78,11 +78,11 @@ GLuint TextureObject::load_texture(std::string file, GLint param_min, GLint para
 
 
 
-GLuint TextureObject::create_texture_from_color(glm::vec4 color)
+AUInt TextureObject::create_texture_from_color(glm::vec4 color)
 {
 
 
-	GLuint gl_texID;
+	AUInt gl_texID;
 	BYTE * bits = new BYTE[4];
 	bits[0] = (color.r * 255);
 	bits[1] = (color.g * 255);
@@ -104,7 +104,7 @@ GLuint TextureObject::create_texture_from_color(glm::vec4 color)
 
 
 
-GLuint TextureObject::load_cube_texture(std::string Directory,
+AUInt TextureObject::load_cube_texture(std::string Directory,
 	std::string PosXFilename,
 	std::string NegXFilename,
 	std::string PosYFilename,
@@ -134,8 +134,8 @@ GLuint TextureObject::load_cube_texture(std::string Directory,
 
 	FIBITMAP * dib(0);
 	BYTE* bits(0);
-	unsigned int width(0), height(0);
-	GLuint gl_texID;
+    AUInt width(0), height(0);
+	AUInt gl_texID;
 
 
 
@@ -148,7 +148,7 @@ GLuint TextureObject::load_cube_texture(std::string Directory,
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	for (int i = 0; i<6; i++) 
+	for (AInt i = 0; i<6; i++) 
 	{
 
 
@@ -189,17 +189,17 @@ GLuint TextureObject::load_cube_texture(std::string Directory,
 
 
 
-GLuint TextureObject::create_texture_array(std::string Directory, std::vector<std::string> textures, GLfloat aniso)
+AUInt TextureObject::create_texture_array(std::string Directory, std::vector<std::string> textures, AFloat aniso)
 {
 
 
 
-	GLuint gl_texID(0), width(0), height(0);
+	AUInt gl_texID(0), width(0), height(0);
 	FIBITMAP ** dibs = 0;
 	BYTE ** bits = 0;
 	dibs = new FIBITMAP*[textures.size()];
 	bits = new BYTE*[textures.size()];
-	for (GLuint i = 0; i < textures.size(); i++)
+	for (AUInt i = 0; i < textures.size(); i++)
 	{
 
 
@@ -227,7 +227,7 @@ GLuint TextureObject::create_texture_array(std::string Directory, std::vector<st
 
 
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, height, textures.size(), 0, GL_BGRA, GL_UNSIGNED_BYTE, 0);
-	for (GLuint i = 0; i < textures.size(); i++)
+	for (AUInt i = 0; i < textures.size(); i++)
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, width, height, 1, GL_BGRA, GL_UNSIGNED_BYTE, bits[i]);
 
 
@@ -239,7 +239,7 @@ GLuint TextureObject::create_texture_array(std::string Directory, std::vector<st
 
 
 
-	for (GLuint i = 0; i < textures.size(); i++)
+	for (AUInt i = 0; i < textures.size(); i++)
 		FreeImage_Unload(dibs[i]);
 
 
@@ -253,26 +253,26 @@ GLuint TextureObject::create_texture_array(std::string Directory, std::vector<st
 }
 
 
-bool TextureObject::readRawFile(std::string path, BYTE*bits)
+ABoolean TextureObject::readRawFile(std::string path, BYTE*bits)
 {
 
 
 
 	std::ifstream inputFile(path, std::ios::binary);
-	int size = getRawSize(path);
+	AInt size = getRawSize(path);
 
 
 
 
-	for (int j = size - 1; j >= 0; j--)
+	for (AInt j = size - 1; j >= 0; j--)
 	{
 
-		for (int i = 0; i < size; i++)
+		for (AInt i = 0; i < size; i++)
 
 		{
 
-			int current_index = j*size + i;
-			int current_index2 = (size - 1 - j)*size + i;
+			AInt current_index = j*size + i;
+			AInt current_index2 = (size - 1 - j)*size + i;
 
 			inputFile.seekg(current_index * 2 + 0, std::ios::beg);
 			bits[current_index2 * 2 + 0] = inputFile.get();
@@ -294,19 +294,19 @@ bool TextureObject::readRawFile(std::string path, BYTE*bits)
 
 
 
-int TextureObject::getRawSize(std::string path)
+AInt TextureObject::getRawSize(std::string path)
 {
 
 	std::ifstream inputFile(path, std::ios::binary);
-	int size;
+	AInt size;
 	inputFile.seekg(0, std::ios::end);
 
 
 
-	if (!POWER_OF_TWO(int(sqrt((long)inputFile.tellg()))-1))
-		size = sqrt((long)inputFile.tellg() / 2);
+	if (!POWER_OF_TWO(AInt(sqrt((ALong)inputFile.tellg()))-1))
+		size = sqrt((ALong)inputFile.tellg() / 2);
 	else
-		size = sqrt((long)inputFile.tellg());
+		size = sqrt((ALong)inputFile.tellg());
 
 
 
@@ -319,13 +319,13 @@ int TextureObject::getRawSize(std::string path)
 }
 
 
-GLuint TextureObject::create_texture(GLenum target, GLsizei width, GLsizei height,
-	GLint internalFormat, GLint format, GLenum type, GLvoid * pixels,
-	GLint f_param, GLint c_param, glm::vec4 b_color)
+AUInt TextureObject::create_texture(GLenum target, GLsizei width, GLsizei height,
+	AInt internalFormat, AInt format, GLenum type, AVoid * pixels,
+	AInt f_param, AInt c_param, glm::vec4 b_color)
 {
 
 
-	GLuint tex_id;
+	AUInt tex_id;
 
 	glGenTextures(1, &tex_id);
 	glBindTexture(target, tex_id);
@@ -349,7 +349,7 @@ GLuint TextureObject::create_texture(GLenum target, GLsizei width, GLsizei heigh
 
 
 
-bool TextureObject::CheckStatus(GLuint fbo)
+ABoolean TextureObject::CheckStatus(AUInt fbo)
 {
 
 
@@ -394,14 +394,14 @@ bool TextureObject::CheckStatus(GLuint fbo)
 
 
 
-void TextureObject::CreateTexture(GLuint tex_type,
+AVoid TextureObject::CreateTexture(AUInt tex_type,
 	GLenum target,
 	GLsizei width, GLsizei height,
-	GLint internalFormat, GLint format,
-	GLenum type, GLvoid
+	AInt internalFormat, AInt format,
+	GLenum type, AVoid
 	* pixels,
-	GLint f_param,
-	GLint c_param,
+	AInt f_param,
+	AInt c_param,
 	glm::vec4 b_color)
 {
 
@@ -425,7 +425,7 @@ void TextureObject::CreateTexture(GLuint tex_type,
 		if (tex_type == COLOR_TYPE)
 		{
 
-			this->texture = new GLuint[this->num_tex];
+			this->texture = new AUInt[this->num_tex];
 			this->texture[0] = create_texture(target, width, height, internalFormat,
 				format,
 				type,
@@ -457,8 +457,8 @@ void TextureObject::CreateTexture(GLuint tex_type,
 		{
 
 			
-			this->texture = new GLuint[this->num_tex];
-			for (GLuint i = 0; i < this->num_tex; i++)
+			this->texture = new AUInt[this->num_tex];
+			for (AUInt i = 0; i < this->num_tex; i++)
 			{
 
 				this->texture[i] = create_texture(target, width, height, internalFormat,
@@ -487,7 +487,7 @@ void TextureObject::CreateTexture(GLuint tex_type,
 
 }
 
-void TextureObject::WriteTexture(GLuint width, GLuint height)
+AVoid TextureObject::WriteTexture(AUInt width, AUInt height)
 {
 
 

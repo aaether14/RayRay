@@ -35,16 +35,16 @@ public:
 	/**
 	Initializes branches
 	*/
-	void Init();
+	AVoid Init();
 	/**
 	Cleans branches data
 	*/
-	void Clean();
+	AVoid Clean();
 
 	/**
 	Enables app
 	*/
-	void Enable();
+	AVoid Enable();
 
 
 };

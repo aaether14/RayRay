@@ -32,11 +32,11 @@ public:
 	/**
 	Create OpenCL program
 	*/
-	void Create(
+    AVoid Create(
 		CLContextWrapper *cl_cw,
 		const std::wstring& program_file_name,
-		const string& program_text,
-		const string& build_options = ""
+        const std::string& program_text,
+        const std::string& build_options = ""
 		);
 
 
@@ -49,19 +49,19 @@ public:
 	/**
 	Initializes data
 	*/
-	void Init();
+    AVoid Init();
 
 
 	/**
 	Cleans data
 	*/
-	void Clean();
+    AVoid Clean();
 
 
 	/**
 	Runs OpenCL program
 	*/
-	void Enable();
+    AVoid Enable();
 
 
 

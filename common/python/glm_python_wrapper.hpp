@@ -53,7 +53,7 @@ T1 Sub(const T1& v, T2 value)
 /**
   Module init
 */
-void Init();
+AVoid Init();
 
 
 

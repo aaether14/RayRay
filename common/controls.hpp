@@ -31,15 +31,15 @@ public:
 	/**
 	Enable controller source and camera computations
 	*/
-	void Enable();
+	AVoid Enable();
 	/**
 	Clean engine's data
 	*/
-	void Clean();
+	AVoid Clean();
 	/**
 	Initializes Controller Source, camera and game object
 	*/
-	void Init();
+	AVoid Init();
 
 
 

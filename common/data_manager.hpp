@@ -26,15 +26,15 @@ public:
 	/**
 	Initializes with screen size
 	*/
-	void Init();
+	AVoid Init();
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 	/**
 	Handles drag&drop entity adition
 	*/
-	void Enable();
+	AVoid Enable();
 
 
 

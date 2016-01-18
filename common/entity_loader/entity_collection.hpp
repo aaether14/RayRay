@@ -25,15 +25,15 @@ class EntityCollection : public AModule, public ACollection
     /**
     Function for adding components to entity
     */
-    void CreateComponentInstance(boost::filesystem::directory_iterator iterator, AComponent * new_component, std::string class_name, Entity * new_entity);
+    AVoid CreateComponentInstance(boost::filesystem::directory_iterator iterator, AComponent * new_component, std::string class_name, Entity * new_entity);
     /**
     Based on the files in path you provide ScenInfo adds specific components to the given entity
     */
-    void AddComponentsToEntity(std::string path, Entity * new_entity);
+    AVoid AddComponentsToEntity(std::string path, Entity * new_entity);
     /**
     Adds entity to the entity map
     */
-    void AddEntity(Entity* new_entity);
+    AVoid AddEntity(Entity* new_entity);
 
 
 
@@ -46,15 +46,15 @@ public:
     /**
     Load entities
     */
-    void Init();
+    AVoid Init();
     /**
     Release entities
     */
-    void Clean();
+    AVoid Clean();
     /**
     Match interface
     */
-    inline void Enable() {}
+    inline AVoid Enable() {}
 
 
 
@@ -66,15 +66,15 @@ public:
     /**
     Get number of entities in map
     */
-    inline GLuint GetNumberOfEntities(){ return entity_map.size(); }
+    inline AUInt GetNumberOfEntities(){ return entity_map.size(); }
     /**
     Clear entity map
     */
-    inline void ClearEntities(){ entity_map.clear(); }
+    inline AVoid ClearEntities(){ entity_map.clear(); }
     /**
     See if entity with 'name' exists
     */
-    inline bool InCollection(std::string name) {return entity_map.count(name) > 0;}
+    inline ABoolean InCollection(std::string name) {return entity_map.count(name) > 0;}
 
 
 

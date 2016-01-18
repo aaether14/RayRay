@@ -9,7 +9,7 @@ namespace UI_UTIL
 
 
 
-	CEGUI::Key::Scan GlfwToCeguiKey(int glfwKey)
+	CEGUI::Key::Scan GlfwToCeguiKey(AInt glfwKey)
 	{
 
 		switch (glfwKey)
@@ -55,7 +55,7 @@ namespace UI_UTIL
 	}
 
 	//----------------------------------------------------------------------------//
-	CEGUI::MouseButton GlfwToCeguiMouseButton(int glfwButton)
+	CEGUI::MouseButton GlfwToCeguiMouseButton(AInt glfwButton)
 	{
 		switch (glfwButton)
 		{

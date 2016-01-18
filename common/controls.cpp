@@ -6,7 +6,7 @@
 
 
 
-void Controller::Init()
+AVoid Controller::Init()
 {
 
 
@@ -31,12 +31,12 @@ void Controller::Init()
 		{
 
 
-			GLuint window_width = v.second.get<GLuint>("WindowWidth");
-			GLuint window_height = v.second.get<GLuint>("WindowHeight");
+			AUInt window_width = v.second.get<GLuint>("WindowWidth");
+			AUInt window_height = v.second.get<GLuint>("WindowHeight");
 			std::string window_title = v.second.get<std::string>("WindowTitle");
-			GLboolean fullscreen = v.second.get<GLboolean>("Fullscreen");
-			GLuint opengl_major_version = v.second.get<GLuint>("OpenGLMajorVersion");
-			GLuint opengl_minor_version = v.second.get<GLuint>("OpenGLMinorVersion");
+			ABoolean fullscreen = v.second.get<GLboolean>("Fullscreen");
+			AUInt opengl_major_version = v.second.get<GLuint>("OpenGLMajorVersion");
+			AUInt opengl_minor_version = v.second.get<GLuint>("OpenGLMinorVersion");
             GetAppInfo()->SetString("ProjectName", v.second.get<std::string>("ProjectName"));
 
 
@@ -76,7 +76,7 @@ void Controller::Init()
 
 
 
-void Controller::Clean()
+AVoid Controller::Clean()
 {
 
 	
@@ -91,7 +91,7 @@ void Controller::Clean()
 
 
 
-void Controller::Enable()
+AVoid Controller::Enable()
 {
 
 

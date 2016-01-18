@@ -26,17 +26,17 @@ public:
 	/**
 	Initialize data
 	*/
-	void Init();
+	AVoid Init();
 
 
 	/**
 	Enable pipeline
 	*/
-	void Enable();
+	AVoid Enable();
 	/**
 	Clean data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 };

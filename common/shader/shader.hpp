@@ -22,8 +22,8 @@ class Shader : public AModule
 {
 
 
-	GLuint program;
-	std::map<std::string, GLuint> uniforms;
+	AUInt program;
+	std::map<std::string, AUInt> uniforms;
 
 
 public:
@@ -41,71 +41,71 @@ public:
 	/**
 	Creates a shader program in OpenGL memory
 	*/
-	inline void Init(){this->program = glCreateProgram(); }
+	inline AVoid Init(){this->program = glCreateProgram(); }
 	/**
 	Deletes shader program from OpenGL memory and clears uniforms
 	*/
-	void Clean(){ glDeleteProgram(this->program); this->uniforms.clear(); }
+	AVoid Clean(){ glDeleteProgram(this->program); this->uniforms.clear(); }
 
 
 	/**
 	Adds a certain shader type from provided path
 	*/
-	void Add(std::string path, GLenum type);
+	AVoid Add(std::string path, GLenum type);
 	/**
 	Links current shaders in program
 	*/
-	void Link();
+	AVoid Link();
 	/**
 	OpenGL context is bound to using this program
 	*/
-	inline void Enable(){ glUseProgram(program); }
+	inline AVoid Enable(){ glUseProgram(program); }
 	/**
 	OpenGL context is no longer bound to a shader program
 	*/
-	inline void Stop(){ glUseProgram(0); }
+	inline AVoid Stop(){ glUseProgram(0); }
 
 
 	/**
 	Link a certain variable to an uniform from the shader source
 	*/
-	inline void AddVariable(std::string name)	{ this->uniforms[name] = glGetUniformLocation(this->program, name.c_str()); }
+	inline AVoid AddVariable(std::string name)	{ this->uniforms[name] = glGetUniformLocation(this->program, name.c_str()); }
 	/**
 	Set an integer to uniform unit
 	*/
-	inline void Set(std::string name, GLint v){ glUniform1i(this->uniforms[name], v); }
+	inline AVoid Set(std::string name, AInt v){ glUniform1i(this->uniforms[name], v); }
 	/**
-	Set a float to uniform unit
+	Set a AFloat to uniform unit
 	*/
-	inline void Set(std::string name, GLfloat v){ glUniform1f(this->uniforms[name], v); }
+	inline AVoid Set(std::string name, AFloat v){ glUniform1f(this->uniforms[name], v); }
 	/**
-	Set a double to uniform unit
+	Set a ADouble to uniform unit
 	*/
-	inline void Set(std::string name, GLdouble v){ glUniform1d(this->uniforms[name], v); }
-	/**
-	Set a 3D vector to uniform unit
-	*/
-	inline void Set(std::string name, glm::vec3 v){ glUniform3f(this->uniforms[name], v.x, v.y, v.z); }
+	inline AVoid Set(std::string name, ADouble v){ glUniform1d(this->uniforms[name], v); }
 	/**
 	Set a 3D vector to uniform unit
 	*/
-	inline void Set(std::string name, GLfloat x, GLfloat y, GLfloat z){ glUniform3f(this->uniforms[name], x, y, z); }
+	inline AVoid Set(std::string name, glm::vec3 v){ glUniform3f(this->uniforms[name], v.x, v.y, v.z); }
+	/**
+	Set a 3D vector to uniform unit
+	*/
+	inline AVoid Set(std::string name, AFloat x, AFloat y, AFloat z){ glUniform3f(this->uniforms[name], x, y, z); }
 	/**
 	Set a number ('n') of 3D vectors to uniform unit
 	*/
-	inline void Set(std::string name, glm::vec3 * v, GLuint n){ glUniform3fv(this->uniforms[name], n, (const GLfloat*)&v[0]); }
+	inline AVoid Set(std::string name, glm::vec3 * v, AUInt n){ glUniform3fv(this->uniforms[name], n, (const AFloat*)&v[0]); }
 	/**
 	Set a 4D vector to uniform unit
 	*/
-	inline void Set(std::string name, glm::vec4 v){ glUniform4f(this->uniforms[name], v.x, v.y, v.z, v.w); }
+	inline AVoid Set(std::string name, glm::vec4 v){ glUniform4f(this->uniforms[name], v.x, v.y, v.z, v.w); }
 	/**
 	Set a 4D vector to uniform unit
 	*/
-	inline void Set(std::string name, GLfloat x, GLfloat y, GLfloat z, GLfloat w){ glUniform4f(this->uniforms[name], x, y, z, w); }
+	inline AVoid Set(std::string name, AFloat x, AFloat y, AFloat z, AFloat w){ glUniform4f(this->uniforms[name], x, y, z, w); }
 	/**
 	Set a 4x4 matrix to uniform unit
 	*/
-	inline void Set(std::string name, glm::mat4 v){ glUniformMatrix4fv(this->uniforms[name], 1, GL_FALSE, &v[0][0]); }
+	inline AVoid Set(std::string name, glm::mat4 v){ glUniformMatrix4fv(this->uniforms[name], 1, GL_FALSE, &v[0][0]); }
 
 
 
@@ -115,7 +115,7 @@ public:
 	/**
 	Print uniform location - will be 0 if something went wrong
 	*/
-	inline void Print(std::string name){ printf("%i\n", this->uniforms[name]); }
+	inline AVoid Print(std::string name){ printf("%i\n", this->uniforms[name]); }
 
 
 };

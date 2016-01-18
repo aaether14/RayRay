@@ -16,8 +16,8 @@ class AData
 {
 
 
-    std::map<std::string, GLfloat> float_map;
-    std::map<std::string, GLint> int_map;
+    std::map<std::string, AFloat> float_map;
+    std::map<std::string, AInt> int_map;
     std::map<std::string, std::string> string_map;
     std::map<std::string, glm::vec2> vec2_map;
     std::map<std::string, glm::vec3> vec3_map;
@@ -38,14 +38,14 @@ public:
 
 
     /**
-    Get float from map
+    Get AFloat from map
     */
-    inline GLfloat GetFloat(std::string name){ return float_map[name]; }
+    inline AFloat GetFloat(std::string name){ return float_map[name]; }
 
     /**
-    Get int from map
+    Get AInt from map
     */
-    inline GLint GetInt(std::string name){ return int_map[name]; }
+    inline AInt GetInt(std::string name){ return int_map[name]; }
 
     /**
     Get string from map
@@ -84,40 +84,40 @@ public:
 
 
     /**
-    Set float
+    Set AFloat
     */
-    inline void SetFloat(std::string name, GLfloat value){ float_map[name] = value; }
+    inline AVoid SetFloat(std::string name, AFloat value){ float_map[name] = value; }
 
     /**
-    Set int
+    Set AInt
     */
-    inline void SetInt(std::string name, GLint value){ int_map[name] = value; }
+    inline AVoid SetInt(std::string name, AInt value){ int_map[name] = value; }
 
     /**
     Set string
     */
-    inline void SetString(std::string name, std::string value){string_map[name] = value;}
+    inline AVoid SetString(std::string name, std::string value){string_map[name] = value;}
 
     /**
     Set vec2
     */
-    inline void SetVec2(std::string name, glm::vec2 value){ vec2_map[name] = value; }
+    inline AVoid SetVec2(std::string name, glm::vec2 value){ vec2_map[name] = value; }
 
     /**
     Set vec3
     */
-    inline void SetVec3(std::string name, glm::vec3 value){ vec3_map[name] = value; }
+    inline AVoid SetVec3(std::string name, glm::vec3 value){ vec3_map[name] = value; }
 
     /**
     Set vec4
     */
-    inline void SetVec4(std::string name, glm::vec4 value){ vec4_map[name] = value; }
+    inline AVoid SetVec4(std::string name, glm::vec4 value){ vec4_map[name] = value; }
 
     /**
     Set component name
     */
 
-    inline void SetComponentName(std::string name){ data_component_name = name; }
+    inline AVoid SetComponentName(std::string name){ data_component_name = name; }
 
 
 
@@ -129,16 +129,16 @@ public:
     /**
     Load interface from xml
     */
-    void LoadInterface(boost::property_tree::ptree base_index);
+    AVoid LoadInterface(boost::property_tree::ptree base_index);
     /**
     Debug procedure
     */
-    void Debug();
+    AVoid Debug();
 
     /**
     Cleaning procedure
     */
-    void Clean();
+    AVoid Clean();
 
     /**
     Provide xml-saving function

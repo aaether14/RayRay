@@ -30,12 +30,12 @@ public:
     /**
     Cleaning routine
     */
-    inline void Clean(){adatas.clear();}
+    inline AVoid Clean(){adatas.clear(); }
 
     /**
     Every instance should have a way to affect scene
     */
-    virtual void Enable(AModule * manager) = 0;
+    virtual AVoid Enable(AModule * manager) = 0;
 
 
 
@@ -47,7 +47,7 @@ public:
     /**
     Add data to entity instance
     */
-    inline void AddAData(std::string name, AData * adata)
+    inline AVoid AddAData(std::string name, AData * adata)
     {
         adatas.insert(std::pair<std::string, boost::shared_ptr<AData> >(name, boost::shared_ptr<AData>(adata)));
     }
@@ -72,7 +72,7 @@ public:
     /**
     Set entity name
     */
-    inline void SetEntityName(std::string name){ entity_name = name; }
+    inline AVoid SetEntityName(std::string name){ entity_name = name; }
 
 
 

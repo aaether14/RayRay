@@ -6,7 +6,7 @@
 
 
 
-void Pipeline::Init()
+AVoid Pipeline::Init()
 {
 
 
@@ -22,7 +22,7 @@ void Pipeline::Init()
 
 
 
-void Pipeline::Enable()
+AVoid Pipeline::Enable()
 {
 
 
@@ -42,7 +42,7 @@ void Pipeline::Enable()
 
 
 
-void Pipeline::Clean()
+AVoid Pipeline::Clean()
 {
 
 	CleanModule();

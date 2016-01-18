@@ -9,7 +9,7 @@
 
 //Initialization with a fixed string which consists of the hexadecimal digits of PI (less the initial 3)
 //P-array, 18 32-bit subkeys
-const unsigned int CBlowFish::scm_auiInitP[18] = {
+const AUInt CBlowFish::scm_auiInitP[18] = {
 	0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
 	0xa4093822, 0x299f31d0, 0x082efa98, 0xec4e6c89,
 	0x452821e6, 0x38d01377, 0xbe5466cf, 0x34e90c6c,
@@ -18,7 +18,7 @@ const unsigned int CBlowFish::scm_auiInitP[18] = {
 };
 
 //Four 32-bit S-boxes with 256 entries each
-const unsigned int CBlowFish::scm_auiInitS[4][256] = {
+const AUInt CBlowFish::scm_auiInitS[4][256] = {
 	//0
 	{0xd1310ba6, 0x98dfb5ac, 0x2ffd72db, 0xd01adfb7,
 	 0xb8e1afed, 0x6a267e96, 0xba7c9045, 0xf12c7f99,
@@ -285,31 +285,31 @@ const unsigned int CBlowFish::scm_auiInitS[4][256] = {
 };
 
 //Constructor - Initialize the P and S boxes for a given Key
-CBlowFish::CBlowFish(unsigned char* ucKey, size_t keysize, const SBlock& roChain) : m_oChain0(roChain), m_oChain(roChain)
+CBlowFish::CBlowFish(AUChar* ucKey, size_t keysize, const SBlock& roChain) : m_oChain0(roChain), m_oChain(roChain)
 {
 	if(keysize<1)
 		throw "Incorrect key length";
 	//Check the Key - the key length should be between 1 and 56 bytes
 	if(keysize>56)
 		keysize = 56;
-	unsigned char aucLocalKey[56];
-	unsigned int i, j;
+    AUChar aucLocalKey[56];
+    AUInt i, j;
 	memcpy(aucLocalKey, ucKey, keysize);
 	//Reflexive Initialization of the Blowfish.
 	//Generating the Subkeys from the Key flood P and S boxes with PI
 	memcpy(m_auiP, scm_auiInitP, sizeof m_auiP);
 	memcpy(m_auiS, scm_auiInitS, sizeof m_auiS);
 	//Load P boxes with key bytes
-	const unsigned char* p = aucLocalKey;
-	unsigned int x=0;
+    const AUChar* p = aucLocalKey;
+    AUInt x=0;
 	//Repeatedly cycle through the key bits until the entire P array has been XORed with key bits
-	int iCount = 0;
+    AInt iCount = 0;
 	for(i=0; i<18; i++)
 	{
 		x=0;
-		for(int n=4; n--; )
+        for(AInt n=4; n--; )
 		{
-			int iVal = (int)(*p);
+            AInt iVal = (AInt)(*p);
 			x <<= 8;
 			x |= *(p++);
 			iCount++;
@@ -327,15 +327,15 @@ CBlowFish::CBlowFish(unsigned char* ucKey, size_t keysize, const SBlock& roChain
 	for(i=0; i<18; )
 		Encrypt(block), m_auiP[i++] = block.m_uil, m_auiP[i++] = block.m_uir;
 	for(j=0; j<4; j++)
-		for(int k=0; k<256; )
+        for(AInt k=0; k<256; )
 			Encrypt(block), m_auiS[j][k++] = block.m_uil, m_auiS[j][k++] = block.m_uir;
 }
 
 //Sixteen Round Encipher of Block
-void CBlowFish::Encrypt(SBlock& block)
+AVoid CBlowFish::Encrypt(SBlock& block)
 {
-	unsigned int uiLeft = block.m_uil;
-	unsigned int uiRight = block.m_uir;
+    AUInt uiLeft = block.m_uil;
+    AUInt uiRight = block.m_uir;
 	uiLeft ^= m_auiP[0];
 	uiRight ^= F(uiLeft)^m_auiP[1]; uiLeft ^= F(uiRight)^m_auiP[2];
 	uiRight ^= F(uiLeft)^m_auiP[3]; uiLeft ^= F(uiRight)^m_auiP[4];
@@ -351,10 +351,10 @@ void CBlowFish::Encrypt(SBlock& block)
 }
 
 //Sixteen Round Decipher of SBlock
-void CBlowFish::Decrypt(SBlock& block)
+AVoid CBlowFish::Decrypt(SBlock& block)
 {
-	unsigned int uiLeft = block.m_uil;
-	unsigned int uiRight = block.m_uir;
+    AUInt uiLeft = block.m_uil;
+    AUInt uiRight = block.m_uir;
 	uiLeft ^= m_auiP[17];
 	uiRight ^= F(uiLeft)^m_auiP[16]; uiLeft ^= F(uiRight)^m_auiP[15];
 	uiRight ^= F(uiLeft)^m_auiP[14]; uiLeft ^= F(uiRight)^m_auiP[13];
@@ -370,9 +370,9 @@ void CBlowFish::Decrypt(SBlock& block)
 }
 
 //Semi-Portable Byte Shuffling
-inline void BytesToBlock(unsigned char const* p, SBlock& b)
+inline AVoid BytesToBlock(AUChar const* p, SBlock& b)
 {
-	unsigned int y;
+    AUInt y;
 	//Left
 	b.m_uil = 0;
 	y = *p++;
@@ -401,9 +401,9 @@ inline void BytesToBlock(unsigned char const* p, SBlock& b)
 	b.m_uir |= y;
 }
 
-inline void BlockToBytes(SBlock const& b, unsigned char* p)
+inline AVoid BlockToBytes(SBlock const& b, AUChar* p)
 {
-	unsigned int y;
+    AUInt y;
 	//Right
 	y = b.m_uir;
 	*--p = Byte(y);
@@ -426,7 +426,7 @@ inline void BlockToBytes(SBlock const& b, unsigned char* p)
 
 //Encrypt Buffer in Place
 //Returns false if n is multiple of 8
-void CBlowFish::Encrypt(unsigned char* buf, size_t n, int iMode)
+AVoid CBlowFish::Encrypt(AUChar* buf, size_t n, AInt iMode)
 {
 	//Check the buffer's length - should be > 0 and multiple of 8
 	if((n==0)||(n%8!=0))
@@ -469,7 +469,7 @@ void CBlowFish::Encrypt(unsigned char* buf, size_t n, int iMode)
 
 //Decrypt Buffer in Place
 //Returns false if n is multiple of 8
-void CBlowFish::Decrypt(unsigned char* buf, size_t n, int iMode)
+AVoid CBlowFish::Decrypt(AUChar* buf, size_t n, AInt iMode)
 {
 	//Check the buffer's length - should be > 0 and multiple of 8
 	if((n==0)||(n%8!=0))
@@ -514,7 +514,7 @@ void CBlowFish::Decrypt(unsigned char* buf, size_t n, int iMode)
 
 //Encrypt from Input Buffer to Output Buffer
 //Returns false if n is multiple of 8
-void CBlowFish::Encrypt(const unsigned char* in, unsigned char* out, size_t n, int iMode)
+AVoid CBlowFish::Encrypt(const AUChar* in, AUChar* out, size_t n, AInt iMode)
 {
 	//Check the buffer's length - should be > 0 and multiple of 8
 	if((n==0)||(n%8!=0))
@@ -557,7 +557,7 @@ void CBlowFish::Encrypt(const unsigned char* in, unsigned char* out, size_t n, i
 
 //Decrypt from Input Buffer to Output Buffer
 //Returns false if n is multiple of 8
-void CBlowFish::Decrypt(const unsigned char* in, unsigned char* out, size_t n, int iMode)
+AVoid CBlowFish::Decrypt(const AUChar* in, AUChar* out, size_t n, AInt iMode)
 {
 	//Check the buffer's length - should be > 0 and multiple of 8
 	if((n==0)||(n%8!=0))

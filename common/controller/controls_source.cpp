@@ -4,27 +4,27 @@
 
 
 
-GLuint ControllerSource::keys[] = { 0 };
+AUInt ControllerSource::keys[] = { 0 };
 
 
 
-GLuint ControllerSource::fullscreen_key = 0;
-GLboolean ControllerSource::fullscreen = false;
+AUInt ControllerSource::fullscreen_key = 0;
+ABoolean ControllerSource::fullscreen = false;
 
-GLint ControllerSource::window_width = 0;
-GLint ControllerSource::window_height = 0;
+AInt ControllerSource::window_width = 0;
+AInt ControllerSource::window_height = 0;
 std::string ControllerSource::title = "";
 
 
-GLuint ControllerSource::opengl_major_version = 0;
-GLuint ControllerSource::opengl_minor_version = 0;
+AUInt ControllerSource::opengl_major_version = 0;
+AUInt ControllerSource::opengl_minor_version = 0;
 GLFWwindow*ControllerSource::window = 0;
 
 
 
 glm::vec2 ControllerSource::mouse_position = glm::vec2(0.0f, 0.0f);
-GLuint ControllerSource::mouse_buttons[] = { 0 };
-GLdouble ControllerSource::wheel_offset = 0.0;
+AUInt ControllerSource::mouse_buttons[] = { 0 };
+ADouble ControllerSource::wheel_offset = 0.0;
 std::vector<std::string> ControllerSource::drop_files;
 
 
@@ -32,11 +32,11 @@ std::vector<std::string> ControllerSource::drop_files;
 
 
 
-GLboolean ControllerSource::CreateWindowContext(GLuint window_width, GLuint window_height,
-	GLboolean fullscreen,
+ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_height,
+    ABoolean fullscreen,
 	std::string title,
-	GLuint opengl_major_version,
-	GLuint opengl_minor_version)
+    AUInt opengl_major_version,
+    AUInt opengl_minor_version)
 {
 
 
@@ -106,7 +106,7 @@ GLboolean ControllerSource::CreateWindowContext(GLuint window_width, GLuint wind
 
 
 
-void ControllerSource::Init()
+AVoid ControllerSource::Init()
 {
 
 
@@ -122,7 +122,7 @@ void ControllerSource::Init()
 
 
 
-void ControllerSource::InitCallbacks()
+AVoid ControllerSource::InitCallbacks()
 {
 
 
@@ -140,7 +140,7 @@ void ControllerSource::InitCallbacks()
 
 
 
-void ControllerSource::Clean()
+AVoid ControllerSource::Clean()
 {
 
 
@@ -157,7 +157,7 @@ void ControllerSource::Clean()
 
 
 
-void ControllerSource::Enable()
+AVoid ControllerSource::Enable()
 {
 
 
@@ -170,13 +170,15 @@ void ControllerSource::Enable()
 
 }
 
-void FPS::FirstPass()
+
+
+AVoid FPS::FirstPass()
 {
 
 
 
-	GLdouble currentTime = glfwGetTime();
-	deltaTime = returnable_deltaTime = GLfloat(currentTime - lastTime2);
+    ADouble currentTime = glfwGetTime();
+    deltaTime = returnable_deltaTime = AFloat(currentTime - lastTime2);
 	lastTime2 = glfwGetTime();
 
 
@@ -185,19 +187,19 @@ void FPS::FirstPass()
 
 
 
-void FPS::Compute(){
+AVoid FPS::Compute(){
 
 
 
 	frames++;
-	GLdouble currentTime = glfwGetTime();
-	deltaTime = GLfloat(currentTime - lastTime);
+    ADouble currentTime = glfwGetTime();
+    deltaTime = AFloat(currentTime - lastTime);
 
 
 	if (deltaTime > 1.0f)
 	{
 
-		fps = GLfloat(frames) / deltaTime;
+        fps = AFloat(frames) / deltaTime;
 		lastTime = currentTime;
 		frames = 0;
 		lastTime = currentTime;
@@ -210,7 +212,9 @@ void FPS::Compute(){
 
 
 
-GLvoid ControllerSource::key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods)
+
+
+AVoid ControllerSource::key_callback(GLFWwindow* window, AInt key, AInt scancode, AInt action, AInt mods)
 {
 
 
@@ -220,7 +224,7 @@ GLvoid ControllerSource::key_callback(GLFWwindow* window, GLint key, GLint scanc
 
 
 	if (action > 0)
-	{
+    {
 		keys[key]++;
 		context.injectKeyDown(ceguiKey);
 	}
@@ -238,15 +242,17 @@ GLvoid ControllerSource::key_callback(GLFWwindow* window, GLint key, GLint scanc
 
 
 
-GLvoid ControllerSource::char_callback(GLFWwindow * window, GLuint code)
+
+
+AVoid ControllerSource::char_callback(GLFWwindow * window, AUInt code)
 {
 
 
 	CEGUI::GUIContext& context = CEGUI::System::getSingleton().getDefaultGUIContext();
 	if (context.injectChar(code))
-	{
-		keys[code + 'A' - 'a'] = 0;
-		keys[code] = 0;
+    {
+        keys[code + 'A' - 'a'] = 0;
+        keys[code] = 0;
 	}
 
 
@@ -255,7 +261,9 @@ GLvoid ControllerSource::char_callback(GLFWwindow * window, GLuint code)
 
 
 
-GLvoid ControllerSource::mouse_callback(GLFWwindow* window, GLint button, GLint action, GLint mods)
+
+
+AVoid ControllerSource::mouse_callback(GLFWwindow* window, AInt button, AInt action, AInt mods)
 {
 
 
@@ -280,7 +288,10 @@ GLvoid ControllerSource::mouse_callback(GLFWwindow* window, GLint button, GLint 
 }
 
 
-GLvoid ControllerSource::cursor_callback(GLFWwindow* window, GLdouble x, GLdouble y)
+
+
+
+AVoid ControllerSource::cursor_callback(GLFWwindow* window, ADouble x, ADouble y)
 {
 
 
@@ -288,14 +299,20 @@ GLvoid ControllerSource::cursor_callback(GLFWwindow* window, GLdouble x, GLdoubl
 
 
 	CEGUI::GUIContext& context = CEGUI::System::getSingleton().getDefaultGUIContext();
-	context.injectMousePosition(GLfloat(x), GLfloat(y));
+    context.injectMousePosition(AFloat(x), AFloat(y));
 
 
 
 }
 
 
-GLvoid ControllerSource::resize_callback(GLFWwindow* window, GLint width, GLint height)
+
+
+
+
+
+
+AVoid ControllerSource::resize_callback(GLFWwindow* window, AInt width, AInt height)
 {
 
 	glViewport(0, 0, width, height);
@@ -306,7 +323,8 @@ GLvoid ControllerSource::resize_callback(GLFWwindow* window, GLint width, GLint 
 
 
 
-GLvoid ControllerSource::scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset)
+
+AVoid ControllerSource::scroll_callback(GLFWwindow* window, ADouble xoffset, ADouble yoffset)
 {
 
 	wheel_offset = yoffset;
@@ -316,10 +334,14 @@ GLvoid ControllerSource::scroll_callback(GLFWwindow* window, GLdouble xoffset, G
 
 
 
-GLvoid ControllerSource::drop_callback(GLFWwindow* window, GLint count, const GLchar ** paths)
+
+
+
+
+AVoid ControllerSource::drop_callback(GLFWwindow* window, AInt count, const GLchar ** paths)
 {
 
-	for (GLuint i = 0; i < count; i++)
+    for (AUInt i = 0; i < count; i++)
 		drop_files.push_back(paths[i]);
 
 }

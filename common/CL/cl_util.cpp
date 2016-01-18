@@ -17,12 +17,13 @@
 
 
 
-string opencl_error_to_str(cl_int error)
+std::string opencl_error_to_str(AInt error)
 {
 #define CASE_CL_CONSTANT(NAME) case NAME: return #NAME;
 
-	// Suppose that no combinations are possible.
-	// TODO: Test whether all error codes are listed here
+
+
+
 	switch (error)
 	{
 		CASE_CL_CONSTANT(CL_SUCCESS)
@@ -85,64 +86,93 @@ string opencl_error_to_str(cl_int error)
 
 
 
-void* aligned_malloc(size_t size, size_t alignment)
-{
-	// a number of requirements should be met
-	assert(alignment > 0);
-	assert((alignment & (alignment - 1)) == 0); // test for power of 2
 
-	if (alignment < sizeof(void*))
+
+
+AVoid* aligned_malloc(size_t size, size_t alignment)
+{
+	assert(alignment > 0);
+    assert((alignment & (alignment - 1)) == 0);
+
+    if (alignment < sizeof(AVoid*))
 	{
-		alignment = sizeof(void*);
+        alignment = sizeof(AVoid*);
 	}
 
-	assert(size >= sizeof(void*));
-	assert(size / sizeof(void*)*sizeof(void*) == size);
+    assert(size >= sizeof(AVoid*));
+    assert(size / sizeof(AVoid*)*sizeof(AVoid*) == size);
 
-	// allocate extra memory and convert to size_t to perform calculations
-	char* orig = new char[size + alignment + sizeof(void*)];
-	// calculate an aligned position in the allocated region
-	// assumption: (size_t)orig does not lose lower bits
-	char* aligned =
+    AChar* orig = new AChar[size + alignment + sizeof(AVoid*)];
+    AChar* aligned =
 		orig + (
-		(((size_t)orig + alignment + sizeof(void*)) & ~(alignment - 1)) -
+        (((size_t)orig + alignment + sizeof(AVoid*)) & ~(alignment - 1)) -
 		(size_t)orig
 		);
-	// save the original pointer to use it in aligned_free
-	*((char**)aligned - 1) = orig;
+    *((AChar**)aligned - 1) = orig;
 	return aligned;
 }
 
 
-void aligned_free(void *aligned)
+
+
+
+
+
+
+
+
+
+AVoid aligned_free(AVoid *aligned)
 {
 	if (!aligned)return; // behaves as delete: calling with 0 is NOP
-	delete[] * ((char**)aligned - 1);
+    delete[] * ((AChar**)aligned - 1);
 }
 
 
-bool is_number(const string& x)
+
+
+
+
+
+
+
+
+
+
+
+
+ABoolean is_number(const std::string& x)
 {
-	// Detection is simple: just try to represent x as an int
+
 	try
 	{
-		// If x is a number, then str_to returns without an exception
-		// In case when x cannot be converted to int
-		// str_to rises Error exception (see str_to definitin)
-		str_to<int>(x);
 
-		// success: x is a number
+        str_to<AInt>(x);
+
 		return true;
 	}
     catch (const AError&)
 	{
-		// fail: x is not a number
 		return false;
 	}
 }
 
 
-double time_stamp()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ADouble time_stamp()
 {
 #ifdef __linux__
 	{
@@ -171,24 +201,24 @@ double time_stamp()
 				);
 		}
 
-		return double(curclock.QuadPart) / freq.QuadPart;
+        return ADouble(curclock.QuadPart) / freq.QuadPart;
 	}
 #else
 	{
-		// very low resolution
-		return double(time(0));
+        return ADouble(time(0));
 	}
 #endif
 }
 
 
-void destructorException()
+
+
+
+
+AVoid destructorException()
 {
 	if (std::uncaught_exception())
 	{
-		// don't crash an application because of double throwing
-		// let the user see the original exception and suppress
-		// this one instead
 		std::cerr
 			<< "[ ERROR ] Catastrophic: another exception "
 			<< "was thrown and suppressed during handling of "
@@ -202,34 +232,77 @@ void destructorException()
 }
 
 
-cl_uint zeroCopyPtrAlignment(cl_device_id device)
+
+
+
+
+
+
+
+
+
+AUInt zeroCopyPtrAlignment(cl_device_id device)
 {
-	// Please refer to Intel Zero Copy Tutorial and OpenCL Performance Guide
 	return 4096;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 size_t zeroCopySizeAlignment(size_t requiredSize, cl_device_id device)
 {
-	// Please refer to Intel Zero Copy Tutorial and OpenCL Performance Guide
-	// The following statement rounds requiredSize up to the next 64-byte boundary
-	return requiredSize + (~requiredSize + 1) % 64;   // or even shorter: requiredSize + (-requiredSize) % 64
+
+    return requiredSize + (~requiredSize + 1) % 64;
 }
 
 
-bool verifyZeroCopyPtr(void* ptr, size_t sizeOfContentsOfPtr)
+
+
+
+
+
+
+
+
+
+ABoolean verifyZeroCopyPtr(AVoid* ptr, size_t sizeOfContentsOfPtr)
 {
-	return                                  // To enable zero-copy for buffer objects
-		(std::uintptr_t)ptr % 4096 == 0   // pointer should be aligned to 4096 bytes boundary
-		&&                                  // and
-		sizeOfContentsOfPtr % 64 == 0;    // size of memory should be aligned to 64 bytes boundary.
+    return
+        (std::uintptr_t)ptr % 4096 == 0
+        &&
+        sizeOfContentsOfPtr % 64 == 0;
 }
 
 
-cl_uint requiredOpenCLAlignment(cl_device_id device)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AUInt requiredOpenCLAlignment(cl_device_id device)
 {
-	cl_uint result = 0;
-	cl_int err = clGetDeviceInfo(
+    AUInt result = 0;
+    AInt err = clGetDeviceInfo(
 		device,
 		CL_DEVICE_MEM_BASE_ADDR_ALIGN,
 		sizeof(result),
@@ -238,14 +311,23 @@ cl_uint requiredOpenCLAlignment(cl_device_id device)
 		);
 	SAMPLE_CHECK_ERRORS(err);
 	assert(result % 8 == 0);
-	return result / 8;    // clGetDeviceInfo returns value in bits, convert it to bytes
+    return result / 8;
 }
+
+
+
+
+
+
+
+
+
 
 
 size_t deviceMaxWorkGroupSize(cl_device_id device)
 {
 	size_t result = 0;
-	cl_int err = clGetDeviceInfo(
+    AInt err = clGetDeviceInfo(
 		device,
 		CL_DEVICE_MAX_WORK_GROUP_SIZE,
 		sizeof(result),
@@ -257,9 +339,22 @@ size_t deviceMaxWorkGroupSize(cl_device_id device)
 }
 
 
-void deviceMaxWorkItemSizes(cl_device_id device, size_t* sizes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+AVoid deviceMaxWorkItemSizes(cl_device_id device, size_t* sizes)
 {
-	cl_int err = clGetDeviceInfo(
+    AInt err = clGetDeviceInfo(
 		device,
 		CL_DEVICE_MAX_WORK_ITEM_SIZES,
 		sizeof(size_t[3]),
@@ -270,10 +365,25 @@ void deviceMaxWorkItemSizes(cl_device_id device, size_t* sizes)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 size_t kernelMaxWorkGroupSize(cl_kernel kernel, cl_device_id device)
 {
 	size_t result = 0;
-	cl_int err = clGetKernelWorkGroupInfo(
+    AInt err = clGetKernelWorkGroupInfo(
 		kernel,
 		device,
 		CL_KERNEL_WORK_GROUP_SIZE,
@@ -286,299 +396,324 @@ size_t kernelMaxWorkGroupSize(cl_kernel kernel, cl_device_id device)
 }
 
 
-double eventExecutionTime(cl_event event)
-{
-	cl_ulong end = 0, start = 0;
 
-	cl_int err = clGetEventProfilingInfo(event, CL_PROFILING_COMMAND_START, sizeof(start), &start, 0);
+
+
+
+
+
+
+ADouble eventExecutionTime(cl_event event)
+{
+    AULong end = 0, start = 0;
+
+    AInt err = clGetEventProfilingInfo(event, CL_PROFILING_COMMAND_START, sizeof(start), &start, 0);
 	SAMPLE_CHECK_ERRORS(err);
 
 	err = clGetEventProfilingInfo(event, CL_PROFILING_COMMAND_END, sizeof(end), &end, 0);
 	SAMPLE_CHECK_ERRORS(err);
 
-	return double(end - start) / 1e9; // convert in seconds
+    return ADouble(end - start) / 1e9;
 }
 
 
-string exe_dir()
+
+
+
+
+
+
+
+
+std::string exe_dir()
 {
-	using namespace std;
-	const int start_size = 1000;
-	const int max_try_count = 8;
+    using namespace std;
+    const AInt start_size = 1000;
+    const AInt max_try_count = 8;
 
 #ifdef __linux__
-	{
-		static string const exe = "/proc/self/exe";
+    {
+        static std::string const exe = "/proc/self/exe";
 
-		vector<char> path(start_size);
-		int          count = max_try_count;  // Max number of iterations.
+        std::vector<AChar> path(start_size);
+        AInt          count = max_try_count;
 
-		for (;;)
-		{
-			ssize_t len = readlink(exe.c_str(), &path[0], path.size());
+        for (;;)
+        {
+            ssize_t len = readlink(exe.c_str(), &path[0], path.size());
 
-			if (len < 0)
-			{
+            if (len < 0)
+            {
                 throw AError(
-					"Cannot retrieve path to the executable: "
-					"readlink returned error code " +
-					to_str(errno) + "."
-					);
-			}
+                    "Cannot retrieve path to the executable: "
+                    "readlink returned error code " +
+                    to_str(errno) + "."
+                    );
+            }
 
-			if (len < path.size())
-			{
-				// We got the path.
-				path.resize(len);
-				break;
-			}
+            if (len < path.size())
+            {
+                path.resize(len);
+                break;
+            }
 
-			if (count > 0)   // the buffer is too small
-			{
-				--count;
-				// Enlarge the buffer.
-				path.resize(path.size() * 2);
-			}
-			else
-			{
+            if (count > 0)
+            {
+                --count;
+                path.resize(path.size() * 2);
+            }
+            else
+            {
                 throw AError("Cannot retrieve path to the executable: path is too long.");
-			}
-		}
+            }
+        }
 
-		return string(dirname(&path[0])) + "/";
-	}
+        return std::string(dirname(&path[0])) + "/";
+    }
 #elif defined(_WIN32) || defined(WIN32)
-	{
-		// Retrieving path to the executable.
+    {
 
-		vector<char> path(start_size);
-		int count = max_try_count;
 
-		for (;;)
-		{
-			DWORD len = GetModuleFileNameA(NULL, &path[0], (DWORD)path.size());
+        std::vector<AChar> path(start_size);
+        AInt count = max_try_count;
 
-			if (len == 0)
-			{
-				int err = GetLastError();
+        for (;;)
+        {
+            DWORD len = GetModuleFileNameA(NULL, &path[0], (DWORD)path.size());
+
+            if (len == 0)
+            {
+                AInt err = GetLastError();
                 throw AError(
-					"Getting executable path failed with error " +
-					to_str(err)
-					);
-			}
+                    "Getting executable path failed with error " +
+                    to_str(err)
+                    );
+            }
 
-			if (len < path.size())
-			{
-				path.resize(len);
-				break;
-			}
+            if (len < path.size())
+            {
+                path.resize(len);
+                break;
+            }
 
-			if (count > 0)   // buffer is too small
-			{
-				--count;
-				// Enlarge the buffer.
-				path.resize(path.size() * 2);
-			}
-			else
-			{
+            if (count > 0)
+            {
+                --count;
+                path.resize(path.size() * 2);
+            }
+            else
+            {
                 throw AError(
-					"Cannot retrieve path to the executable: "
-					"path is too long."
-					);
-			}
-		}
+                    "Cannot retrieve path to the executable: "
+                    "path is too long."
+                    );
+            }
+        }
 
-		string exe(&path[0], path.size());
+        std::string exe(&path[0], path.size());
 
-		// Splitting the path into components.
 
-		vector<char> drv(_MAX_DRIVE);
-		vector<char> dir(_MAX_DIR);
-		count = max_try_count;
+        std::vector<AChar> drv(_MAX_DRIVE);
+        std::vector<AChar> dir(_MAX_DIR);
+        count = max_try_count;
 
-		for (;;)
-		{
-			int rc =
-				_splitpath_s(
-				exe.c_str(),
-				&drv[0], drv.size(),
-				&dir[0], dir.size(),
-				NULL, 0,   // We need neither name
-				NULL, 0    // nor extension
-				);
-			if (rc == 0)
-			{
-				break;
-			}
-			else if (rc == ERANGE)
-			{
-				if (count > 0)
-				{
-					--count;
-					// Buffer is too small, but it is not clear which one.
-					// So we have to enlarge both.
-					drv.resize(drv.size() * 2);
-					dir.resize(dir.size() * 2);
-				}
-				else
-				{
+        for (;;)
+        {
+            AInt rc =
+                _splitpath_s(
+                exe.c_str(),
+                &drv[0], drv.size(),
+                &dir[0], dir.size(),
+                NULL, 0,
+                NULL, 0
+                );
+            if (rc == 0)
+            {
+                break;
+            }
+            else if (rc == ERANGE)
+            {
+                if (count > 0)
+                {
+                    --count;
+                    drv.resize(drv.size() * 2);
+                    dir.resize(dir.size() * 2);
+                }
+                else
+                {
                     throw AError(
-						"Getting executable path failed: "
-						"Splitting path " + exe + " to components failed: "
-						"Buffers of " + to_str(drv.size()) + " and " +
-						to_str(dir.size()) + " bytes are still too small."
-						);
-				}
-			}
-			else
-			{
+                        "Getting executable path failed: "
+                        "Splitting path " + exe + " to components failed: "
+                        "Buffers of " + to_str(drv.size()) + " and " +
+                        to_str(dir.size()) + " bytes are still too small."
+                        );
+                }
+            }
+            else
+            {
                 throw AError(
-					"Getting executable path failed: "
-					"Splitting path " + exe +
-					" to components failed with code " + to_str(rc)
-					);
-			}
-		}
+                    "Getting executable path failed: "
+                    "Splitting path " + exe +
+                    " to components failed with code " + to_str(rc)
+                    );
+            }
+        }
 
-		// Combining components back to path.
-		return string(&drv[0]) + string(&dir[0]);
-	}
+        return std::string(&drv[0]) + string(&dir[0]);
+    }
 #else
-	{
+    {
         throw AError(
-			"There is no method to retrieve the directory path "
-			"where executable is placed: unsupported platform."
-			);
-	}
+            "There is no method to retrieve the directory path "
+            "where executable is placed: unsupported platform."
+            );
+    }
 #endif
 }
+
+
+
+
+
+
+
+
 
 std::wstring exe_dir_w()
 {
-	using namespace std;
-	const int start_size = 1000;
-	const int max_try_count = 8;
+    using namespace std;
+    const AInt start_size = 1000;
+    const AInt max_try_count = 8;
 
 #if defined(_WIN32) || defined(WIN32)
-	{
-		// Retrieving path to the executable.
+    {
 
-		vector<wchar_t> path(start_size);
-		int count = max_try_count;
 
-		for (;;)
-		{
-			DWORD len = GetModuleFileNameW(NULL, &path[0], (DWORD)path.size());
+        std::vector<wchar_t> path(start_size);
+        AInt count = max_try_count;
 
-			if (len == 0)
-			{
-				int err = GetLastError();
+        for (;;)
+        {
+            DWORD len = GetModuleFileNameW(NULL, &path[0], (DWORD)path.size());
+
+            if (len == 0)
+            {
+                AInt err = GetLastError();
                 throw AError(
-					"Getting executable path failed with error " +
-					to_str(err)
-					);
-			}
+                    "Getting executable path failed with error " +
+                    to_str(err)
+                    );
+            }
 
-			if (len < path.size())
-			{
-				path.resize(len);
-				break;
-			}
+            if (len < path.size())
+            {
+                path.resize(len);
+                break;
+            }
 
-			if (count > 0)   // buffer is too small
-			{
-				--count;
-				// Enlarge the buffer.
-				path.resize(path.size() * 2);
-			}
-			else
-			{
+            if (count > 0)
+            {
+                --count;
+                path.resize(path.size() * 2);
+            }
+            else
+            {
                 throw AError(
-					"Cannot retrieve path to the executable: "
-					"path is too long."
-					);
-			}
-		}
+                    "Cannot retrieve path to the executable: "
+                    "path is too long."
+                    );
+            }
+        }
 
-		wstring exe(&path[0], path.size());
+        std::wstring exe(&path[0], path.size());
 
-		// Splitting the path into components.
 
-		vector<wchar_t> drv(_MAX_DRIVE);
-		vector<wchar_t> dir(_MAX_DIR);
-		count = max_try_count;
+        std::vector<wchar_t> drv(_MAX_DRIVE);
+        std::vector<wchar_t> dir(_MAX_DIR);
+        count = max_try_count;
 
-		for (;;)
-		{
-			int rc =
-				_wsplitpath_s(
-				exe.c_str(),
-				&drv[0], drv.size(),
-				&dir[0], dir.size(),
-				NULL, 0,   // We need neither name
-				NULL, 0    // nor extension
-				);
-			if (rc == 0)
-			{
-				break;
-			}
-			else if (rc == ERANGE)
-			{
-				if (count > 0)
-				{
-					--count;
-					// Buffer is too small, but it is not clear which one.
-					// So we have to enlarge both.
-					drv.resize(drv.size() * 2);
-					dir.resize(dir.size() * 2);
-				}
-				else
-				{
+        for (;;)
+        {
+            AInt rc =
+                _wsplitpath_s(
+                exe.c_str(),
+                &drv[0], drv.size(),
+                &dir[0], dir.size(),
+                NULL, 0,
+                NULL, 0
+                );
+            if (rc == 0)
+            {
+                break;
+            }
+            else if (rc == ERANGE)
+            {
+                if (count > 0)
+                {
+                    --count;
+
+                    drv.resize(drv.size() * 2);
+                    dir.resize(dir.size() * 2);
+                }
+                else
+                {
                     throw AError(
-						"Getting executable path failed: "
-						"Splitting path " + wstringToString(exe) + " to components failed: "
-						"Buffers of " + to_str(drv.size()) + " and " +
-						to_str(dir.size()) + " bytes are still too small."
-						);
-				}
-			}
-			else
-			{
+                        "Getting executable path failed: "
+                        "Splitting path " + wstringToString(exe) + " to components failed: "
+                        "Buffers of " + to_str(drv.size()) + " and " +
+                        to_str(dir.size()) + " bytes are still too small."
+                        );
+                }
+            }
+            else
+            {
                 throw AError(
-					"Getting executable path failed: "
-					"Splitting path " + wstringToString(exe) +
-					" to components failed with code " + to_str(rc)
-					);
-			}
-		}
+                    "Getting executable path failed: "
+                    "Splitting path " + wstringToString(exe) +
+                    " to components failed with code " + to_str(rc)
+                    );
+            }
+        }
 
-		// Combining components back to path.
-		return wstring(&drv[0]) + wstring(&dir[0]);
-	}
+
+        return wstring(&drv[0]) + wstring(&dir[0]);
+    }
 #else
-	{
+    {
         throw AError(
-			"There is no method to retrieve the directory path "
-			"where executable is placed: unsupported platform."
-			);
-	}
+            "There is no method to retrieve the directory path "
+            "where executable is placed: unsupported platform."
+            );
+    }
 #endif
 }
+
+
+
+
+
+
+
 
 std::wstring stringToWstring(const std::string s)
 {
 	return std::wstring(s.begin(), s.end());
 }
 
+
+
+
+
+
+
 #ifdef __linux__
 std::string wstringToString(const std::wstring w)
 {
-	string tmp;
-	const wchar_t* src = w.c_str();
-	//Store current locale and set default locale
+    std::string tmp;
+    const wchar_t* src = w.c_str();
 	CTYPELocaleHelper locale_helper;
 
-	//Get required number of characters
+
 	size_t count = wcsrtombs(NULL, &src, 0, NULL);
 	if (count == size_t(-1))
 	{
@@ -586,9 +721,9 @@ std::string wstringToString(const std::wstring w)
 			"Cannot convert wstring to string"
 			);
 	}
-	std::vector<char> dst(count + 1);
+	std::vector<AChar> dst(count + 1);
 
-	//Convert wstring to multibyte representation
+
 	size_t count_converted = wcsrtombs(&dst[0], &src, count + 1, NULL);
 	dst[count_converted] = '\0';
 	tmp.append(&dst[0]);
@@ -597,11 +732,11 @@ std::string wstringToString(const std::wstring w)
 #else
 std::string wstringToString(const std::wstring w)
 {
-	string tmp;
+    std::string tmp;
 
-	const char* question_mark = "?"; //replace wide characters which don't fit in the string with "?" mark
+    const AChar* question_mark = "?";
 
-	for (unsigned int i = 0; i < w.length(); i++)
+    for (AUint i = 0; i < w.length(); i++)
 	{
 		if (w[i]>255 || w[i]<0)
 		{
@@ -609,17 +744,20 @@ std::string wstringToString(const std::wstring w)
 		}
 		else
 		{
-			tmp += (char)w[i];
+            tmp += (AChar)w[i];
 		}
 	}
 	return tmp;
 }
 #endif
 
+
+
+
 size_t round_up_aligned(size_t x, size_t alignment)
 {
 	assert(alignment > 0);
-	assert((alignment & (alignment - 1)) == 0); // test for power of 2
+    assert((alignment & (alignment - 1)) == 0);
 
 	size_t result = (x + alignment - 1) & ~(alignment - 1);
 
@@ -632,14 +770,15 @@ size_t round_up_aligned(size_t x, size_t alignment)
 
 
 
-cl_device_type parseDeviceType(const string& device_type_name)
+
+cl_device_type parseDeviceType(const std::string& device_type_name)
 {
 	cl_device_type  device_type = 0;
-	for (size_t pos = 0, next = 0; next != string::npos; pos = next + 1)
+    for (size_t pos = 0, next = 0; next != std::string::npos; pos = next + 1)
 	{
 		next = device_type_name.find_first_of("+|", pos);
-		size_t substr_len = (next != string::npos) ? (next - pos) : (string::npos);
-		string name = device_type_name.substr(pos, substr_len);
+        size_t substr_len = (next != std::string::npos) ? (next - pos) : (std::string::npos);
+        std::string name = device_type_name.substr(pos, substr_len);
 		if (
 			name == "all" ||
 			name == "ALL" ||
@@ -703,38 +842,30 @@ cl_device_type parseDeviceType(const string& device_type_name)
 
 
 
-void readFile(const std::wstring& file_name, std::vector<char>& data)
+AVoid readFile(const std::wstring& file_name, std::vector<AChar>& data)
 {
-	using namespace std;
 
-	// Read program from a file
 
-	// First, determine where file exists; look at two places:
-	//   - current/default directory; also suitable for full paths
-	//   - directory where executable is placed
+
+
 #ifdef __linux__
-	//Store current locale and set default locale
 	CTYPELocaleHelper locale_helper;
 
-	ifstream file(
+    std::ifstream file(
 		wstringToString(file_name).c_str(),
-		ios_base::ate | ios_base::binary
+        std::ios_base::ate | std::ios_base::binary
 		);
 #else
-	ifstream file(
+    std::ifstream file(
 		file_name.c_str(),
-		ios_base::ate | ios_base::binary
+        std::ios_base::ate | std::ios_base::binary
 		);
 #endif
 
 	if (!file)
 	{
-		// There are no file at current/default directory or absolute
-		// path. Try to open it relatively from the directory where
-		// executable binary is placed.
 
-
-		cerr
+        std::cerr
 			<< "[ WARNING ] Unable to load OpenCL source code file "
 			<< inquotes(wstringToString(file_name)) << " at "
 			<< "the default location.\nTrying to open the file "
@@ -746,45 +877,45 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 		std::string dir = exe_dir();
 		file.open(
 			(dir + wstringToString(file_name)).c_str(),
-			ios_base::ate | ios_base::binary
+            std::ios_base::ate | std::ios_base::binary
 			);
 
 		if (!file)
 		{
-			cerr << " FAILED\n";
+            std::cerr << " FAILED\n";
             throw AError(
 				"Cannot open file " + inquotes(dir + wstringToString(file_name))
 				);
 		}
 		else
 		{
-			cerr << " OK\n";
+            std::cerr << " OK\n";
 		}
-		cerr << "Full file path is " << inquotes(dir + wstringToString(file_name)) << "\n";
+        std::cerr << "Full file path is " << inquotes(dir + wstringToString(file_name)) << "\n";
 #else
 		std::wstring dir = exe_dir_w();
 		file.open(
 			(dir + file_name).c_str(),
-			ios_base::ate | ios_base::binary
+            std::ios_base::ate | std::ios_base::binary
 			);
 
 		if (!file)
 		{
-			cerr << " FAILED\n";
+            std::cerr << " FAILED\n";
             throw AError(
 				"Cannot open file " + wstringToString(dir + file_name)
 				);
 		}
 		else
 		{
-			cerr << " OK\n";
+            std::cerr << " OK\n";
 		}
-		cerr << "Full file path is " << wstringToString(inquotes_w(dir + file_name)) << "\n";
+        std::cerr << "Full file path is " << wstringToString(inquotes_w(dir + file_name)) << "\n";
 #endif
 
 	}
 
-	// Second, determine the file length
+
 	std::streamoff file_length = file.tellg();
 
 	if (file_length == -1)
@@ -795,7 +926,7 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 			);
 	}
 
-	file.seekg(0, ios_base::beg);   // go to the file beginning
+    file.seekg(0, std::ios_base::beg);
 	data.resize(static_cast<size_t>(file_length));
 	file.read(&data[0], file_length);
 }
@@ -803,10 +934,10 @@ void readFile(const std::wstring& file_name, std::vector<char>& data)
 
 
 
-void readProgramFile(const std::wstring& program_file_name, std::vector<char>& program_text_prepared)
+AVoid readProgramFile(const std::wstring& program_file_name, std::vector<AChar>& program_text_prepared)
 {
 	readFile(program_file_name, program_text_prepared);
-	program_text_prepared.push_back(0); // terminatig zero
+    program_text_prepared.push_back(0);
 
 }
 
@@ -815,21 +946,23 @@ void readProgramFile(const std::wstring& program_file_name, std::vector<char>& p
 
 
 cl_program createAndBuildProgram(
-	const std::vector<char>& program_text_prepared,
+    const std::vector<AChar>& program_text_prepared,
 	cl_context context,
 	size_t num_of_devices,
 	const cl_device_id* devices,
-	const string& build_options
+    const std::string& build_options
 	)
 {
-	// Create OpenCL program and build it
-	const char* raw_text = &program_text_prepared[0];
-	cl_int err;
-	// TODO Using prepared length and not terminating by 0 is better way?
+
+    const AChar* raw_text = &program_text_prepared[0];
+    AInt err;
 	cl_program program = clCreateProgramWithSource(context, 1, &raw_text, 0, &err);
 	SAMPLE_CHECK_ERRORS(err);
 
-	err = clBuildProgram(program, (cl_uint)num_of_devices, devices, build_options.c_str(), 0, 0);
+
+    err = clBuildProgram(program, (AUInt)num_of_devices, devices, build_options.c_str(), 0, 0);
+
+
 
 	if (err == CL_BUILD_PROGRAM_FAILURE)
 	{
@@ -846,7 +979,7 @@ cl_program createAndBuildProgram(
 				);
 			SAMPLE_CHECK_ERRORS(err);
 
-			std::vector<char> log(log_length);
+            std::vector<AChar> log(log_length);
 
 			err = clGetProgramBuildInfo(
 				program,
@@ -861,7 +994,7 @@ cl_program createAndBuildProgram(
             throw AError(
 				"Error happened during the build of OpenCL program.\n"
 				"Build log:\n" +
-				string(&log[0])
+                std::string(&log[0])
 				);
 		}
 	}

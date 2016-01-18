@@ -39,15 +39,15 @@ public:
     /**
     Load data from file
     */
-    void Load();
+    AVoid Load();
     /**
     Save data to file
     */
-    void Save();
+    AVoid Save();
     /**
     Reset data
     */
-    void Reset();
+    AVoid Reset();
 
 
 
@@ -58,7 +58,7 @@ public:
     /**
     Get how many instances are in scene
     */
-    inline GLuint GetNumberOfInstances(){ return instance_map.size(); }
+    inline AUInt GetNumberOfInstances(){ return instance_map.size(); }
     /**
     Get instance at position 'index'
     */
@@ -66,7 +66,7 @@ public:
     /**
     Add instance to scene
     */
-    inline void AddInstance(std::string name, EntityInstance * new_instance)
+    inline AVoid AddInstance(std::string name, EntityInstance * new_instance)
     {
         instance_map.insert(std::pair<std::string, boost::shared_ptr<EntityInstance> >(name, boost::shared_ptr<EntityInstance>(new_instance)));
     }
@@ -77,11 +77,11 @@ public:
     /**
     Clear instances
     */
-    inline void ClearInstances(){ instance_map.clear(); }
+    inline AVoid ClearInstances(){ instance_map.clear(); }
     /**
     See if instance with 'name' exists
     */
-    inline bool InCollection(std::string name){ return instance_map.count(name) > 0; }
+    inline ABoolean InCollection(std::string name){ return instance_map.count(name) > 0; }
 
 
 

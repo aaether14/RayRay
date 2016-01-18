@@ -42,15 +42,15 @@ public:
 	/**
 	Initializes data
 	*/
-	void Init();
+    AVoid Init();
 	/**
 	Cleans data
 	*/
-	void Clean();
+    AVoid Clean();
 	/**
 	Enables module to affect scene
 	*/
-	void Enable();
+    AVoid Enable();
 
 
 
@@ -58,15 +58,15 @@ public:
 	/**
 	Iterates through all state changer map and use their save function
 	*/
-	void SaveChanges();
+    AVoid SaveChanges();
 	/**
 	Iterates through all state changer map and use their load function
 	*/
-	void LoadChanges();
+    AVoid LoadChanges();
 	/**
 	Iterates through all state changer map and use their reset function
 	*/
-	void NoChanges();
+    AVoid NoChanges();
 
 
 

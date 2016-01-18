@@ -5,7 +5,7 @@
 
 
 
-void EntityCollection::CreateComponentInstance(boost::filesystem::directory_iterator iterator, AComponent * new_component, std::string class_name, Entity * new_entity)
+AVoid EntityCollection::CreateComponentInstance(boost::filesystem::directory_iterator iterator, AComponent * new_component, std::string class_name, Entity * new_entity)
 {
 
 
@@ -62,7 +62,7 @@ void EntityCollection::CreateComponentInstance(boost::filesystem::directory_iter
 
 
 
-void EntityCollection::AddComponentsToEntity(std::string path, Entity * new_entity)
+AVoid EntityCollection::AddComponentsToEntity(std::string path, Entity * new_entity)
 {
 
 
@@ -103,7 +103,7 @@ void EntityCollection::AddComponentsToEntity(std::string path, Entity * new_enti
 
 
 
-void EntityCollection::AddEntity(Entity * new_entity)
+AVoid EntityCollection::AddEntity(Entity * new_entity)
 {
 
 
@@ -151,7 +151,7 @@ void EntityCollection::AddEntity(Entity * new_entity)
 
 
 
-void EntityCollection::Init()
+AVoid EntityCollection::Init()
 {
 
 
@@ -181,7 +181,7 @@ void EntityCollection::Init()
 
 
 
-void EntityCollection::Clean()
+AVoid EntityCollection::Clean()
 {
 
     ClearEntities();

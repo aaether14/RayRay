@@ -39,7 +39,7 @@ public:
 	/**
 	Initialize all techniques
 	*/
-    bool Create(glm::ivec2 screen_size);
+    ABoolean Create(glm::ivec2 screen_size);
 
 
 
@@ -49,34 +49,34 @@ public:
 	/**
 	Cleans data used by techniques
 	*/
-	void Clean();
+	AVoid Clean();
 	/**
 	Initializes data
 	*/
-	void Init();
+	AVoid Init();
 	/**
 	Enables module to affect scene
 	*/
-	void Enable();
+	AVoid Enable();
 
 
 
 	/**
 	Bind a certain texture object to be written to using the 'prog_target' shader
 	*/
-	void Bind(GLuint prog_target, TextureObject * tex_target, GLuint width, GLuint height);
+	AVoid Bind(AUInt prog_target, TextureObject * tex_target, AUInt width, AUInt height);
 	/**
 	Apply certian filter and transform 'tex_source' into 'tex_target'
 	*/
-	void ApplyFilter(GLuint prog_target, GLuint tex_source, TextureObject * tex_target, GLuint width, GLuint height);
+	AVoid ApplyFilter(AUInt prog_target, AUInt tex_source, TextureObject * tex_target, AUInt width, AUInt height);
 	/**
 	Unbind any binding done by the class
 	*/
-	void Unbind();
+	AVoid Unbind();
 	/**
 	Run a certain shader program
 	*/
-	void RunProgram(GLuint prog_target);
+	AVoid RunProgram(AUInt prog_target);
 
 
 

@@ -31,19 +31,19 @@ public:
 	/**
 	Check if the component can handle the extension
 	*/
-	virtual bool isValid(std::string extension) = 0;
+    virtual ABoolean isValid(std::string extension) = 0;
 	/**
 	Provide resource loading function for the component based on extension
 	*/
-	virtual void Load(std::string path, std::string extension) = 0;
+    virtual AVoid Load(std::string path, std::string extension) = 0;
 	/**
 	Provide initialization routine
 	*/
-	virtual void Init() = 0;
+    virtual AVoid Init() = 0;
 	/**
 	Provide cleaning routine
 	*/
-	virtual void Clean() = 0;
+    virtual AVoid Clean() = 0;
 
 
 

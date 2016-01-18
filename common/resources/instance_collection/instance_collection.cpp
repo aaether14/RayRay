@@ -7,7 +7,7 @@
 
 
 
-void InstanceCollection::Load()
+AVoid InstanceCollection::Load()
 {
 
 
@@ -88,7 +88,7 @@ void InstanceCollection::Load()
 
 
 
-void InstanceCollection::Save()
+AVoid InstanceCollection::Save()
 {
 
 
@@ -151,7 +151,7 @@ void InstanceCollection::Save()
 
 
 
-void InstanceCollection::Reset()
+AVoid InstanceCollection::Reset()
 {
 
 

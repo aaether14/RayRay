@@ -3,7 +3,7 @@
 
 
 
-void CLRaytracer::Init()
+AVoid CLRaytracer::Init()
 {
 
 
@@ -27,8 +27,8 @@ void CLRaytracer::Init()
 
 
     cl_float tan_half_fov = info->getTanHalfFov();
-    cl_int width = ctrl->GetWindowWidth();
-    cl_int height = ctrl->GetWindowHeight();
+    AInt width = ctrl->GetWindowWidth();
+    AInt height = ctrl->GetWindowHeight();
 
 
     //-------------------------------------------//
@@ -80,7 +80,7 @@ void CLRaytracer::Init()
 
 
 
-void CLRaytracer::Clean()
+AVoid CLRaytracer::Clean()
 {
 
     CleanModule();
@@ -90,7 +90,7 @@ void CLRaytracer::Clean()
 
 
 
-void CLRaytracer::Enable()
+AVoid CLRaytracer::Enable()
 {
 
 
@@ -112,8 +112,8 @@ void CLRaytracer::Enable()
 
 
 
-    cl_int width = ctrl->GetWindowWidth();
-    cl_int height = ctrl->GetWindowHeight();
+    AInt width = ctrl->GetWindowWidth();
+    AInt height = ctrl->GetWindowHeight();
     glm::mat4 view_matrix = glm::inverse(view->getViewMatrix());
 
 

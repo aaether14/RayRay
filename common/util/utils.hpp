@@ -21,7 +21,7 @@ class Quad
 {
 
 
-	GLuint m_VAO, m_VBO;
+	AUInt m_VAO, m_VBO;
 
 
 
@@ -36,7 +36,7 @@ public:
 	/**
 	Initializes data
 	*/
-	void Init();
+	AVoid Init();
 
 
 	/**
@@ -46,13 +46,13 @@ public:
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 	/**
 	Renders quad
 	*/
-	void Render();
+	AVoid Render();
 
 
 };

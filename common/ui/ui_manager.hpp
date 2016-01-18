@@ -30,20 +30,20 @@ public:
 	/**
 	Initializes CEGUI
 	*/
-	void Init();
+	AVoid Init();
 
 
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 
 	/**
 	Renders UI to scene 
 	*/
-	void Enable();
+	AVoid Enable();
 
 
 

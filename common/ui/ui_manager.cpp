@@ -3,7 +3,7 @@
 
 
 
-void UIManager::Init()
+AVoid UIManager::Init()
 {
 
 
@@ -67,7 +67,7 @@ void UIManager::Init()
 
 
 	  CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-	  CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(wmgr.loadLayoutFromFile("ui.layout"));
+      CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(wmgr.loadLayoutFromFile("ui.layout"));
 
 
 
@@ -75,7 +75,7 @@ void UIManager::Init()
 
 
 
-void UIManager::Clean()
+AVoid UIManager::Clean()
 {
 
 
@@ -86,7 +86,7 @@ void UIManager::Clean()
 
 
 
-void UIManager::Enable()
+AVoid UIManager::Enable()
 {
 
 

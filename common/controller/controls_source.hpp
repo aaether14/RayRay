@@ -19,11 +19,11 @@ class FPS
 
 
 
-    GLfloat fps;
-    GLint frames;
-    GLdouble lastTime;
-    GLdouble lastTime2;
-    GLdouble deltaTime, returnable_deltaTime;
+    AFloat fps;
+    AInt frames;
+    ADouble lastTime;
+    ADouble lastTime2;
+    ADouble deltaTime, returnable_deltaTime;
 
 
 
@@ -35,19 +35,19 @@ public:
     /**
     Returns current framerate
     */
-    inline GLfloat Get() { return fps; }
+    inline AFloat Get() { return fps; }
     /**
     Returns current time between frames
     */
-    inline GLdouble Delta() { return this->returnable_deltaTime; }
+    inline ADouble Delta() { return returnable_deltaTime; }
     /**
     Needs to be called at the begining of each frame
     */
-    void FirstPass();
+    AVoid FirstPass();
     /**
     Needs to be called the end of each frame - computes required data
     */
-    void Compute();
+    AVoid Compute();
 
 
 
@@ -80,11 +80,11 @@ class ControllerSource : public AModule
     /**
     Window data
     */
-    static GLint window_width, window_height;
+    static AInt window_width, window_height;
     /**
     Window data
     */
-    static GLboolean fullscreen;
+    static ABoolean fullscreen;
     /**
     Window data
     */
@@ -92,11 +92,11 @@ class ControllerSource : public AModule
     /**
     Data regarding OpenGL context version
     */
-    static GLuint opengl_major_version;
+    static AUInt opengl_major_version;
     /**
     Data regarding OpenGL context version
     */
-    static GLuint opengl_minor_version;
+    static AUInt opengl_minor_version;
 
 
     //---
@@ -112,21 +112,21 @@ class ControllerSource : public AModule
     /**
     Callback to return key presses
     */
-    static GLvoid key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods);
+    static AVoid key_callback(GLFWwindow* window, AInt key, AInt scancode, AInt action, AInt mods);
     /**
     Callback to return key presses (ASCI information)
     */
-    static GLvoid char_callback(GLFWwindow * window, GLuint code);
-    static GLuint keys[512];
-    static GLuint fullscreen_key;
+    static AVoid char_callback(GLFWwindow * window, AUInt code);
+    static AUInt keys[512];
+    static AUInt fullscreen_key;
 
 
     /**
     Mouse buttons press
     */
-    static GLvoid mouse_callback(GLFWwindow* window, GLint button, GLint action, GLint mods);
+    static AVoid mouse_callback(GLFWwindow* window, AInt button, AInt action, AInt mods);
     static glm::vec2 mouse_position;
-    static GLuint mouse_buttons[8];
+    static AUInt mouse_buttons[8];
 
 
 
@@ -134,27 +134,27 @@ class ControllerSource : public AModule
     /**
     Get list of files dropped on window
     */
-    static GLvoid drop_callback(GLFWwindow* window, GLint count, const GLchar ** paths);
+    static AVoid drop_callback(GLFWwindow* window, AInt count, const GLchar ** paths);
     /**
     Cursor movement
     */
-    static GLvoid cursor_callback(GLFWwindow* window, GLdouble x, GLdouble y);
+    static AVoid cursor_callback(GLFWwindow* window, ADouble x, ADouble y);
     /**
     Recives resize information
     */
-    static GLvoid resize_callback(GLFWwindow* window, GLint width, GLint height);
+    static AVoid resize_callback(GLFWwindow* window, AInt width, AInt height);
     /**
     Mouse wheel information
     */
-    static GLvoid scroll_callback(GLFWwindow* window, GLdouble xoffset, GLdouble yoffset);
-    static GLdouble wheel_offset;
+    static AVoid scroll_callback(GLFWwindow* window, ADouble xoffset, ADouble yoffset);
+    static ADouble wheel_offset;
 
 
 
     /**
     Initialize callbacks
     */
-    static void InitCallbacks();
+    static AVoid InitCallbacks();
 
 
 
@@ -165,11 +165,11 @@ public:
     /**
     Check if key with 'code' is being pressed
     */
-    inline GLuint GetKey(GLuint code){ return ControllerSource::keys[code]; }
+    inline AUInt GetKey(AUInt code){ return ControllerSource::keys[code]; }
     /**
     Check if key with 'code' has been pressed once
     */
-    inline GLuint GetKeyOnce(GLuint code){ GLuint result = (ControllerSource::keys[code] == 1); if (result)ControllerSource::keys[code]++; return result; }
+    inline AUInt GetKeyOnce(AUInt code){ AUInt result = (ControllerSource::keys[code] == 1); if (result)ControllerSource::keys[code]++; return result; }
 
 
 
@@ -181,31 +181,31 @@ public:
     /**
     Set mouse position
     */
-    inline void SetMousePosition(glm::vec2 new_position){glfwSetCursorPos(window, new_position.x, new_position.y); }
+    inline AVoid SetMousePosition(glm::vec2 new_position){glfwSetCursorPos(window, new_position.x, new_position.y); }
     /**
     Show cursor
     */
-    inline void ShowCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
+    inline AVoid ShowCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
     /**
     Hide cursor
     */
-    inline void HideCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
+    inline AVoid HideCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
     /**
     Check is mouse button with 'code' was clicked
     */
-    inline GLuint GetMouseButton(GLuint code){ return ControllerSource::mouse_buttons[code]; }
+    inline AUInt GetMouseButton(AUInt code){ return ControllerSource::mouse_buttons[code]; }
     /**
     Check is mouse button with 'code' was clicked once
     */
-    inline GLuint GetMouseButtonOnce(GLuint code){ GLuint result = (ControllerSource::mouse_buttons[code] == 1); if (result)ControllerSource::mouse_buttons[code]++; return result; }
+    inline AUInt GetMouseButtonOnce(AUInt code){ AUInt result = (ControllerSource::mouse_buttons[code] == 1); if (result)ControllerSource::mouse_buttons[code]++; return result; }
     /**
     Return wheel offset
     */
-    inline GLdouble GetWheelOffset(){ return wheel_offset; }
+    inline ADouble GetWheelOffset(){ return wheel_offset; }
     /**
     Reset wheel offset
     */
-    inline GLvoid ResetWheelOffset(){ wheel_offset = 0.0; }
+    inline AVoid ResetWheelOffset(){ wheel_offset = 0.0; }
 
 
 
@@ -222,11 +222,11 @@ public:
     /**
     Return window size
     */
-    inline GLint GetWindowWidth(){ return window_width; }
+    inline AInt GetWindowWidth(){ return window_width; }
     /**
     Return window size
     */
-    inline GLint GetWindowHeight(){ return window_height; }
+    inline AInt GetWindowHeight(){ return window_height; }
     /**
     Get window title
     */
@@ -234,11 +234,11 @@ public:
     /**
     Set window title
     */
-    inline void SetWindowTitle(std::string new_title){title = new_title; glfwSetWindowTitle(window, title.c_str()); }
+    inline AVoid SetWindowTitle(std::string new_title){title = new_title; glfwSetWindowTitle(window, title.c_str()); }
     /**
     Set the key to be used for switching to fullscreen
     */
-    inline void SetFullscreenKey(GLuint key){ ControllerSource::fullscreen_key = key; }
+    inline AVoid SetFullscreenKey(AUInt key){ ControllerSource::fullscreen_key = key; }
     /**
     Get pointer to GLFW window
     */
@@ -259,7 +259,7 @@ public:
     /**
     Reset list of files dropped inside window
     */
-    inline void ResetDropList(){ drop_files.clear(); }
+    inline AVoid ResetDropList(){ drop_files.clear(); }
 
 
 
@@ -269,26 +269,26 @@ public:
     /**
     Create window out of 'window_window', 'window_height', 'fullscreen', 'title' and OpenGL context version
     */
-    static GLboolean CreateWindowContext(GLuint window_width, GLuint window_height,
-                                         GLboolean fullscreen,
+    static ABoolean CreateWindowContext(AUInt window_width, AUInt window_height,
+                                         ABoolean fullscreen,
                                          std::string title,
-                                         GLuint opengl_major_version,
-                                         GLuint opengl_minor_version);
+                                         AUInt opengl_major_version,
+                                         AUInt opengl_minor_version);
 
 
 
     /**
     Initialize data
     */
-    void Init();
+    AVoid Init();
     /**
     Compute data
     */
-    void Enable();
+    AVoid Enable();
     /**
     Clean data
     */
-    void Clean();
+    AVoid Clean();
 
 
 

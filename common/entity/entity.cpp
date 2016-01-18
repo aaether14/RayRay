@@ -3,24 +3,10 @@
 
 
 
-
-void Entity::Render(AModule * manager, AEntityInstance * entity_instance)
-{
-
-
-
-
-
-
-
-}
-
-
-
  
 
 
-void Entity::Clean()
+AVoid Entity::Clean()
 {
 
 

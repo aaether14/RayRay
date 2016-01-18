@@ -20,7 +20,7 @@ namespace Controller_Wrapper
 /**
   Module init
 */
-void Init();
+AVoid Init();
 
 
 

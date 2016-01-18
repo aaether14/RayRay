@@ -21,7 +21,7 @@
 
 
 /**
-Provdies functionality for building scene float array from scene manager
+Provdies functionality for building scene AFloat array from scene manager
 */
 class RayTracerSceneBuilder : public AModule
 {
@@ -36,23 +36,23 @@ class RayTracerSceneBuilder : public AModule
     /**
     Add sphere to scene
     */
-    void AddSphere(glm::vec3 pos, cl_float sq_dist, cl_uint mat);
+    AVoid AddSphere(glm::vec3 pos, cl_float sq_dist, AUInt mat);
     /**
     Add box to scene
     */
-    void AddBox(glm::vec3 near_point, glm::vec3 far_point, cl_uint mat);
+    AVoid AddBox(glm::vec3 near_point, glm::vec3 far_point, AUInt mat);
     /**
     Add plane to scene
     */
-    void AddPlane(glm::vec3 normal, cl_float dist, cl_uint mat);
+    AVoid AddPlane(glm::vec3 normal, cl_float dist, AUInt mat);
     /**
     Add material to scene
     */
-    void AddMaterial(glm::vec3 amb, cl_float refl, cl_float refr, cl_float spec, cl_float diff);
+    AVoid AddMaterial(glm::vec3 amb, cl_float refl, cl_float refr, cl_float spec, cl_float diff);
     /**
     Add light to scene
     */
-    void AddLight(glm::vec3 center, cl_uint mat);
+    AVoid AddLight(glm::vec3 center, AUInt mat);
 
 
 
@@ -64,15 +64,15 @@ public:
     /**
     Initailizes data
     */
-    void Init();
+    AVoid Init();
     /**
     Cleans data
     */
-    void Clean();
+    AVoid Clean();
     /**
     Updates scene data
     */
-    void Enable();
+    AVoid Enable();
 
 
 
@@ -82,7 +82,7 @@ public:
     /**
     Clean scene data
     */
-    inline void CleanSceneData(){scene_data.clear();}
+    inline AVoid CleanSceneData(){scene_data.clear();}
     /**
     Give scene data pointer
     */

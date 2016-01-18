@@ -3,7 +3,7 @@
 
 
 
-void AModule::SetManager(AModule * module)
+AVoid AModule::SetManager(AModule * module)
 {
 
 	manager = module;
@@ -12,7 +12,7 @@ void AModule::SetManager(AModule * module)
 
 
 
-void AModule::CleanModule()
+AVoid AModule::CleanModule()
 {
 
 
@@ -27,7 +27,7 @@ void AModule::CleanModule()
 
 
 
-void AModule::Add(std::string key, AModule * module)
+AVoid AModule::Add(std::string key, AModule * module)
 {
 
 	module_map[key] = module;

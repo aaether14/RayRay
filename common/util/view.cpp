@@ -4,7 +4,7 @@
 
 
 
-void View::Create3rd(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, GLfloat distance, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
+AVoid View::Create3rd(AFloat FoV, AFloat ratio, AFloat z_near, AFloat z_far, AFloat distance, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
 {
 
     ProjectionMatrix = glm::perspective(FoV, ratio, z_near, z_far);
@@ -15,7 +15,7 @@ void View::Create3rd(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, 
 
 
 
-void View::Create3rd(ViewInfo*info)
+AVoid View::Create3rd(ViewInfo*info)
 {
 
     this->Create3rd(info->getFoV(),
@@ -31,7 +31,7 @@ void View::Create3rd(ViewInfo*info)
 
 }
 
-void View::Create1st(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
+AVoid View::Create1st(AFloat FoV, AFloat ratio, AFloat z_near, AFloat z_far, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
 {
 
 
@@ -42,7 +42,7 @@ void View::Create1st(GLfloat FoV, GLfloat ratio, GLfloat z_near, GLfloat z_far, 
 }
 
 
-void View::Create1st(ViewInfo * info)
+AVoid View::Create1st(ViewInfo * info)
 {
 
 
@@ -59,7 +59,7 @@ void View::Create1st(ViewInfo * info)
 }
 
 
-void ViewInfo::Init()
+AVoid ViewInfo::Init()
 {
 
 
@@ -77,7 +77,7 @@ void ViewInfo::Init()
 
 
 
-void Frustum::Create(glm::mat4 MVP)
+AVoid Frustum::Create(glm::mat4 MVP)
 {
 
 

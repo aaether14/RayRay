@@ -6,7 +6,7 @@
 
 
 
-void PythonManager::Init()
+AVoid PythonManager::Init()
 {
 
 
@@ -49,7 +49,7 @@ void PythonManager::Init()
 
 
 
-void PythonManager::Clean()
+AVoid PythonManager::Clean()
 {
 
 
@@ -63,7 +63,7 @@ void PythonManager::Clean()
 
 
 
-void PythonManager::Enable()
+AVoid PythonManager::Enable()
 {
 
 

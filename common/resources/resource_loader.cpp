@@ -6,7 +6,7 @@
 
 
 
-void ResourceLoader::Init()
+AVoid ResourceLoader::Init()
 {
 
 
@@ -22,7 +22,7 @@ void ResourceLoader::Init()
 
 
 
-void ResourceLoader::Clean()
+AVoid ResourceLoader::Clean()
 {
 
 
@@ -36,7 +36,7 @@ void ResourceLoader::Clean()
 
 
 
-void ResourceLoader::LoadProject(std::string path)
+AVoid ResourceLoader::LoadProject(std::string path)
 {
 
 

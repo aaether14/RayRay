@@ -4,12 +4,12 @@
 
 
 
-void Shader::Add(std::string path, GLenum type)
+AVoid Shader::Add(std::string path, GLenum type)
 {
 
 
 
-	GLuint ShaderID = glCreateShader(type);
+	AUInt ShaderID = glCreateShader(type);
     std::string ShaderCode = AString::LoadFileToString(path).get();
 	ShaderCode = AString::ManageDirective(path, ShaderCode, "#include", "\"");
 
@@ -18,18 +18,18 @@ void Shader::Add(std::string path, GLenum type)
 
 
 	std::cout<<"Compiling shader: "<<path<<std::endl;
-	char const * SourcePointer = ShaderCode.c_str();
+	AChar const * SourcePointer = ShaderCode.c_str();
 	glShaderSource(ShaderID, 1, &SourcePointer, NULL);
 	glCompileShader(ShaderID);
 
 
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength;
+	AInt Result = GL_FALSE;
+	AInt InfoLogLength;
 	glGetShaderiv(ShaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(ShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0){
-		std::vector<char> ShaderErrorMessage(InfoLogLength + 1);
+		std::vector<AChar> ShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(ShaderID, InfoLogLength, NULL, &ShaderErrorMessage[0]);
 		printf("%s\n", &ShaderErrorMessage[0]);
 	}
@@ -46,7 +46,7 @@ void Shader::Add(std::string path, GLenum type)
 
 
 
-void Shader::Link()
+AVoid Shader::Link()
 {
 
 
@@ -56,8 +56,8 @@ void Shader::Link()
 
 
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength;
+	AInt Result = GL_FALSE;
+	AInt InfoLogLength;
 	glGetProgramiv(this->program, GL_LINK_STATUS, &Result);
 	glGetProgramiv(this->program, GL_INFO_LOG_LENGTH, &InfoLogLength);
 
@@ -67,7 +67,7 @@ void Shader::Link()
 	{
 
 
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+		std::vector<AChar> ProgramErrorMessage(InfoLogLength + 1);
 		glGetProgramInfoLog(this->program, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 

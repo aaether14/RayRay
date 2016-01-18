@@ -11,6 +11,7 @@
 #include <headers/basic_include.hpp>
 #include <headers/cegui_include.hpp>
 #include <headers/glfw_include.hpp>
+#include <headers/base_types.hpp>
 #include <headers/util_include.hpp>
 #include <FreeImage.h>
 #include <texture/texture.hpp>
@@ -55,6 +56,8 @@
 #include <python/glm_python_wrapper.hpp>
 #include <python/controller_python_wrapper.hpp>
 #include <python/python_manager.hpp>
+#include <ui_modules/console_ui.hpp>
+#include <ui_modules/ui_workstation.hpp>
 #include <application.hpp>
 
 //---------------------------------------------//

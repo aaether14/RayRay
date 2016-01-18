@@ -45,7 +45,7 @@ public:
 	/**
 	Initializes data
 	*/
-	void Init();
+	AVoid Init();
 
 
 	/**
@@ -55,7 +55,7 @@ public:
 	/**
 	Cleans data
 	*/
-	void Clean();
+	AVoid Clean();
 
 
 	/**
@@ -71,21 +71,21 @@ public:
 	/**
 	Bind texture for null shader
 	*/
-	inline void BindNullTexture(){ this->null_filter->Set("texture", 0); }
+	inline AVoid BindNullTexture(){ this->null_filter->Set("texture", 0); }
 	/**
 	Bind texture for gamma shader
 	*/
-	inline void BindGammaTexture(){ this->gamma_filter->Set("texture", 0); }
+	inline AVoid BindGammaTexture(){ this->gamma_filter->Set("texture", 0); }
 
 
 	/**
 	Mult 'tex1' by 'tex2.x' and store in 'target'
 	*/
-	void MultTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
+	AVoid MultTextures(TextureObject * target, AUInt tex1, AUInt tex2, glm::ivec2 window_size);
 	/**
 	Add 'tex1' to 'tex2' and store in 'target'
 	*/
-	void AddTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
+	AVoid AddTextures(TextureObject * target, AUInt tex1, AUInt tex2, glm::ivec2 window_size);
 
 	/**
 	Get pointer to quad

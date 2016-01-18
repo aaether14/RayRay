@@ -3,14 +3,14 @@
 
 
 
-void Quad::Init()
+AVoid Quad::Init()
 {
 
 	glGenVertexArrays(1, &this->m_VAO);
 	glBindVertexArray(m_VAO);
 
 
-	GLfloat buffer[] =
+	AFloat buffer[] =
 	{
 		-1.0f, -1.0f,
 		1.0f, -1.0f,
@@ -34,7 +34,7 @@ void Quad::Init()
 		GL_FLOAT,
 		GL_FALSE,
 		0,
-		(void*)0
+		(AVoid*)0
 		);
 	glBindVertexArray(0);
 
@@ -42,7 +42,7 @@ void Quad::Init()
 
 
 
-void Quad::Render()
+AVoid Quad::Render()
 {
 
 
@@ -57,7 +57,7 @@ void Quad::Render()
 
 
 
-void Quad::Clean()
+AVoid Quad::Clean()
 {
 
 

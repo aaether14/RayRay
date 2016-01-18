@@ -3,7 +3,7 @@
 
 
 
-void Camera::Init()
+AVoid Camera::Init()
 {
 
 
@@ -27,7 +27,7 @@ void Camera::Init()
 
 
 
-void Camera::Clean()
+AVoid Camera::Clean()
 {
 
 
@@ -51,7 +51,7 @@ void Camera::Clean()
 
 
 
-void Camera::ProcessInput()
+AVoid Camera::ProcessInput()
 {
 
 
@@ -69,12 +69,12 @@ void Camera::ProcessInput()
 
 
     if (source->GetKey(GLFW_KEY_W))
-        info->SetCameraPos(info->getCameraPos() + info->getDirection() * GLfloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
+        info->SetCameraPos(info->getCameraPos() + info->getDirection() * AFloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
 
 
 
     if (source->GetKey(GLFW_KEY_S))
-        info->SetCameraPos(info->getCameraPos() - info->getDirection() * GLfloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
+        info->SetCameraPos(info->getCameraPos() - info->getDirection() * AFloat(source->GetFPSCounter()->Delta() * camera_speed[CAMERA_SPEED]));
 
 
 
@@ -100,7 +100,7 @@ void Camera::ProcessInput()
 
 
 
-void Camera::ComputeAngles(){
+AVoid Camera::ComputeAngles(){
 
 
 
@@ -119,8 +119,8 @@ void Camera::ComputeAngles(){
         source->SetMousePosition(last_mouse_position);
 
 
-        camera_angles.x += camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.x - source->GetMousePosition().x) * source->GetFPSCounter()->Delta();
-        camera_angles.y -= camera_speed[MOUSE_SPEED] * GLdouble(last_mouse_position.y - source->GetMousePosition().y) * source->GetFPSCounter()->Delta();
+        camera_angles.x += camera_speed[MOUSE_SPEED] * ADouble(last_mouse_position.x - source->GetMousePosition().x) * source->GetFPSCounter()->Delta();
+        camera_angles.y -= camera_speed[MOUSE_SPEED] * ADouble(last_mouse_position.y - source->GetMousePosition().y) * source->GetFPSCounter()->Delta();
 
 
 
@@ -145,7 +145,7 @@ void Camera::ComputeAngles(){
 
 
 
-void Camera::SetInfo()
+AVoid Camera::SetInfo()
 {
 
 
@@ -176,7 +176,7 @@ void Camera::SetInfo()
 
 
     info->setUpVec(glm::cross(info->getDirection(), right));
-    info->setRatio(GLfloat(source->GetWindowWidth()) / GLfloat(source->GetWindowHeight()));
+    info->setRatio(AFloat(source->GetWindowWidth()) / AFloat(source->GetWindowHeight()));
     info->setNear(1.0f);
 
 
@@ -193,7 +193,7 @@ void Camera::SetInfo()
 
 
 
-void Camera::Enable()
+AVoid Camera::Enable()
 {
 
 

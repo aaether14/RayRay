@@ -10,7 +10,7 @@
 
 
 
-typedef boost::variant<cl_float*, cl_int*> dtype;
+typedef boost::variant<AFloat*, AInt*> dtype;
 
 
 
@@ -30,7 +30,7 @@ class CLKernel : public CLProgram
 
     std::map<std::string, dtype> kernel_data_buffers;
     std::map<std::string, cl_mem> kernel_data_mem_buffers;
-    std::map<std::string, GLuint> kernel_gl_texture_buffers;
+    std::map<std::string, AUInt> kernel_gl_texture_buffers;
     std::map<std::string, cl_mem> kernel_gl_texture_mem_buffers;
 
 
@@ -43,12 +43,12 @@ public:
     /**
     Create OpenCL kernel
     */
-    void Create(
+    AVoid Create(
             CLContextWrapper * cl_cw,
             const std::wstring& program_file_name,
-            const string& program_text,
-            const string& kernel_name,
-            const string& build_options = ""
+            const std::string& program_text,
+            const std::string& kernel_name,
+            const std::string& build_options = ""
             );
 
 
@@ -59,19 +59,19 @@ public:
     /**
     Initializes data
     */
-    void Init();
+    AVoid Init();
 
 
     /**
     Cleans data
     */
-    void Clean();
+    AVoid Clean();
 
 
     /**
     Runs OpenCL kernel
     */
-    void Enable();
+    AVoid Enable();
 
 
 
@@ -93,46 +93,46 @@ public:
     /**
     Set kernel work size
     */
-    void SetWorkSize(size_t global, size_t local);
+    AVoid SetWorkSize(size_t global, size_t local);
     /**
     Add kernel buffer memory
     */
     template <class T>
-    void AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
+    AVoid AddDataBuffer(std::string buffer_name, size_t size, cl_mem_flags mem_flags);
     /**
-    Release float buffer
+    Release AFloat buffer
     */
-    void ReleaseDataBuffer(std::string buffer_name);
+    AVoid ReleaseDataBuffer(std::string buffer_name);
     /**
-    Add float data to buffer
+    Add AFloat data to buffer
     */
     template<class T>
-    void WriteToDataBuffer(std::string buffer_name, size_t size, dtype data);
+    AVoid WriteToDataBuffer(std::string buffer_name, size_t size, dtype data);
     /**
-    Read float buffer
+    Read AFloat buffer
     */
-    void ReadDataBuffer(std::string buffer_name, size_t size);
+    AVoid ReadDataBuffer(std::string buffer_name, size_t size);
     /**
-    Set kernel arg from float buffer
+    Set kernel arg from AFloat buffer
     */
-    void SetDataBufferArg(std::string buffer_name, cl_uint arg);
+    AVoid SetDataBufferArg(std::string buffer_name, AUInt arg);
     /**
     Set kernel arg from value
     */
     template <class T>
-    void SetArgValue(T value, cl_uint arg);
+    AVoid SetArgValue(T value, AUInt arg);
     /**
     Add opengl texture
     */
-    void AddGLTexture(std::string texture_name, size_t width, size_t height, GLint internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags);
+    AVoid AddGLTexture(std::string texture_name, size_t width, size_t height, AInt internal_format, GLenum format, GLenum type, cl_mem_flags mem_flags);
     /**
     Set kernel arg from gl texture
     */
-    void SetGLTextureArg(std::string texture_name, cl_uint arg);
+    AVoid SetGLTextureArg(std::string texture_name, AUInt arg);
     /**
     Release gl texture
     */
-    void ReleaseGLTexture(std::string texture_name);
+    AVoid ReleaseGLTexture(std::string texture_name);
 
 
     //-----------------------------------------------//
@@ -140,13 +140,13 @@ public:
 
 
     /**
-    Get float buffer
+    Get AFloat buffer
     */
     inline dtype GetDataBuffer(std::string buffer_name){ return kernel_data_buffers[buffer_name]; }
     /**
     Get gl texture id
     */
-    inline GLuint GetGLTextureID(std::string texture_name){return kernel_gl_texture_buffers[texture_name];}
+    inline AUInt GetGLTextureID(std::string texture_name){return kernel_gl_texture_buffers[texture_name];}
 
 
 

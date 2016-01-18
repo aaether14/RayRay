@@ -6,7 +6,7 @@
 
 
 
-void Application::Init()
+AVoid Application::Init()
 {
 
 
@@ -19,9 +19,9 @@ void Application::Init()
     Add("Controller", new Controller());
     Add("CLContextWrapper", new CLContextWrapper());
     Add("DataManager", new DataManager());
-    Add("UI", new UIManager());
     Add("Pipeline", new Pipeline());
     Add("Python", new PythonManager());
+    Add("UI", new UIWorkStation());
 
 
 
@@ -35,7 +35,7 @@ void Application::Init()
 
 
 
-void Application::Enable()
+AVoid Application::Enable()
 {
 
 
@@ -92,7 +92,7 @@ void Application::Enable()
 
 
 
-void Application::Clean()
+AVoid Application::Clean()
 {
 
 

@@ -30,9 +30,9 @@ std::string ManageDirective(std::string path, std::string code, std::string firs
 
 
 /**
-    Generate float array from string
+    Generate AFloat array from string
     */
-void FloatArrayFromString(GLfloat * _array, GLint &number_of_floats, std::string str);
+AVoid FloatArrayFromString(AFloat * _array, AInt &number_of_floats, std::string str);
 
 
 

@@ -50,7 +50,7 @@ namespace Controller_Wrapper
 
 
 
-void Init()
+AVoid Init()
 {
 
     initController();

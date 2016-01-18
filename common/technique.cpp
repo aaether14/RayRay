@@ -6,7 +6,7 @@
 
 
 
-bool Techniques::Create(glm::ivec2 screen_size)
+ABoolean Techniques::Create(glm::ivec2 screen_size)
 {
 
 
@@ -28,7 +28,7 @@ bool Techniques::Create(glm::ivec2 screen_size)
 
 
 
-void Techniques::Bind(GLuint prog_target, TextureObject * tex_target, GLuint width, GLuint height)
+AVoid Techniques::Bind(AUInt prog_target, TextureObject * tex_target, AUInt width, AUInt height)
 {
 
 
@@ -41,7 +41,7 @@ void Techniques::Bind(GLuint prog_target, TextureObject * tex_target, GLuint wid
 
 
 
-void Techniques::Unbind()
+AVoid Techniques::Unbind()
 {
 
 
@@ -60,7 +60,7 @@ void Techniques::Unbind()
 
 
 
-void Techniques::ApplyFilter(GLuint prog_target, GLuint tex_source, TextureObject * tex_target, GLuint width, GLuint height)
+AVoid Techniques::ApplyFilter(AUInt prog_target, AUInt tex_source, TextureObject * tex_target, AUInt width, AUInt height)
 {
 
 
@@ -91,7 +91,7 @@ void Techniques::ApplyFilter(GLuint prog_target, GLuint tex_source, TextureObjec
 
 
 
-void Techniques::RunProgram(GLuint prog_target)
+AVoid Techniques::RunProgram(AUInt prog_target)
 {
 
 
@@ -113,7 +113,7 @@ void Techniques::RunProgram(GLuint prog_target)
 
 
 
-void Techniques::Clean()
+AVoid Techniques::Clean()
 {
 
 
@@ -129,7 +129,7 @@ void Techniques::Clean()
 
 
 
-void Techniques::Init()
+AVoid Techniques::Init()
 {
 
 
@@ -141,7 +141,7 @@ void Techniques::Init()
 
 
 
-void Techniques::Enable()
+AVoid Techniques::Enable()
 {
 
 

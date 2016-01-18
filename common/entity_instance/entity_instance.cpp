@@ -3,7 +3,7 @@
 
 
 
-void EntityInstance::Enable(AModule * manager)
+AVoid EntityInstance::Enable(AModule * manager)
 {
 
 
