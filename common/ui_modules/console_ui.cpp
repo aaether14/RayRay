@@ -11,6 +11,14 @@ AVoid UIConsole::Init()
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(wmgr.loadLayoutFromFile("console.layout"));
 
 
+
+
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Console/Button")->subscribeEvent(CEGUI::MenuItem::EventClicked,
+            CEGUI::Event::Subscriber(&UIConsole::RunScript, this));
+
+
+
+
 }
 
 

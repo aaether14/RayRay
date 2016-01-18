@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="GlossySerpentFHD/FrameWindow" name="Console" >
+        <Property name="Area" value="{{0.260742,0},{0.207031,0},{0.685469,0},{0.61776,0}}" />
+        <Property name="Text" value="Console" />
+        <Property name="TitlebarHeight" value="30" />
+        <Property name="AutoRenderingSurface" value="true" />
+        <AutoWindow namePath="__auto_titlebar__" >
+            <Property name="NonClient" value="true" />
+            <Property name="AlwaysOnTop" value="false" />
+        </AutoWindow>
+        <AutoWindow namePath="__auto_closebutton__" >
+            <Property name="NonClient" value="true" />
+            <Property name="AlwaysOnTop" value="true" />
+        </AutoWindow>
+        <Window type="GlossySerpentFHD/MultiLineEditbox" name="Source" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{0.769756,0}}" />
+            <Property name="Text" >
+</Property>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpentFHD/Button" name="Button" >
+            <Property name="Area" value="{{0.311054,0},{0.825956,0},{0.689105,0},{0.972144,0}}" />
+            <Property name="Text" value="Run" />
+        </Window>
+    </Window>
+</GUILayout>

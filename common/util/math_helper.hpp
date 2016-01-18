@@ -33,7 +33,7 @@ namespace Math
 /**
     Checks if sphere intersects with frustum
     */
-AUInt CylinderInFrustum(Frustum *frustum, glm::vec3 pos, AFloat radius);
+AUInt CylinderInFrustum(std::vector<glm::vec4> planes, glm::vec3 pos, AFloat radius);
 
 
 /**
@@ -82,6 +82,15 @@ inline AFloat randomf(AFloat LO, AFloat HI){ return LO + static_cast <AFloat> (r
     Normalize plane
     */
 inline glm::vec4 NormalizePlane(glm::vec4 plane){return plane * glm::inversesqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z); }
+
+
+
+
+/**
+  Compute frustum out of MVP
+*/
+std::vector<glm::vec4> GetFrustumPlanes(glm::mat4 MVP);
+
 
 
 

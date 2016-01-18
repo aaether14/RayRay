@@ -70,6 +70,15 @@ BOOST_PYTHON_MODULE(GLM)
 
 
 
+    boost::python::class_<std::vector<glm::vec4> >("vec4list")
+           .def(boost::python::vector_indexing_suite<std::vector<glm::vec4> >())
+       ;
+
+
+
+
+
+
     boost::python::class_<glm::mat4>("mat4")
             .def(boost::python::init<AFloat>())
             .def(boost::python::init<glm::vec4, glm::vec4, glm::vec4, glm::vec4>())
@@ -86,8 +95,14 @@ BOOST_PYTHON_MODULE(GLM)
 
 
 
+
+
     boost::python::def("perspective", &glm::perspective<AFloat>);
     boost::python::def("lookAt", &glm::lookAt<AFloat, glm::highp>);
+    boost::python::def("GetFrustumPlanes", &Math::GetFrustumPlanes);
+
+
+
 
 
 

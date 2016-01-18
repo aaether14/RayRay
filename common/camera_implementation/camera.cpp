@@ -19,7 +19,6 @@ AVoid Camera::Init()
 
     view = new View();
     info = new ViewInfo();
-    frustum = new Frustum();
 
 
 
@@ -43,8 +42,6 @@ AVoid Camera::Clean()
         delete info;
 
 
-    if (frustum)
-        delete frustum;
 
 
 }
@@ -203,7 +200,6 @@ AVoid Camera::Enable()
     ProcessInput();
     ComputeAngles();
     SetInfo();
-    SetFrustum(GetView()->getCamera());
     source->HideCursor();
 
 

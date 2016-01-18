@@ -50,10 +50,6 @@ class Camera : public AModule
 	Info that View can use to create World and Camera matrices
 	*/
 	ViewInfo *info;
-	/**
-	Stores the 6 frustum planes
-	*/
-	Frustum * frustum;
 
 
 
@@ -112,10 +108,6 @@ enum {CAMERA_SPEED, MOUSE_SPEED, ROTATION_SPEED, CAMERA_BASE_SPEED};
 	*/
     inline AVoid SetSpeed(AUInt ind, ADouble speed){camera_speed[ind] = speed;}
 	/**
-	Create frustum out of Projection*View
-	*/
-    inline AVoid SetFrustum(glm::mat4 MV) { this->frustum->Create(MV); }
-	/**
 	Set camera angles
 	*/
     inline AVoid SetCameraAngles(glm::vec2 angles){camera_angles = angles;}
@@ -138,10 +130,6 @@ enum {CAMERA_SPEED, MOUSE_SPEED, ROTATION_SPEED, CAMERA_BASE_SPEED};
 	Get pointer to ViewInfo
 	*/
 	inline ViewInfo *GetInfo() { return this->info; }
-	/**
-	Get pointer to Frustum
-	*/
-	inline Frustum *GetFrustum() { return this->frustum; }
 
 
 
