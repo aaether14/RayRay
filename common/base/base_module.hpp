@@ -30,6 +30,10 @@ public:
 	Get module from 'key'
 	*/
 	virtual AModule * Get(std::string key);
+    /**
+    Get module map pointer
+    */
+    virtual std::map < std::string, AModule* > * GetModuleMapPointer();
 
 
 

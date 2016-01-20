@@ -21,12 +21,20 @@ class UIManager : public AUIWindow
 
 
 
-    inline ABoolean onWindowActivated(const CEGUI::EventArgs &args)
-    {
-        const CEGUI::WindowEventArgs& window_args = static_cast<const CEGUI::WindowEventArgs&>(args);
-        std::cout<<window_args.window->getName()<<std::endl;
-        return true;
-    }
+
+
+    /**
+    callback for when typing window gets activated
+    */
+    ABoolean onTypingWindowActivated(const CEGUI::EventArgs &args);
+    /**
+    callback for when typing window gets deactivated
+    */
+    ABoolean onTypingWindowDeactivated(const CEGUI::EventArgs &args);
+
+
+
+
 
 
 

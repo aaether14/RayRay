@@ -12,10 +12,8 @@ AVoid Controller::Init()
 
 
 
-    app_info.reset(new AData);
     ControllerSource::Init();
-	boost::property_tree::ptree pt;
-	read_xml("data/settings.xml", pt);
+    boost::property_tree::ptree pt = AFile::GetPtree("data/settings.xml");
 
 
 
@@ -37,7 +35,7 @@ AVoid Controller::Init()
 			ABoolean fullscreen = v.second.get<GLboolean>("Fullscreen");
 			AUInt opengl_major_version = v.second.get<GLuint>("OpenGLMajorVersion");
 			AUInt opengl_minor_version = v.second.get<GLuint>("OpenGLMinorVersion");
-            GetAppInfo()->SetString("ProjectName", v.second.get<std::string>("ProjectName"));
+            GetControllerData()->SetString("ProjectName", v.second.get<std::string>("ProjectName"));
 
 
 
@@ -53,10 +51,10 @@ AVoid Controller::Init()
 		}
         else if (v.first == "OpenCLInfo")
         {
-            GetAppInfo()->SetString("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
-            GetAppInfo()->SetString("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
-            GetAppInfo()->SetInt("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
-            GetAppInfo()->SetInt("LinkOpenGLContext", v.second.get<GLboolean>("LinkOpenGLContext"));
+            GetControllerData()->SetString("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
+            GetControllerData()->SetString("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
+            GetControllerData()->SetInt("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
+            GetControllerData()->SetInt("LinkOpenGLContext", v.second.get<GLboolean>("LinkOpenGLContext"));
         }
 		
 

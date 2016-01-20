@@ -20,8 +20,6 @@ class Controller : public ControllerSource
 {
 
 
-    boost::shared_ptr<AData> app_info;
-
 
 public:
 
@@ -42,11 +40,6 @@ public:
 	AVoid Init();
 
 
-
-    /**
-    Get information of application
-    */
-    inline AData * GetAppInfo(){return app_info.get();}
 
 
 

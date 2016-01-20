@@ -12,7 +12,7 @@ AVoid ResourceLoader::Init()
 
 
     Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
-    LoadProject(ctrl->GetAppInfo()->GetString("ProjectName"));
+    LoadProject(ctrl->GetControllerData()->GetString("ProjectName"));
 
 
 

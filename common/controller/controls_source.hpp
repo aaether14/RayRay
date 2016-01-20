@@ -168,6 +168,10 @@ public:
     Get pointer to GLFW window
     */
     inline GLFWwindow * GetWindow(){ return window; }
+    /**
+    Get pointer to controller data
+    */
+    inline AData * GetControllerData(){return controller_data.get(); }
 
 
 

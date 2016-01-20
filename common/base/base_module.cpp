@@ -6,7 +6,7 @@
 AVoid AModule::SetManager(AModule * module)
 {
 
-	manager = module;
+    manager = module;
 
 }
 
@@ -18,9 +18,9 @@ AVoid AModule::CleanModule()
 
     std::pair<std::string, AModule*> it;
     BOOST_FOREACH(it, module_map)
-        it.second->Clean();
-	
-	module_map.clear();
+            it.second->Clean();
+
+    module_map.clear();
 
 
 }
@@ -30,9 +30,9 @@ AVoid AModule::CleanModule()
 AVoid AModule::Add(std::string key, AModule * module)
 {
 
-	module_map[key] = module;
-	module->SetManager(GetManager());
-	module->Init();
+    module_map[key] = module;
+    module->SetManager(GetManager());
+    module->Init();
 
 
 }
@@ -44,7 +44,7 @@ AVoid AModule::Add(std::string key, AModule * module)
 AModule * AModule::Get(std::string key)
 {
 
-	return module_map[key];
+    return module_map[key];
 
 }
 
@@ -54,6 +54,31 @@ AModule * AModule::Get(std::string key)
 AModule * AModule::GetManager()
 {
 
-	return manager;
+    return manager;
 
 }
+
+
+
+
+
+
+std::map < std::string, AModule* > * AModule::GetModuleMapPointer()
+{
+
+    return &module_map;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

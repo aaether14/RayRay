@@ -114,6 +114,11 @@ AVoid ControllerSource::Init()
 
 
 
+    controller_data->SetInt("IsTyping", 0);
+
+
+
+
 }
 
 
@@ -176,7 +181,7 @@ ABoolean ControllerSource::GetKeyOnce(AUInt code)
 {
     ABoolean result = keys[code] == GLFW_PRESS;
     if (result)keys[code] = GLFW_REPEAT;
-    return result;
+    return result && !controller_data->GetInt("IsTyping");
 }
 
 
@@ -188,7 +193,7 @@ ABoolean ControllerSource::GetKeyOnce(AUInt code)
 ABoolean ControllerSource::GetKey(AUInt code)
 {
 
-    return keys[code] > 0;
+    return keys[code] > 0 && !controller_data->GetInt("IsTyping");
 
 }
 
@@ -233,13 +238,13 @@ AVoid ControllerSource::key_callback(GLFWwindow* window, AInt key, AInt scancode
 
     if (action > 0)
     {
+        if (!context.injectKeyDown(ceguiKey))
         keys[key]++;
-        context.injectKeyDown(ceguiKey);
     }
     else if (action == GLFW_RELEASE)
     {
+        if (!context.injectKeyUp(ceguiKey))
         keys[key] = action;
-        context.injectKeyUp(ceguiKey);
     }
 
 
@@ -280,13 +285,13 @@ AVoid ControllerSource::mouse_callback(GLFWwindow* window, AInt button, AInt act
 
     if (action > 0)
     {
+        if (!context.injectMouseButtonDown(ceguiMouseButton))
         mouse_buttons[button]++;
-        context.injectMouseButtonDown(ceguiMouseButton);
     }
     else if (action == GLFW_RELEASE)
     {
+        if (!context.injectMouseButtonUp(ceguiMouseButton))
         mouse_buttons[button] = action;
-        context.injectMouseButtonUp(ceguiMouseButton);
     }
 
 
