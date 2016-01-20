@@ -11,101 +11,22 @@
 
 
 
-/**
-Class used to calculate framerate and time between frames
-*/
-class FPS
-{
-
-
-
-    AFloat fps;
-    AInt frames;
-    ADouble lastTime;
-    ADouble lastTime2;
-    ADouble deltaTime, returnable_deltaTime;
-
-
-
-
-public:
-
-
-
-    /**
-    Returns current framerate
-    */
-    inline AFloat Get() { return fps; }
-    /**
-    Returns current time between frames
-    */
-    inline ADouble Delta() { return returnable_deltaTime; }
-    /**
-    Needs to be called at the begining of each frame
-    */
-    AVoid FirstPass();
-    /**
-    Needs to be called the end of each frame - computes required data
-    */
-    AVoid Compute();
-
-
-
-};
-
-
-
-
-
 
 /**
-
-
 Base class for controller
 Used to acces window and input
-
-
 */
 class ControllerSource : public AModule
 {
 
 
 
-    /**
-    Pointer the window to be handled by GLFW
-    */
+
     static GLFWwindow* window;
-
-
-    /**
-    Window data
-    */
-    static AInt window_width, window_height;
-    /**
-    Window data
-    */
-    static ABoolean fullscreen;
-    /**
-    Window data
-    */
-    static std::string title;
-    /**
-    Data regarding OpenGL context version
-    */
-    static AUInt opengl_major_version;
-    /**
-    Data regarding OpenGL context version
-    */
-    static AUInt opengl_minor_version;
-
-
-    //---
-
-
-    /**
-    Pointer to FPS counter
-    */
+    static boost::shared_ptr<AData> controller_data;
     boost::shared_ptr<FPS> fps;
+
+
 
 
 
@@ -118,14 +39,12 @@ class ControllerSource : public AModule
     */
     static AVoid char_callback(GLFWwindow * window, AUInt code);
     static AUInt keys[512];
-    static AUInt fullscreen_key;
 
 
     /**
     Mouse buttons press
     */
     static AVoid mouse_callback(GLFWwindow* window, AInt button, AInt action, AInt mods);
-    static glm::vec2 mouse_position;
     static AUInt mouse_buttons[8];
 
 
@@ -147,7 +66,6 @@ class ControllerSource : public AModule
     Mouse wheel information
     */
     static AVoid scroll_callback(GLFWwindow* window, ADouble xoffset, ADouble yoffset);
-    static ADouble wheel_offset;
 
 
 
@@ -165,14 +83,26 @@ public:
 
 
 
+
+
     /**
     Check if key with 'code' is being pressed
     */
-    inline ABoolean GetKey(AUInt code){ return ControllerSource::keys[code] > 0; }
+    ABoolean GetKey(AUInt code);
     /**
     Check if key with 'code' has been pressed once
     */
-    inline ABoolean GetKeyOnce(AUInt code){ ABoolean result = ControllerSource::keys[code] == GLFW_PRESS; if (result)ControllerSource::keys[code] = GLFW_REPEAT; return result; }
+    ABoolean GetKeyOnce(AUInt code);
+    /**
+    Check is mouse button with 'code' was clicked
+    */
+    ABoolean GetMouseButton(AUInt code);
+    /**
+    Check is mouse button with 'code' was clicked once
+    */
+    ABoolean GetMouseButtonOnce(AUInt code);
+
+
 
 
 
@@ -183,7 +113,7 @@ public:
     /**
     Return mouse position
     */
-    inline glm::vec2 GetMousePosition(){ return ControllerSource::mouse_position; }
+    inline glm::vec2 GetMousePosition(){ return controller_data->GetVec2("mouse_position"); }
     /**
     Set mouse position
     */
@@ -196,28 +126,14 @@ public:
     Hide cursor
     */
     inline AVoid HideCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
-
-
-
-
-
-
-    /**
-    Check is mouse button with 'code' was clicked
-    */
-    inline ABoolean GetMouseButton(AUInt code){ return ControllerSource::mouse_buttons[code] > 0; }
-    /**
-    Check is mouse button with 'code' was clicked once
-    */
-    inline ABoolean GetMouseButtonOnce(AUInt code){ AUInt result = ControllerSource::mouse_buttons[code] == GLFW_PRESS; if (result)ControllerSource::mouse_buttons[code] = GLFW_REPEAT; return result; }
     /**
     Return wheel offset
     */
-    inline ADouble GetWheelOffset(){ return wheel_offset; }
+    inline ADouble GetWheelOffset(){ return controller_data->GetFloat("wheel_offset"); }
     /**
     Reset wheel offset
     */
-    inline AVoid ResetWheelOffset(){ wheel_offset = 0.0; }
+    inline AVoid ResetWheelOffset(){ controller_data->SetFloat("wheel_offset", 0.0); }
 
 
 
@@ -231,27 +147,23 @@ public:
     /**
     Return window size
     */
-    inline glm::ivec2 GetWindowSize() { return glm::ivec2(window_width, window_height); }
+    inline glm::ivec2 GetWindowSize() { return glm::ivec2(controller_data->GetInt("window_width"), controller_data->GetInt("window_height")); }
     /**
     Return window size
     */
-    inline AInt GetWindowWidth(){ return window_width; }
+    inline AInt GetWindowWidth(){ return controller_data->GetInt("window_width"); }
     /**
     Return window size
     */
-    inline AInt GetWindowHeight(){ return window_height; }
+    inline AInt GetWindowHeight(){ return controller_data->GetInt("window_height"); }
     /**
     Get window title
     */
-    inline std::string GetWindowTitle(){return title;}
+    inline std::string GetWindowTitle(){return controller_data->GetString("title"); }
     /**
     Set window title
     */
-    inline AVoid SetWindowTitle(std::string new_title){title = new_title; glfwSetWindowTitle(window, title.c_str()); }
-    /**
-    Set the key to be used for switching to fullscreen
-    */
-    inline AVoid SetFullscreenKey(AUInt key){ ControllerSource::fullscreen_key = key; }
+    inline AVoid SetWindowTitle(std::string new_title){controller_data->SetString("title", new_title); glfwSetWindowTitle(window, new_title.c_str()); }
     /**
     Get pointer to GLFW window
     */

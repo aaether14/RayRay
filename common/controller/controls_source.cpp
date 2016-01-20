@@ -4,27 +4,12 @@
 
 
 
-AUInt ControllerSource::keys[] = { 0 };
 
 
-
-AUInt ControllerSource::fullscreen_key = 0;
-ABoolean ControllerSource::fullscreen = false;
-
-AInt ControllerSource::window_width = 0;
-AInt ControllerSource::window_height = 0;
-std::string ControllerSource::title = "";
-
-
-AUInt ControllerSource::opengl_major_version = 0;
-AUInt ControllerSource::opengl_minor_version = 0;
 GLFWwindow*ControllerSource::window = 0;
-
-
-
-glm::vec2 ControllerSource::mouse_position = glm::vec2(0.0f, 0.0f);
+boost::shared_ptr<AData> ControllerSource::controller_data;
+AUInt ControllerSource::keys[] = { 0 };
 AUInt ControllerSource::mouse_buttons[] = { 0 };
-ADouble ControllerSource::wheel_offset = 0.0;
 std::vector<std::string> ControllerSource::drop_files;
 
 
@@ -32,11 +17,13 @@ std::vector<std::string> ControllerSource::drop_files;
 
 
 
+
+
 ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_height,
-    ABoolean fullscreen,
-    std::string title,
-    AUInt opengl_major_version,
-    AUInt opengl_minor_version)
+                                               ABoolean fullscreen,
+                                               std::string title,
+                                               AUInt opengl_major_version,
+                                               AUInt opengl_minor_version)
 {
 
 
@@ -47,7 +34,7 @@ ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_
     if (!glfwInit())
     {
         std::cerr<<"Failed to initialize GLFW!"<<std::endl;
-        return -1;
+        return false;
     }
 
 
@@ -56,12 +43,17 @@ ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, opengl_major_version);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, opengl_minor_version);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    ControllerSource::window_width = window_width;
-    ControllerSource::window_height = window_height;
-    ControllerSource::fullscreen = fullscreen;
-    ControllerSource::opengl_major_version = opengl_major_version;
-    ControllerSource::opengl_minor_version = opengl_minor_version;
-    ControllerSource::title = title;
+
+
+
+
+
+
+    controller_data->SetInt("window_width", window_width);
+    controller_data->SetInt("window_height", window_height);
+    controller_data->SetInt("opengl_major_version", opengl_major_version);
+    controller_data->SetInt("opengl_minor_version", opengl_minor_version);
+    controller_data->SetString("title", title);
 
 
 
@@ -70,11 +62,12 @@ ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_
 
 
     ControllerSource::window = glfwCreateWindow(window_width, window_height,
-        title.c_str(), (fullscreen == true) ? glfwGetPrimaryMonitor() : NULL, NULL);
-    if (!ControllerSource::window){
+                                                title.c_str(), (fullscreen == true) ? glfwGetPrimaryMonitor() : NULL, NULL);
+    if (!ControllerSource::window)
+    {
         std::cerr<<"Failed to open GLFW window!"<<std::endl;
         glfwTerminate();
-        return -1;
+        return false;
     }
 
 
@@ -94,10 +87,13 @@ ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_
 
     if (glewInit() != GLEW_OK) {
         std::cerr<<"Failed to initialize GLEW!"<<std::endl;
-        return -1;
+        return false;
     }
+
+
+
     ControllerSource::InitCallbacks();
-    return 1;
+    return true;
 
 
 
@@ -112,6 +108,7 @@ AVoid ControllerSource::Init()
 
 
     srand(time(NULL));
+    controller_data.reset(new AData);
     fps.reset(new FPS);
 
 
@@ -161,54 +158,65 @@ AVoid ControllerSource::Enable()
 {
 
 
-
-    fps->FirstPass();
     fps->Compute();
 
 
 
-
 }
 
 
 
-AVoid FPS::FirstPass()
+
+
+
+
+
+
+ABoolean ControllerSource::GetKeyOnce(AUInt code)
+{
+    ABoolean result = keys[code] == GLFW_PRESS;
+    if (result)keys[code] = GLFW_REPEAT;
+    return result;
+}
+
+
+
+
+
+
+
+ABoolean ControllerSource::GetKey(AUInt code)
 {
 
-
-
-    ADouble currentTime = glfwGetTime();
-    deltaTime = returnable_deltaTime = AFloat(currentTime - lastTime2);
-    lastTime2 = glfwGetTime();
-
-
+    return keys[code] > 0;
 
 }
 
 
 
-AVoid FPS::Compute(){
 
 
+ABoolean ControllerSource::GetMouseButton(AUInt code)
+{
 
-    frames++;
-    ADouble currentTime = glfwGetTime();
-    deltaTime = AFloat(currentTime - lastTime);
-
-
-    if (deltaTime > 1.0f)
-    {
-
-        fps = AFloat(frames) / deltaTime;
-        lastTime = currentTime;
-        frames = 0;
-        lastTime = currentTime;
-
-    }
-
-
+    return mouse_buttons[code] > 0;
 
 }
+
+
+
+
+
+ABoolean ControllerSource::GetMouseButtonOnce(AUInt code)
+{
+
+    AUInt result = mouse_buttons[code] == GLFW_PRESS;
+    if (result)mouse_buttons[code] = GLFW_REPEAT;
+    return result;
+
+}
+
+
 
 
 
@@ -293,7 +301,7 @@ AVoid ControllerSource::cursor_callback(GLFWwindow* window, ADouble x, ADouble y
 {
 
 
-    ControllerSource::mouse_position = glm::vec2(x, y);
+    controller_data->SetVec2("mouse_position", glm::vec2(x, y));
 
 
     CEGUI::GUIContext& context = CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -314,8 +322,8 @@ AVoid ControllerSource::resize_callback(GLFWwindow* window, AInt width, AInt hei
 {
 
     glViewport(0, 0, width, height);
-    ControllerSource::window_width = width;
-    ControllerSource::window_height = height;
+    controller_data->SetInt("window_width", width);
+    controller_data->SetInt("window_height", height);
 
 }
 
@@ -325,7 +333,7 @@ AVoid ControllerSource::resize_callback(GLFWwindow* window, AInt width, AInt hei
 AVoid ControllerSource::scroll_callback(GLFWwindow* window, ADouble xoffset, ADouble yoffset)
 {
 
-    wheel_offset = yoffset;
+    controller_data->SetFloat("wheel_offset", yoffset);
 
 }
 

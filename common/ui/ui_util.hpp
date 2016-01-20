@@ -13,11 +13,7 @@
 
 
 /**
-
-
 Some functions to connect CEGUI to the other libraries
-
-
 */
 namespace UI_UTIL
 {

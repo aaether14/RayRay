@@ -71,6 +71,14 @@ AVoid UIManager::Init()
 
 
 
+
+
+      CEGUI::GlobalEventSet::getSingleton().subscribeEvent(CEGUI::Window::EventNamespace + "/" + CEGUI::Window::EventActivated,
+                                                             CEGUI::Event::Subscriber(&UIWorkStation::onWindowActivated, this));
+
+
+
+
 }
 
 

@@ -20,7 +20,7 @@ class UIConsole : public AUIWindow
         static_cast<PythonManager*>(GetManager()->Get("Python"))->RunScriptFromString(
                     static_cast<CEGUI::MultiLineEditbox*>(GetWindow()->getChild("Source"))->getText().c_str());
         static_cast<CEGUI::MultiLineEditbox*>(GetWindow()->getChild("Source"))->setText("");
-        return 1;
+        return true;
     }
 
 
