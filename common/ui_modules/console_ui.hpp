@@ -9,7 +9,7 @@
 
 
 
-class UIConsole : public AModule
+class UIConsole : public AUIWindow
 {
 
 

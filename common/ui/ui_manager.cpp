@@ -66,8 +66,8 @@ AVoid UIManager::Init()
 
 
 
-	  CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-      CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(wmgr.loadLayoutFromFile("ui.layout"));
+      Load("ui.layout");
+      CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(GetWindow());
 
 
 

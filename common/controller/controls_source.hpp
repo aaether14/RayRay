@@ -162,14 +162,20 @@ class ControllerSource : public AModule
 public:
 
 
+
+
+
     /**
     Check if key with 'code' is being pressed
     */
-    inline AUInt GetKey(AUInt code){ return ControllerSource::keys[code]; }
+    inline ABoolean GetKey(AUInt code){ return ControllerSource::keys[code] > 0; }
     /**
     Check if key with 'code' has been pressed once
     */
-    inline AUInt GetKeyOnce(AUInt code){ AUInt result = (ControllerSource::keys[code] == 1); if (result)ControllerSource::keys[code]++; return result; }
+    inline ABoolean GetKeyOnce(AUInt code){ ABoolean result = ControllerSource::keys[code] == GLFW_PRESS; if (result)ControllerSource::keys[code] = GLFW_REPEAT; return result; }
+
+
+
 
 
 
@@ -190,14 +196,20 @@ public:
     Hide cursor
     */
     inline AVoid HideCursor(){glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
+
+
+
+
+
+
     /**
     Check is mouse button with 'code' was clicked
     */
-    inline AUInt GetMouseButton(AUInt code){ return ControllerSource::mouse_buttons[code]; }
+    inline ABoolean GetMouseButton(AUInt code){ return ControllerSource::mouse_buttons[code] > 0; }
     /**
     Check is mouse button with 'code' was clicked once
     */
-    inline AUInt GetMouseButtonOnce(AUInt code){ AUInt result = (ControllerSource::mouse_buttons[code] == 1); if (result)ControllerSource::mouse_buttons[code]++; return result; }
+    inline ABoolean GetMouseButtonOnce(AUInt code){ AUInt result = ControllerSource::mouse_buttons[code] == GLFW_PRESS; if (result)ControllerSource::mouse_buttons[code] = GLFW_REPEAT; return result; }
     /**
     Return wheel offset
     */
@@ -206,6 +218,7 @@ public:
     Reset wheel offset
     */
     inline AVoid ResetWheelOffset(){ wheel_offset = 0.0; }
+
 
 
 

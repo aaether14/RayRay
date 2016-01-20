@@ -16,7 +16,7 @@ CEGUI initialisation
 
 
 */
-class UIManager : public AModule
+class UIManager : public AUIWindow
 {
 
 
