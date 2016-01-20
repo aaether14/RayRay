@@ -17,7 +17,9 @@ class UIConsole : public AUIWindow
 
     inline ABoolean RunScript(const CEGUI::EventArgs &args)
     {
-        static_cast<PythonManager*>(GetManager()->Get("Python"))->Enable();
+        static_cast<PythonManager*>(GetManager()->Get("Python"))->RunScriptFromString(
+                    static_cast<CEGUI::MultiLineEditbox*>(GetWindow()->getChild("Source"))->getText().c_str());
+        static_cast<CEGUI::MultiLineEditbox*>(GetWindow()->getChild("Source"))->setText("");
         return 1;
     }
 

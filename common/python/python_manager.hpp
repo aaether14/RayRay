@@ -41,6 +41,13 @@ public:
 
 
 
+    /**
+    Run a certain script from a file
+    */
+    AVoid RunScriptFromString(std::string script_string);
+
+
+
 
 };
 

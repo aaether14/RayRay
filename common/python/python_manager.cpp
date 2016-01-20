@@ -67,10 +67,24 @@ AVoid PythonManager::Enable()
 {
 
 
+
+
+
+
+}
+
+
+
+
+
+AVoid PythonManager::RunScriptFromString(std::string script_string)
+{
+
+
     try
     {
 
-        boost::python::exec_file("data/python_scripts/test.py", main_namespace);
+        boost::python::exec(script_string.c_str(), main_namespace);
 
     }
     catch (boost::python::error_already_set)
@@ -81,4 +95,12 @@ AVoid PythonManager::Enable()
 
 
 }
+
+
+
+
+
+
+
+
 
