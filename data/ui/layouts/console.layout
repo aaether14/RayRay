@@ -6,6 +6,7 @@
         <Property name="Text" value="Console" />
         <Property name="MaxSize" value="{{0.424727,0},{0.410729,0}}" />
         <Property name="MinSize" value="{{0.424727,0},{0.410729,0}}" />
+        <Property name="TooltipText" value="Console for running python scripts" />
         <Property name="TitlebarHeight" value="30" />
         <Property name="AutoRenderingSurface" value="true" />
         <AutoWindow namePath="__auto_titlebar__" >

@@ -4,7 +4,7 @@
     <Window type="GlossySerpent/StaticImage" name="Root" >
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
-        <Property name="FrameEnabled" value="false" />
+        <Property name="FrameEnabled" value="true" />
         <Property name="BackgroundEnabled" value="false" />
         <Property name="MousePassThroughEnabled" value="false" />
     </Window>

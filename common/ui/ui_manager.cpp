@@ -62,6 +62,11 @@ AVoid UIManager::Init()
 
 
 
+    CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultTooltipType("GlossySerpentFHD/Tooltip");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getDefaultTooltipObject()->setHoverTime(1.5f);
+
+
+
 
     initialiseCEGUICommonDialogs();
 

@@ -13,7 +13,7 @@ AVoid Controller::Init()
 
 
     ControllerSource::Init();
-    boost::property_tree::ptree pt = AFile::GetPtree("data/settings.xml");
+    boost::property_tree::ptree pt = AFile::GetPtree(AAETHER_SYSTEM_FOLDER"settings.xml");
 
 
 

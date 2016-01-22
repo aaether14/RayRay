@@ -38,6 +38,7 @@ AVoid UIWorkStation::Enable()
 
 
     UIManager::Enable();
+    Get("Console")->Enable();
 
 
 

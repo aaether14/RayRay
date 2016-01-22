@@ -27,7 +27,7 @@ AVoid PythonManager::Init()
 
 
         //running base script
-        boost::python::exec_file("data/base.py", main_namespace);
+        boost::python::exec_file(AAETHER_SYSTEM_FOLDER"base.py", main_namespace);
 
 
         //passing instances

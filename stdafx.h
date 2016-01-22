@@ -14,6 +14,7 @@
 #include <headers/cegui_include.hpp>
 #include <headers/glfw_include.hpp>
 #include <headers/base_types.hpp>
+#include <headers/base_defines.hpp>
 #include <headers/util_include.hpp>
 #include <headers/base_include.hpp>
 #include <headers/filters_include.hpp>
