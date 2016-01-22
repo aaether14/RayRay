@@ -12,6 +12,9 @@ AVoid UIConsole::Init()
 
 
 
+    GetWindow()->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
+                                CEGUI::Event::Subscriber(&AUIWindow::CloseWindow, (AUIWindow*)this));
+
     GetWindow()->getChild("Button")->subscribeEvent(CEGUI::MenuItem::EventClicked,
             CEGUI::Event::Subscriber(&UIConsole::RunScript, this));
 

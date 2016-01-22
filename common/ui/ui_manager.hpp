@@ -31,6 +31,18 @@ class UIManager : public AUIWindow
     callback for when typing window gets deactivated
     */
     ABoolean onTypingWindowDeactivated(const CEGUI::EventArgs &args);
+    /**
+    callback for clicking on root window
+    */
+    ABoolean onClick(const CEGUI::EventArgs &args);
+    /**
+    callback for entering surface
+    */
+    ABoolean onEnterSurface(const CEGUI::EventArgs &args);
+    /**
+    callback for leaving surface
+    */
+    ABoolean onLeaveSurface(const CEGUI::EventArgs &args);
 
 
 

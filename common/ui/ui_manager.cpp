@@ -51,6 +51,7 @@ AVoid UIManager::Init()
     CEGUI::SchemeManager::getSingleton().createFromFile("VanillaSkin.scheme");
     CEGUI::SchemeManager::getSingleton().createFromFile("VanillaCommonDialogs.scheme");
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("GWEN.scheme");
     CEGUI::FontManager::getSingleton().createFromFile("DejaVuSans-10.font");
 
 
@@ -81,6 +82,19 @@ AVoid UIManager::Init()
 
     CEGUI::GlobalEventSet::getSingleton().subscribeEvent(CEGUI::Window::EventNamespace + "/" + CEGUI::Window::EventActivated,
                                                          CEGUI::Event::Subscriber(&UIWorkStation::onTypingWindowActivated, this));
+
+
+
+    GetWindow()->subscribeEvent(CEGUI::Window::EventMouseButtonDown,
+                                CEGUI::Event::Subscriber(&UIManager::onClick, this));
+
+
+    GetWindow()->subscribeEvent(CEGUI::Window::EventMouseEntersSurface,
+                                CEGUI::Event::Subscriber(&UIManager::onEnterSurface, this));
+
+
+    GetWindow()->subscribeEvent(CEGUI::Window::EventMouseLeavesSurface,
+                                CEGUI::Event::Subscriber(&UIManager::onLeaveSurface, this));
 
 
 
@@ -140,15 +154,21 @@ AVoid UIManager::Enable()
 
 ABoolean UIManager::onTypingWindowActivated(const CEGUI::EventArgs &args)
 {
+
+
+
     const CEGUI::WindowEventArgs& window_args = static_cast<const CEGUI::WindowEventArgs&>(args);
     std::string window_type = window_args.window->getType().c_str();
     window_type = window_type.substr(window_type.find_last_of("/") + 1);
-     if (!window_type.compare("MultiLineEditbox") || !window_type.compare("Editbox") || !window_type.compare("Spinner"))
+    if (!window_type.compare("MultiLineEditbox") || !window_type.compare("Editbox") || !window_type.compare("Spinner"))
     {
         ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
         ctrl->GetControllerData()->SetInt("IsTyping", ctrl->GetControllerData()->GetInt("IsTyping") + 1);
     }
     return true;
+
+
+
 }
 
 
@@ -159,6 +179,8 @@ ABoolean UIManager::onTypingWindowActivated(const CEGUI::EventArgs &args)
 
 ABoolean UIManager::onTypingWindowDeactivated(const CEGUI::EventArgs &args)
 {
+
+
     const CEGUI::WindowEventArgs& window_args = static_cast<const CEGUI::WindowEventArgs&>(args);
     std::string window_type = window_args.window->getType().c_str();
     window_type = window_type.substr(window_type.find_last_of("/") + 1);
@@ -168,6 +190,26 @@ ABoolean UIManager::onTypingWindowDeactivated(const CEGUI::EventArgs &args)
         ctrl->GetControllerData()->SetInt("IsTyping", ctrl->GetControllerData()->GetInt("IsTyping") - 1);
     }
     return true;
+
+
+
+}
+
+
+
+
+
+
+
+
+ABoolean UIManager::onClick(const CEGUI::EventArgs &args)
+{
+
+
+    DeactivateRecursively();
+    return true;
+
+
 }
 
 
@@ -178,9 +220,32 @@ ABoolean UIManager::onTypingWindowDeactivated(const CEGUI::EventArgs &args)
 
 
 
+ABoolean UIManager::onEnterSurface(const CEGUI::EventArgs &args)
+{
+
+
+    ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
+    ctrl->GetControllerData()->SetInt("mouseOverRoot", 1);
+    return true;
+
+
+}
 
 
 
+
+
+
+ABoolean UIManager::onLeaveSurface(const CEGUI::EventArgs &args)
+{
+
+
+    ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
+    ctrl->GetControllerData()->SetInt("mouseOverRoot", 0);
+    return true;
+
+
+}
 
 
 

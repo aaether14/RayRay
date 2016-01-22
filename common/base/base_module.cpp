@@ -16,7 +16,7 @@ AVoid AModule::CleanModule()
 {
 
 
-    std::pair<std::string, AModule*> it;
+    std::pair<std::string, boost::shared_ptr<AModule> > it;
     BOOST_FOREACH(it, module_map)
             it.second->Clean();
 
@@ -30,7 +30,7 @@ AVoid AModule::CleanModule()
 AVoid AModule::Add(std::string key, AModule * module)
 {
 
-    module_map[key] = module;
+    module_map[key].reset(module);
     module->SetManager(GetManager());
     module->Init();
 
@@ -44,7 +44,7 @@ AVoid AModule::Add(std::string key, AModule * module)
 AModule * AModule::Get(std::string key)
 {
 
-    return module_map[key];
+    return module_map[key].get();
 
 }
 
@@ -63,7 +63,7 @@ AModule * AModule::GetManager()
 
 
 
-std::map < std::string, AModule* > * AModule::GetModuleMapPointer()
+std::map < std::string, boost::shared_ptr<AModule> > * AModule::GetModuleMapPointer()
 {
 
     return &module_map;

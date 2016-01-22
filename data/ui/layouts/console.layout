@@ -4,6 +4,8 @@
     <Window type="GlossySerpentFHD/FrameWindow" name="Console" >
         <Property name="Area" value="{{0.260742,0},{0.207031,0},{0.685469,0},{0.61776,0}}" />
         <Property name="Text" value="Console" />
+        <Property name="MaxSize" value="{{0.424727,0},{0.410729,0}}" />
+        <Property name="MinSize" value="{{0.424727,0},{0.410729,0}}" />
         <Property name="TitlebarHeight" value="30" />
         <Property name="AutoRenderingSurface" value="true" />
         <AutoWindow namePath="__auto_titlebar__" >

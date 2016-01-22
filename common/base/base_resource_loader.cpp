@@ -14,13 +14,10 @@ AVoid BaseResourceLoader::SaveChanges()
     try
     {
 
-        std::pair<std::string, AModule*> it;
-
-
-
+        std::pair<std::string, boost::shared_ptr<AModule> > it;
         BOOST_FOREACH(it, module_map)
-                if (dynamic_cast<AStateSaver*>(it.second))
-                static_cast<AStateSaver*>(it.second)->Save();
+                if (dynamic_cast<AStateSaver*>(it.second.get()))
+                static_cast<AStateSaver*>(it.second.get())->Save();
 
 
     }
@@ -43,13 +40,10 @@ AVoid BaseResourceLoader::LoadChanges()
     try
     {
 
-        std::pair<std::string, AModule*> it;
-
-
-
+        std::pair<std::string, boost::shared_ptr<AModule> > it;
         BOOST_FOREACH(it, module_map)
-                if (dynamic_cast<AStateSaver*>(it.second))
-                static_cast<AStateSaver*>(it.second)->Load();
+                if (dynamic_cast<AStateSaver*>(it.second.get()))
+                static_cast<AStateSaver*>(it.second.get())->Load();
 
 
     }
@@ -72,13 +66,10 @@ AVoid BaseResourceLoader::NoChanges()
     try
     {
 
-        std::pair<std::string, AModule*> it;
-
-
-
+        std::pair<std::string, boost::shared_ptr<AModule> > it;
         BOOST_FOREACH(it, module_map)
-                if (dynamic_cast<AStateSaver*>(it.second))
-                static_cast<AStateSaver*>(it.second)->Reset();
+                if (dynamic_cast<AStateSaver*>(it.second.get()))
+                static_cast<AStateSaver*>(it.second.get())->Reset();
 
 
     }

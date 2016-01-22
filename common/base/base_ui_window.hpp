@@ -39,6 +39,14 @@ public:
     Override add function
     */
     virtual AVoid Add(std::string key, AModule * module) override;
+    /**
+    Method for deactivating windows recursively
+    */
+    virtual AVoid DeactivateRecursively();
+    /**
+    Method for closing windows
+    */
+    ABoolean CloseWindow(const CEGUI::EventArgs &args);
 
 
 

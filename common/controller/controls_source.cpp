@@ -115,7 +115,7 @@ AVoid ControllerSource::Init()
 
 
     controller_data->SetInt("IsTyping", 0);
-
+    controller_data->SetInt("mouseOverRoot", 0);
 
 
 
@@ -285,12 +285,12 @@ AVoid ControllerSource::mouse_callback(GLFWwindow* window, AInt button, AInt act
 
     if (action > 0)
     {
-        if (!context.injectMouseButtonDown(ceguiMouseButton))
+        if (!context.injectMouseButtonDown(ceguiMouseButton) || controller_data->GetInt("mouseOverRoot"))
         mouse_buttons[button]++;
     }
     else if (action == GLFW_RELEASE)
     {
-        if (!context.injectMouseButtonUp(ceguiMouseButton))
+        if (!context.injectMouseButtonUp(ceguiMouseButton) || controller_data->GetInt("mouseOverRoot"))
         mouse_buttons[button] = action;
     }
 
