@@ -27,6 +27,7 @@ BOOST_PYTHON_MODULE(Controller)
             .def("HideCursor", &Controller::HideCursor)
             .def("GetWindowTitle", &Controller::GetWindowTitle)
             .def("SetWindowTitle", &Controller::SetWindowTitle)
+            .def("CloseWindow", &Controller::CloseWindow)
             .def("GetFPS", &Controller::GetFPSCounter, boost::python::return_value_policy<boost::python::reference_existing_object>());
 
 

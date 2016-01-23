@@ -8,84 +8,95 @@ namespace AFile
 {
 
 
-    ABoolean CopyDirectory(
-		boost::filesystem::path const & source,
-		boost::filesystem::path const & destination
-		)
+
+
+    ABoolean CopyDirectory(boost::filesystem::path const & source, boost::filesystem::path const & destination)
 	{
-		namespace fs = boost::filesystem;
+
 		try
 		{
-			// Check whether the function call is valid
-			if (
-				!fs::exists(source) ||
-				!fs::is_directory(source)
-				)
+
+
+
+            if (!boost::filesystem::exists(source) || !boost::filesystem::is_directory(source))
 			{
 				std::cerr << "Source directory " << source.string()
-					<< " does not exist or is not a directory." << '\n'
-					;
+                    << " does not exist or is not a directory." << std::endl;
 				return false;
 			}
-			if (fs::exists(destination))
+            if (boost::filesystem::exists(destination))
 			{
 				std::cerr << "Destination directory " << destination.string()
-					<< " already exists." << '\n'
-					;
+                    << " already exists." << std::endl;
 				return false;
 			}
-			// Create the destination directory
-			if (!fs::create_directory(destination))
+
+
+
+
+            if (!boost::filesystem::create_directory(destination))
 			{
 				std::cerr << "Unable to create destination directory"
-					<< destination.string() << '\n'
-					;
+                    << destination.string() << std::endl;
 				return false;
 			}
+
+
+
+
+
 		}
-		catch (fs::filesystem_error const & e)
+        catch (boost::filesystem::filesystem_error const & e)
 		{
-			std::cerr << e.what() << '\n';
+            std::cerr << e.what() << std::endl;
 			return false;
 		}
-		// Iterate through the source directory
-		for (
-			fs::directory_iterator file(source);
-			file != fs::directory_iterator(); ++file
-			)
+
+
+
+        for (boost::filesystem::directory_iterator file(source); file != boost::filesystem::directory_iterator(); ++file)
 		{
+
+
 			try
 			{
-				fs::path current(file->path());
-				if (fs::is_directory(current))
+
+
+                boost::filesystem::path current(file->path());
+                if (boost::filesystem::is_directory(current))
 				{
-					// Found directory: Recursion
-					if (
-                        !CopyDirectory(
-						current,
-						destination / current.filename()
-						)
-						)
+
+
+                    if (!CopyDirectory(current, destination / current.filename()))
 					{
 						return false;
 					}
+
+
+
 				}
 				else
 				{
-					// Found file: Copy
-					fs::copy_file(
-						current,
-						destination / current.filename()
-						);
+                    boost::filesystem::copy_file(current, destination / current.filename());
 				}
 			}
-			catch (fs::filesystem_error const & e)
+            catch (boost::filesystem::filesystem_error const & e)
 			{
-				std::cerr << e.what() << '\n';
+                std::cerr << e.what() << std::endl;
 			}
+
+
+
 		}
 		return true;
+
+
+
+
 	}
+
+
+
 
 
 
@@ -110,6 +121,8 @@ namespace AFile
 
 
 
+
+
     boost::optional<std::string> GetFileWithExtensionList(std::string path, std::vector<std::string>extensions)
 	{
 
@@ -124,164 +137,7 @@ namespace AFile
 
 
 
-	ALong GetFileSize(const AChar* filePath)
-	{
-		FILE* pFile = fopen(filePath, "rb");
 
-		if (pFile == NULL)
-			exit(1);
-
-		fseek(pFile, 0, SEEK_END);
-		ALong lSize = ftell(pFile);
-		rewind(pFile);
-		fclose(pFile);
-
-		return lSize;
-	}
-
-
-
-	AUChar * ReadFile(const AChar * filePath)
-	{
-		FILE * pFile;
-		ALong lSize;
-		AUChar * buffer;
-		size_t result;
-
-		pFile = fopen(filePath, "rb");
-		if (pFile == NULL) { fputs("File error", stderr); exit(1); }
-
-		// obtain file size:
-		fseek(pFile, 0, SEEK_END);
-		lSize = ftell(pFile);
-		rewind(pFile);
-
-		// allocate memory to contain the whole file:
-		buffer = (AUChar*)malloc(sizeof(AUChar)*lSize);
-		if (buffer == NULL) { fputs("Memory error", stderr); exit(1); }
-
-		// copy the file into the buffer:
-		result = fread(buffer, 1, lSize, pFile);
-		if (result != lSize) { fputs("Reading error", stderr); exit(1); }
-
-		// terminate
-		fclose(pFile);
-
-		// the whole file is now loaded in the memory buffer. Return pointer to data.
-		return buffer;
-	}
-
-
-
-
-	AVoid BlowfishEncryptFile(const AChar * path)
-	{
-
- 
-		ALong multiple_of_eight_size;
-		ALong file_size = GetFileSize(path);
-        if (ADouble(file_size / 8.0) != ALong(file_size / 8))
-			multiple_of_eight_size = (file_size / 8 + 1) * 8;
-		else
-			multiple_of_eight_size = file_size;
-
-
-
-
-		AInt byte_pad = multiple_of_eight_size - file_size;
-		AUChar * file = ReadFile(path);
-		AUChar * buffer = (AUChar*)malloc(multiple_of_eight_size);
-		AUChar * buffer2 = (AUChar*)malloc(multiple_of_eight_size);
-		memcpy(buffer, file, file_size);
-
-
-
-		for (AInt i = 0; i < byte_pad; i++)
-			buffer[file_size + i] = '\0';
-
-
-
-
-		try
-		{
-
-
-			CBlowFish oBlowFish((AUChar*)"abcdefgh", 8);
-			oBlowFish.Encrypt((AUChar*)buffer, (AUChar*)buffer2, multiple_of_eight_size);
-			std::ofstream fout(path, std::ios::binary);
-			fout.write((const AChar*)(buffer2), multiple_of_eight_size);
-			fout.close();
-
-
-
-		}
-		catch (std::exception& roException)
-		{
-			std::cout << roException.what() << std::endl;
-		}
-
-	}
-
-
-
-	std::string BlowfishDecryptFile(const AChar * path)
-	{
-
-
-
-		ALong multiple_of_eight_size;
-		ALong file_size = GetFileSize(path);
-        if (ADouble(file_size / 8.0) != ALong(file_size / 8))
-			multiple_of_eight_size = (file_size / 8 + 1) * 8;
-		else
-			multiple_of_eight_size = file_size;
-
-
-
-
-
-
-		AUChar * file = ReadFile(path);
-		AUChar * buffer = (AUChar*)malloc(multiple_of_eight_size);
-		AUChar * buffer2 = (AUChar*)malloc(multiple_of_eight_size);
-		memcpy(buffer, file, file_size);
-
-
-
-		std::string string_cypher;
-
-
-
-
-		try
-		{
-
-
-			CBlowFish oBlowFish((AUChar*)"abcdefgh", 8);
-			oBlowFish.Decrypt((AUChar*)buffer, (AUChar*)buffer2, multiple_of_eight_size);
-
-
-			file_size--;
-			while (buffer2[file_size - 1] == 0)
-				file_size--;
-
-
-			string_cypher.resize(file_size);
-			memcpy(&string_cypher[0], buffer2, file_size);
-
-
-
-
-		}
-		catch (std::exception& roException)
-		{
-			std::cout << roException.what() << std::endl;
-		}
-
-
-		return string_cypher;
-
-	}
 
 
 
@@ -300,6 +156,7 @@ namespace AFile
 
 
 	}
+
 
 
 

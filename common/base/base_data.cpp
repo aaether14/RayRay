@@ -27,11 +27,11 @@ AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
         if (v.first == "String")
             SetString(v.second.get<std::string>("V"), v.second.get<std::string>("D"));
         if (v.first == "Vec2")
-            SetVec2(v.second.get<std::string>("V"), AString::GetVec2FromString(v.second.get<std::string>("D")));
+            SetVec2(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec2>(v.second.get<std::string>("D")));
         if (v.first == "Vec3")
-            SetVec3(v.second.get<std::string>("V"), AString::GetVec3FromString(v.second.get<std::string>("D")));
+            SetVec3(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec3>(v.second.get<std::string>("D")));
         if (v.first == "Vec4")
-            SetVec4(v.second.get<std::string>("V"), AString::GetVec4FromString(v.second.get<std::string>("D")));
+            SetVec4(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec4>(v.second.get<std::string>("D")));
 
 
 
@@ -116,7 +116,7 @@ AVoid AData::Debug()
         BOOST_FOREACH(it, vec2_map)
         {
             std::cout << it.first << ": ";
-            std::cout<<AString::GetStringFromVec2(it.second)<<std::endl;
+            std::cout << AString::GetStringFromFloatArray<glm::vec2>(it.second)<<std::endl;
         }
 
 
@@ -135,7 +135,7 @@ AVoid AData::Debug()
         BOOST_FOREACH(it, vec3_map)
         {
             std::cout << it.first << ": ";
-            std::cout<<AString::GetStringFromVec3(it.second)<<std::endl;
+            std::cout << AString::GetStringFromFloatArray<glm::vec3>(it.second)<<std::endl;
         }
 
 
@@ -154,7 +154,7 @@ AVoid AData::Debug()
         BOOST_FOREACH(it, vec4_map)
         {
             std::cout << it.first << ": ";
-            std::cout<<AString::GetStringFromVec4(it.second)<<std::endl;
+            std::cout << AString::GetStringFromFloatArray<glm::vec4>(it.second)<<std::endl;
         }
 
 
@@ -274,7 +274,7 @@ boost::property_tree::ptree AData::Save()
         {
             boost::property_tree::ptree ptree_float_data;
             ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it.first)));
-            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec2(it.second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromFloatArray<glm::vec2>(it.second))));
             ptree_data.push_back(boost::property_tree::ptree::value_type("Vec2", ptree_float_data));
 
         }
@@ -295,7 +295,7 @@ boost::property_tree::ptree AData::Save()
         {
             boost::property_tree::ptree ptree_float_data;
             ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it.first)));
-            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec3(it.second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromFloatArray<glm::vec3>(it.second))));
             ptree_data.push_back(boost::property_tree::ptree::value_type("Vec3", ptree_float_data));
 
         }
@@ -314,7 +314,7 @@ boost::property_tree::ptree AData::Save()
         {
             boost::property_tree::ptree ptree_float_data;
             ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(it.first)));
-            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromVec4(it.second))));
+            ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(AString::GetStringFromFloatArray<glm::vec4>(it.second))));
             ptree_data.push_back(boost::property_tree::ptree::value_type("Vec4", ptree_float_data));
 
         }

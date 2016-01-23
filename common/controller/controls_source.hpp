@@ -172,6 +172,10 @@ public:
     Get pointer to controller data
     */
     inline AData * GetControllerData(){return controller_data.get(); }
+    /**
+    Close current window
+    */
+    inline AVoid CloseWindow(){glfwSetWindowShouldClose(window, true); }
 
 
 

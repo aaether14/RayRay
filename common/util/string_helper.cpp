@@ -120,167 +120,84 @@ AVoid FloatArrayFromString(AFloat * _array, AInt &number_of_floats, std::string 
 
 
 
-//----------------------------------------------------------------------//
 
-
-
-
-glm::vec2 GetVec2FromString(std::string str)
-{
-
-
-    AFloat * values = new AFloat[2];
-    AInt number_of_floats;
-    FloatArrayFromString(values, number_of_floats, str);
-
-
-    glm::vec2 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
-
-
-    return v;
-
-
-}
 
 
 //-------------------------------------------------//
 
 
-std::string GetStringFromVec2(glm::vec2 v)
+
+
+
+template <class T>
+T GetFloatArrayFromString(std::string str)
 {
 
-    std::ostringstream stream;
-    stream << v.x << ", " << v.y;
-    return stream.str();
-
-}
+    AInt number_of_floats = sizeof(T) / sizeof(AFloat);
+    AFloat * float_array = new AFloat[number_of_floats];
+    FloatArrayFromString(float_array, number_of_floats, str);
 
 
-
-//------------------------------------------------//
-
-
-
-glm::vec3 GetVec3FromString(std::string str)
-{
-
-
-    AFloat * values = new AFloat[3];
-    AInt number_of_floats;
-    FloatArrayFromString(values, number_of_floats, str);
+    T array_to_return;
+    memcpy(&array_to_return, &float_array[0], sizeof(T));
+    delete [] float_array;
 
 
 
-    glm::vec3 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
-
-
-    return v;
+    return array_to_return;
 
 
 }
+template glm::vec2 GetFloatArrayFromString(std::string str);
+template glm::vec3 GetFloatArrayFromString(std::string str);
+template glm::vec4 GetFloatArrayFromString(std::string str);
+template glm::mat4 GetFloatArrayFromString(std::string str);
+
+
+
 
 
 //-------------------------------------------------//
 
 
-std::string GetStringFromVec3(glm::vec3 v)
-{
 
-    std::ostringstream stream;
-    stream << v.x << ", " << v.y << ", " << v.z;
-    return stream.str();
-
-}
-
-
-
-//------------------------------------------------//
-
-
-
-glm::vec4 GetVec4FromString(std::string str)
+template <class T>
+std::string GetStringFromFloatArray(T float_array)
 {
 
 
-    AFloat * values = new AFloat[4];
-    AInt number_of_floats;
-    FloatArrayFromString(values, number_of_floats, str);
+    AInt number_of_floats = sizeof(T) / sizeof(AFloat);
+    AFloat * temporary_float_array = new AFloat[number_of_floats];
+    memcpy(temporary_float_array, &float_array[0], sizeof(T));
 
 
-    glm::vec4 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
+    std::string string_to_return;
+    for (AInt i = 0; i < number_of_floats - 1; i++)
+    {
+        string_to_return += boost::lexical_cast<std::string>(temporary_float_array[i]);
+        string_to_return += ", ";
+    }
+    string_to_return += boost::lexical_cast<std::string>(temporary_float_array[number_of_floats - 1]);
 
 
-    return v;
+
+    delete [] temporary_float_array;
+    return string_to_return;
+
+
 
 
 }
+template std::string GetStringFromFloatArray(glm::vec2 float_array);
+template std::string GetStringFromFloatArray(glm::vec3 float_array);
+template std::string GetStringFromFloatArray(glm::vec4 float_array);
+template std::string GetStringFromFloatArray(glm::mat4 float_array);
+
+
 
 
 
 //--------------------------------------------------//
-
-
-
-std::string GetStringFromVec4(glm::vec4 v)
-{
-
-    std::ostringstream stream;
-    stream << v.x << ", " << v.y << ", " << v.z << ", " << v.w;
-    return stream.str();
-
-}
-
-
-
-
-//-------------------------------------------------//
-
-
-
-glm::mat4 GetMat4FromString(std::string str)
-{
-
-    AFloat * values = new AFloat[16];
-    AInt number_of_floats;
-    FloatArrayFromString(values, number_of_floats, str);
-
-
-    glm::mat4 v;
-    memcpy(&v[0], &values[0], number_of_floats * sizeof(AFloat));
-
-
-    return v;
-
-}
-
-
-//-------------------------------------------------//
-
-
-
-std::string GetStringFromMat4(glm::mat4 v)
-{
-
-    std::ostringstream stream;
-    stream << v[0][0] << ", " << v[0][1] << ", " << v[0][2] << ", " << v[0][3] << std::endl;
-    stream << v[1][0] << ", " << v[1][1] << ", " << v[1][2] << ", " << v[1][3] << std::endl;
-    stream << v[2][0] << ", " << v[2][1] << ", " << v[2][2] << ", " << v[2][3] << std::endl;
-    stream << v[3][0] << ", " << v[3][1] << ", " << v[3][2] << ", " << v[3][3] << std::endl;
-    return stream.str();
-
-}
-
-
-
-
-//-------------------------------------------------//
-
-
-
-
 
 
 

@@ -41,10 +41,7 @@ namespace AFile
 	/**
 	Copy folder from a location to another. Returns true if succesful
 	*/
-    ABoolean CopyDirectory(
-		boost::filesystem::path const & source,
-		boost::filesystem::path const & destination
-		);
+    ABoolean CopyDirectory(boost::filesystem::path const & source, boost::filesystem::path const & destination);
 
 
 	/**
@@ -57,22 +54,8 @@ namespace AFile
     boost::optional<std::string> GetFileWithExtensionList(std::string path, std::vector<std::string>extensions);
 
 
-	/**
-	Return size of file
-	*/
-    ALong GetFileSize(const AChar* filePath);
-	/**
-	Read file content into memory and return pointer
-	*/
-	AUChar * ReadFile(const AChar * filePath);
-	/**
-	Encrypt file from 'path' using Blowfish algorithm
-	*/
-	AVoid BlowfishEncryptFile(const AChar * path);
-	/**
-	Get decrytpted file from 'path' to string using Blowfish algorithm
-	*/
-	std::string BlowfishDecryptFile(const AChar * path);
+
+
 	/**
 	Get ptree from xml
 	*/

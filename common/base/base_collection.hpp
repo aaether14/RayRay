@@ -37,10 +37,10 @@ public:
         else
         {
             AUInt number_sufix = 2;
-            while (InCollection(initial_name + std::to_string(number_sufix)))
+            while (InCollection(initial_name + boost::lexical_cast<std::string>(number_sufix)))
                 number_sufix++;
 
-            return initial_name + std::to_string(number_sufix);
+            return initial_name + boost::lexical_cast<std::string>(number_sufix);
 
         }
 

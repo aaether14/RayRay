@@ -28,21 +28,21 @@ protected:
 public:
 
 
-	/**
-	Check if the component can handle the extension
-	*/
+    /**
+    Check if the component can handle the extension
+    */
     virtual ABoolean isValid(std::string extension) = 0;
-	/**
-	Provide resource loading function for the component based on extension
-	*/
+    /**
+    Provide resource loading function for the component based on extension
+    */
     virtual AVoid Load(std::string path, std::string extension) = 0;
-	/**
-	Provide initialization routine
-	*/
+    /**
+    Provide initialization routine
+    */
     virtual AVoid Init() = 0;
-	/**
-	Provide cleaning routine
-	*/
+    /**
+    Provide cleaning routine
+    */
     virtual AVoid Clean() = 0;
 
 
