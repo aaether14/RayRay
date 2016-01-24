@@ -47,10 +47,7 @@ public:
     /**
     Add data to entity instance
     */
-    inline AVoid AddAData(std::string name, AData * adata)
-    {
-        adatas.insert(std::pair<std::string, boost::shared_ptr<AData> >(name, boost::shared_ptr<AData>(adata)));
-    }
+    inline AVoid AddAData(std::string name, AData * adata){ adatas.insert(std::pair<std::string, boost::shared_ptr<AData> >(name, boost::shared_ptr<AData>(adata))); }
     /**
     Get data from entity instance
     */

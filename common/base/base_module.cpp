@@ -16,8 +16,8 @@ AVoid AModule::CleanModule()
 {
 
 
-    std::pair<std::string, boost::shared_ptr<AModule> > it;
-    BOOST_FOREACH(it, module_map)
+
+    BOOST_FOREACH(auto it, module_map)
             it.second->Clean();
 
     module_map.clear();

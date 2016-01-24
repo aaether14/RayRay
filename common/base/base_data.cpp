@@ -7,16 +7,14 @@ AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
 {
 
 
-    using boost::property_tree::ptree;
 
 
-
-    BOOST_FOREACH(ptree::value_type const& v, base_index)
+    BOOST_FOREACH(auto v, base_index)
     {
 
 
         if (v.first == "GeneralInfo")
-            SetComponentName(v.second.get<std::string>("Name"));
+            Set("__name__", v.second.get<std::string>("Name"));
 
 
 
@@ -40,7 +38,7 @@ AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
 
-    //Debug();
+    Debug();
 
 
 
@@ -55,9 +53,9 @@ AVoid AData::Debug()
 
 
 
-    std::cout << "\n\nPrinting debug for: " << GetComponentName() << std::endl;
-
-
+    std::cout << "\n\nPrinting debug for: " << Get<std::string>("__name__") << std::endl;
+    std::string debug_info = boost::python::extract<std::string>(boost::python::str(data_dictionary));
+    std::cout << debug_info << std::endl;
 
 
 
@@ -75,14 +73,6 @@ boost::property_tree::ptree AData::Save()
 
 
     boost::property_tree::ptree ptree_data;
-
-
-
-
-
-
-
-
     return ptree_data;
 
 

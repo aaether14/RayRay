@@ -152,6 +152,7 @@ AVoid ControllerSource::Clean()
 
     glfwDestroyWindow(window);
     glfwTerminate();
+    controller_data.reset();
 
 
 }

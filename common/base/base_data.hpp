@@ -20,7 +20,6 @@ class AData
 
 
     boost::python::dict data_dictionary;
-    std::string data_component_name;
 
 
 
@@ -28,16 +27,6 @@ public:
 
 
 
-
-
-    /**
-    Set component name
-    */
-    inline AVoid SetComponentName(std::string name){ data_component_name = name; }
-    /**
-    Get component name
-    */
-    inline std::string GetComponentName(){return data_component_name; }
 
 
 

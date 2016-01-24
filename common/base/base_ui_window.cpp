@@ -22,8 +22,8 @@ AVoid AUIWindow::DeactivateRecursively()
 {
 
 
-    std::pair<std::string, boost::shared_ptr<AModule> > window_iterator;
-    BOOST_FOREACH(window_iterator, *GetModuleMapPointer())
+
+    BOOST_FOREACH(auto window_iterator, *GetModuleMapPointer())
     {
         if (dynamic_cast<AUIWindow*>(window_iterator.second.get()))
             static_cast<AUIWindow*>(window_iterator.second.get())->DeactivateRecursively();

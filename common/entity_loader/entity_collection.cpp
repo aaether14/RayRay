@@ -36,7 +36,7 @@ AVoid EntityCollection::CreateComponentInstance(boost::filesystem::directory_ite
         if (dynamic_cast<DataComponent*>(new_component))
         {
             DataComponent * dc = dynamic_cast<DataComponent*>(new_component);
-            class_name += ("_" + dc->GetComponentName());
+            class_name += ("_" + dc->Get<std::string>("__name__"));
         }
 
 

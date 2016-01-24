@@ -69,21 +69,21 @@ AVoid RayTracerSceneBuilder::Enable()
         {
 
 
-            if (!instance_adata_iterator.second->GetComponentName().compare("Material"))
+            if (!instance_adata_iterator.second->Get<std::string>("__name__").compare("Material"))
                 materials.push_back(instance_adata_iterator.second.get());
-            if (!instance_adata_iterator.second->GetComponentName().compare("Sphere"))
+            if (!instance_adata_iterator.second->Get<std::string>("__name__").compare("Sphere"))
             {
                 spheres.push_back(instance_adata_iterator.second.get());
                 spheres.push_back(entity_instance_iterator.second->GetAData("DataComponent_Transform"));
             }
-            if (!instance_adata_iterator.second->GetComponentName().compare("Box"))
+            if (!instance_adata_iterator.second->Get<std::string>("__name__").compare("Box"))
             {
                 boxes.push_back(instance_adata_iterator.second.get());
                 boxes.push_back(entity_instance_iterator.second->GetAData("DataComponent_Transform"));
             }
-            if (!instance_adata_iterator.second->GetComponentName().compare("Plane"))
+            if (!instance_adata_iterator.second->Get<std::string>("__name__").compare("Plane"))
                 planes.push_back(instance_adata_iterator.second.get());
-            if (!instance_adata_iterator.second->GetComponentName().compare("Light"))
+            if (!instance_adata_iterator.second->Get<std::string>("__name__").compare("Light"))
                 lights.push_back(instance_adata_iterator.second.get());
 
 

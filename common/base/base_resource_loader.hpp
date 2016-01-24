@@ -24,15 +24,6 @@ class BaseResourceLoader : public AModule
 {
 
 
-private:
-
-
-
-
-
-protected:
-
-
 
 
 public:

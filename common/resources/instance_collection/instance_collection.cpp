@@ -18,14 +18,9 @@ AVoid InstanceCollection::Load()
 
 
 
-    using boost::property_tree::ptree;
-    ptree pt;
-    read_xml(GetPath(), pt);
 
-
-
-
-    BOOST_FOREACH(ptree::value_type const& v, pt.get_child("Scene"))
+    boost::property_tree::ptree pt = AFile::GetPtree(GetPath()).get_child("Scene");
+    BOOST_FOREACH(auto v, pt)
     {
 
 
@@ -49,13 +44,13 @@ AVoid InstanceCollection::Load()
 
 
 
-            BOOST_FOREACH(ptree::value_type const& instance_info_index, v.second)
+            BOOST_FOREACH(auto instance_info_index, v.second)
             {
                 if (instance_info_index.first == "Component")
                 {
                     AData * adata = new AData();
                     adata->LoadInterface(instance_info_index.second);
-                    new_instance->AddAData("DataComponent_" + adata->GetComponentName(), adata);
+                    new_instance->AddAData("DataComponent_" + adata->Get<std::string>("__name__"), adata);
                 }
             }
 
@@ -94,17 +89,14 @@ AVoid InstanceCollection::Save()
 
 
 
-
-    using boost::property_tree::ptree;
-    ptree pt;
-    ptree rootNode;
+    boost::property_tree::ptree pt;
+    boost::property_tree::ptree rootNode;
 
 
 
 
 
-    std::pair<std::string, boost::shared_ptr<EntityInstance>> it;
-    BOOST_FOREACH(it, instance_map)
+    BOOST_FOREACH(auto it, instance_map)
     {
 
 
@@ -117,19 +109,16 @@ AVoid InstanceCollection::Save()
         //Signature
 
 
-        ptree new_info;
-        new_info.push_back(ptree::value_type("EntityName", ptree(instance->GetEntityName())));
-        new_info.push_back(ptree::value_type("Name", ptree(it.first)));
+        boost::property_tree::ptree new_info;
+        new_info.push_back(boost::property_tree::ptree::value_type("EntityName", boost::property_tree::ptree(instance->GetEntityName())));
+        new_info.push_back(boost::property_tree::ptree::value_type("Name", boost::property_tree::ptree(it.first)));
 
 
 
         //Components
 
-        std::pair<std::string, boost::shared_ptr<AData> > adatas_iterator;
-        BOOST_FOREACH(adatas_iterator, *instance->GetADatasMapPointer())
-        {
-            new_info.add_child("Component", adatas_iterator.second.get()->Save());
-        }
+        BOOST_FOREACH(auto adatas_iterator, *instance->GetADatasMapPointer())
+                new_info.add_child("Component", adatas_iterator.second.get()->Save());
         rootNode.add_child("EntityInstance", new_info);
 
 
