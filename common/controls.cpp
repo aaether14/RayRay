@@ -35,7 +35,7 @@ AVoid Controller::Init()
 			ABoolean fullscreen = v.second.get<GLboolean>("Fullscreen");
 			AUInt opengl_major_version = v.second.get<GLuint>("OpenGLMajorVersion");
 			AUInt opengl_minor_version = v.second.get<GLuint>("OpenGLMinorVersion");
-            GetControllerData()->SetString("ProjectName", v.second.get<std::string>("ProjectName"));
+            GetControllerData()->Set("ProjectName", v.second.get<std::string>("ProjectName"));
 
 
 
@@ -51,10 +51,10 @@ AVoid Controller::Init()
 		}
         else if (v.first == "OpenCLInfo")
         {
-            GetControllerData()->SetString("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
-            GetControllerData()->SetString("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
-            GetControllerData()->SetInt("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
-            GetControllerData()->SetInt("LinkOpenGLContext", v.second.get<GLboolean>("LinkOpenGLContext"));
+            GetControllerData()->Set("OpenCLPlatform", v.second.get<std::string>("OpenCLPlatform"));
+            GetControllerData()->Set("OpenCLDevice", v.second.get<std::string>("OpenCLDevice"));
+            GetControllerData()->Set("IsOpenCLEnabled", v.second.get<GLboolean>("Enable"));
+            GetControllerData()->Set("LinkOpenGLContext", v.second.get<GLboolean>("LinkOpenGLContext"));
         }
 		
 

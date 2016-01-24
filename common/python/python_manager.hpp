@@ -16,7 +16,6 @@ class PythonManager : public AModule
 
 
 
-    boost::python::object main_module;
     boost::python::object main_namespace;
 
 

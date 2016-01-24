@@ -49,11 +49,11 @@ ABoolean ControllerSource::CreateWindowContext(AUInt window_width, AUInt window_
 
 
 
-    controller_data->SetInt("window_width", window_width);
-    controller_data->SetInt("window_height", window_height);
-    controller_data->SetInt("opengl_major_version", opengl_major_version);
-    controller_data->SetInt("opengl_minor_version", opengl_minor_version);
-    controller_data->SetString("title", title);
+    controller_data->Set("window_width", window_width);
+    controller_data->Set("window_height", window_height);
+    controller_data->Set("opengl_major_version", opengl_major_version);
+    controller_data->Set("opengl_minor_version", opengl_minor_version);
+    controller_data->Set("title", title);
 
 
 
@@ -107,15 +107,19 @@ AVoid ControllerSource::Init()
 
 
 
+
+
     srand(time(NULL));
     controller_data.reset(new AData);
     fps.reset(new FPS);
 
 
 
+    controller_data->Set("IsTyping", 0);
+    controller_data->Set("mouseOverRoot", 0);
+    controller_data->Set("mouse_position", glm::vec2(0.0f));
 
-    controller_data->SetInt("IsTyping", 0);
-    controller_data->SetInt("mouseOverRoot", 0);
+
 
 
 
@@ -181,7 +185,7 @@ ABoolean ControllerSource::GetKeyOnce(AUInt code)
 {
     ABoolean result = keys[code] == GLFW_PRESS;
     if (result)keys[code] = GLFW_REPEAT;
-    return result && !controller_data->GetInt("IsTyping");
+    return result && !controller_data->Get<AInt>("IsTyping");
 }
 
 
@@ -193,7 +197,7 @@ ABoolean ControllerSource::GetKeyOnce(AUInt code)
 ABoolean ControllerSource::GetKey(AUInt code)
 {
 
-    return keys[code] > 0 && !controller_data->GetInt("IsTyping");
+    return keys[code] > 0 && !controller_data->Get<AInt>("IsTyping");
 
 }
 
@@ -239,12 +243,12 @@ AVoid ControllerSource::key_callback(GLFWwindow* window, AInt key, AInt scancode
     if (action > 0)
     {
         if (!context.injectKeyDown(ceguiKey))
-        keys[key]++;
+            keys[key]++;
     }
     else if (action == GLFW_RELEASE)
     {
         if (!context.injectKeyUp(ceguiKey))
-        keys[key] = action;
+            keys[key] = action;
     }
 
 
@@ -285,13 +289,13 @@ AVoid ControllerSource::mouse_callback(GLFWwindow* window, AInt button, AInt act
 
     if (action > 0)
     {
-        if (!context.injectMouseButtonDown(ceguiMouseButton) || controller_data->GetInt("mouseOverRoot"))
-        mouse_buttons[button]++;
+        if (!context.injectMouseButtonDown(ceguiMouseButton) || controller_data->Get<AInt>("mouseOverRoot"))
+            mouse_buttons[button]++;
     }
     else if (action == GLFW_RELEASE)
     {
-        if (!context.injectMouseButtonUp(ceguiMouseButton) || controller_data->GetInt("mouseOverRoot"))
-        mouse_buttons[button] = action;
+        if (!context.injectMouseButtonUp(ceguiMouseButton) || controller_data->Get<AInt>("mouseOverRoot"))
+            mouse_buttons[button] = action;
     }
 
 
@@ -306,7 +310,7 @@ AVoid ControllerSource::cursor_callback(GLFWwindow* window, ADouble x, ADouble y
 {
 
 
-    controller_data->SetVec2("mouse_position", glm::vec2(x, y));
+    controller_data->Set("mouse_position", glm::vec2(x, y));
 
 
     CEGUI::GUIContext& context = CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -327,8 +331,8 @@ AVoid ControllerSource::resize_callback(GLFWwindow* window, AInt width, AInt hei
 {
 
     glViewport(0, 0, width, height);
-    controller_data->SetInt("window_width", width);
-    controller_data->SetInt("window_height", height);
+    controller_data->Set("window_width", width);
+    controller_data->Set("window_height", height);
 
 }
 
@@ -338,7 +342,7 @@ AVoid ControllerSource::resize_callback(GLFWwindow* window, AInt width, AInt hei
 AVoid ControllerSource::scroll_callback(GLFWwindow* window, ADouble xoffset, ADouble yoffset)
 {
 
-    controller_data->SetFloat("wheel_offset", yoffset);
+    controller_data->Set("wheel_offset", yoffset);
 
 }
 

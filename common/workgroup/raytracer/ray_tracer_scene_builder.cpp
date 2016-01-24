@@ -147,31 +147,31 @@ AVoid RayTracerSceneBuilder::Enable()
 
     for (AInt i = 0; i < materials.size(); i++)
     {
-        AddMaterial(materials[i]->GetVec3("Ambient"), materials[i]->GetFloat("Reflectivity"),
-                    materials[i]->GetFloat("Refractivity"), materials[i]->GetFloat("Specularity"),
-                    materials[i]->GetFloat("Diffuse"));
-        material_indices.insert(std::pair<std::string, AUInt>(materials[i]->GetString("MaterialName"),i));
+        AddMaterial(materials[i]->Get<glm::vec3>("Ambient"), materials[i]->Get<AFloat>("Reflectivity"),
+                    materials[i]->Get<AFloat>("Refractivity"), materials[i]->Get<AFloat>("Specularity"),
+                    materials[i]->Get<AFloat>("Diffuse"));
+        material_indices.insert(std::pair<std::string, AUInt>(materials[i]->Get<std::string>("MaterialName"), i));
     }
     for (AInt i = 0; i < spheres.size(); i += 2)
     {
-        AddSphere(spheres[i]->GetVec3("SpherePosition") + spheres[i + 1]->GetVec3("Position"),
-                spheres[i]->GetFloat("SphereRadius"),
-                material_indices[spheres[i]->GetString("MaterialName")]);
+        AddSphere(spheres[i]->Get<glm::vec3>("SpherePosition") + spheres[i + 1]->Get<glm::vec3>("Position"),
+                spheres[i]->Get<AFloat>("SphereRadius"),
+                material_indices[spheres[i]->Get<std::string>("MaterialName")]);
     }
     for (AInt i = 0; i < boxes.size(); i += 2)
     {
-        AddBox(boxes[i]->GetVec3("NearPoint") + boxes[i + 1]->GetVec3("Position"),
-                boxes[i]->GetVec3("FarPoint") + boxes[i + 1]->GetVec3("Position"),
-                material_indices[boxes[i]->GetString("MaterialName")]);
+        AddBox(boxes[i]->Get<glm::vec3>("NearPoint") + boxes[i + 1]->Get<glm::vec3>("Position"),
+                boxes[i]->Get<glm::vec3>("FarPoint") + boxes[i + 1]->Get<glm::vec3>("Position"),
+                material_indices[boxes[i]->Get<std::string>("MaterialName")]);
     }
     for (AInt i = 0; i < planes.size(); i++)
     {
-        AddPlane(planes[i]->GetVec3("PlaneNormal"), planes[i]->GetFloat("PlaneDistance"),
-                 material_indices[planes[i]->GetString("MaterialName")]);
+        AddPlane(planes[i]->Get<glm::vec3>("PlaneNormal"), planes[i]->Get<AFloat>("PlaneDistance"),
+                 material_indices[planes[i]->Get<std::string>("MaterialName")]);
     }
     for (AInt i = 0; i < lights.size(); i++)
     {
-        AddLight(lights[i]->GetVec3("LightPosition"), material_indices[lights[i]->GetString("MaterialName")]);
+        AddLight(lights[i]->Get<glm::vec3>("LightPosition"), material_indices[lights[i]->Get<std::string>("MaterialName")]);
     }
 
 

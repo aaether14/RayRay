@@ -10,36 +10,22 @@ AVoid PythonManager::Init()
 {
 
 
-    Py_Initialize();
-
-    try
-    {
-
-
-        // initializing modules
-        GLM_Wrapper::Init();
-        Controller_Wrapper::Init();
-
-
-        //declaring namespace
-        main_module = boost::python::import("__main__");
-        main_namespace = main_module.attr("__dict__");
-
-
-        //running base script
-        boost::python::exec_file(AAETHER_SYSTEM_FOLDER"base.py", main_namespace);
-
-
-        //passing instances
-        main_namespace["setupController"](boost::python::ptr(static_cast<Controller*>(GetManager()->Get("Controller"))));
 
 
 
-    }
-    catch (boost::python::error_already_set)
-    {
-        PyErr_Print();
-    }
+    //declaring namespace
+    main_namespace = boost::python::import("__main__").attr("__dict__");
+
+
+    //running base script
+    boost::python::exec_file(AAETHER_SYSTEM_FOLDER"base.py", main_namespace);
+
+
+    //passing instances
+    main_namespace["setupController"](boost::python::ptr(static_cast<Controller*>(GetManager()->Get("Controller"))));
+
+
+
 
 
 
@@ -53,7 +39,6 @@ AVoid PythonManager::Clean()
 {
 
 
-    Py_Finalize();
     CleanModule();
 
 

@@ -53,8 +53,6 @@ AVoid DataComponent::Clean()
 {
 
 
-	AData::Clean();
-
 
 
 }

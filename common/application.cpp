@@ -11,8 +11,13 @@ AVoid Application::Init()
 
 
 
-    SetManager(this);
+    Py_Initialize();
+    GLM_Wrapper::Init();
+    Controller_Wrapper::Init();
 
+
+
+    SetManager(this);
 
 
 
@@ -22,6 +27,8 @@ AVoid Application::Init()
     Add("Pipeline", new Pipeline());
     Add("Python", new PythonManager());
     Add("UI", new UIWorkStation());
+
+
 
 
 
@@ -98,6 +105,7 @@ AVoid Application::Clean()
 
 
     CleanModule();
+    Py_Finalize();
 
 
 }

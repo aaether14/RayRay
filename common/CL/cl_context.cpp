@@ -12,14 +12,14 @@ AVoid CLContextWrapper::Init()
     Controller * ctrl = static_cast<Controller*>(GetManager()->Get("Controller"));
 
 
-    if (ctrl->GetControllerData()->GetInt("IsOpenCLEnabled"))
+    if (ctrl->GetControllerData()->Get<AInt>("IsOpenCLEnabled"))
     {
 
 
-        if (!ctrl->GetControllerData()->GetInt("LinkOpenGLContext"))
-            Create(ctrl->GetControllerData()->GetString("OpenCLPlatform"),
+        if (!ctrl->GetControllerData()->Get<AInt>("LinkOpenGLContext"))
+            Create(ctrl->GetControllerData()->Get<std::string>("OpenCLPlatform"),
                    "CL_DEVICE_TYPE_ALL",
-                   ctrl->GetControllerData()->GetString("OpenCLDevice"));
+                   ctrl->GetControllerData()->Get<std::string>("OpenCLDevice"));
         else
         {
 
@@ -37,9 +37,9 @@ AVoid CLContextWrapper::Init()
 #endif
 
 
-            Create(ctrl->GetControllerData()->GetString("OpenCLPlatform"),
+            Create(ctrl->GetControllerData()->Get<std::string>("OpenCLPlatform"),
                    "CL_DEVICE_TYPE_ALL",
-                   ctrl->GetControllerData()->GetString("OpenCLDevice"),
+                   ctrl->GetControllerData()->Get<std::string>("OpenCLDevice"),
                    0,
                    properties);
         }

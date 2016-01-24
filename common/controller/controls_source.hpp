@@ -113,7 +113,7 @@ public:
     /**
     Return mouse position
     */
-    inline glm::vec2 GetMousePosition(){ return controller_data->GetVec2("mouse_position"); }
+    inline glm::vec2 GetMousePosition(){ return controller_data->Get<glm::vec2>("mouse_position"); }
     /**
     Set mouse position
     */
@@ -129,11 +129,11 @@ public:
     /**
     Return wheel offset
     */
-    inline ADouble GetWheelOffset(){ return controller_data->GetFloat("wheel_offset"); }
+    inline ADouble GetWheelOffset(){ return controller_data->Get<AFloat>("wheel_offset"); }
     /**
     Reset wheel offset
     */
-    inline AVoid ResetWheelOffset(){ controller_data->SetFloat("wheel_offset", 0.0); }
+    inline AVoid ResetWheelOffset(){ controller_data->Set("wheel_offset", 0.0f); }
 
 
 
@@ -147,23 +147,23 @@ public:
     /**
     Return window size
     */
-    inline glm::ivec2 GetWindowSize() { return glm::ivec2(controller_data->GetInt("window_width"), controller_data->GetInt("window_height")); }
+    inline glm::ivec2 GetWindowSize() { return glm::ivec2(controller_data->Get<AInt>("window_width"), controller_data->Get<AInt>("window_height")); }
     /**
     Return window size
     */
-    inline AInt GetWindowWidth(){ return controller_data->GetInt("window_width"); }
+    inline AInt GetWindowWidth(){ return controller_data->Get<AInt>("window_width"); }
     /**
     Return window size
     */
-    inline AInt GetWindowHeight(){ return controller_data->GetInt("window_height"); }
+    inline AInt GetWindowHeight(){ return controller_data->Get<AInt>("window_height"); }
     /**
     Get window title
     */
-    inline std::string GetWindowTitle(){return controller_data->GetString("title"); }
+    inline std::string GetWindowTitle(){return controller_data->Get<std::string>("title"); }
     /**
     Set window title
     */
-    inline AVoid SetWindowTitle(std::string new_title){controller_data->SetString("title", new_title); glfwSetWindowTitle(window, new_title.c_str()); }
+    inline AVoid SetWindowTitle(std::string new_title){controller_data->Set("title", new_title); glfwSetWindowTitle(window, new_title.c_str()); }
     /**
     Get pointer to GLFW window
     */

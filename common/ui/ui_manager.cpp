@@ -168,7 +168,7 @@ ABoolean UIManager::onTypingWindowActivated(const CEGUI::EventArgs &args)
     if (!window_type.compare("MultiLineEditbox") || !window_type.compare("Editbox") || !window_type.compare("Spinner"))
     {
         ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
-        ctrl->GetControllerData()->SetInt("IsTyping", ctrl->GetControllerData()->GetInt("IsTyping") + 1);
+        ctrl->GetControllerData()->Set("IsTyping", ctrl->GetControllerData()->Get<AInt>("IsTyping") + 1);
     }
     return true;
 
@@ -192,7 +192,7 @@ ABoolean UIManager::onTypingWindowDeactivated(const CEGUI::EventArgs &args)
     if (!window_type.compare("MultiLineEditbox") || !window_type.compare("Editbox") || !window_type.compare("Spinner"))
     {
         ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
-        ctrl->GetControllerData()->SetInt("IsTyping", ctrl->GetControllerData()->GetInt("IsTyping") - 1);
+        ctrl->GetControllerData()->Set("IsTyping", ctrl->GetControllerData()->Get<AInt>("IsTyping") - 1);
     }
     return true;
 
@@ -230,7 +230,7 @@ ABoolean UIManager::onEnterSurface(const CEGUI::EventArgs &args)
 
 
     ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
-    ctrl->GetControllerData()->SetInt("mouseOverRoot", 1);
+    ctrl->GetControllerData()->Set("mouseOverRoot", 1);
     return true;
 
 
@@ -246,7 +246,7 @@ ABoolean UIManager::onLeaveSurface(const CEGUI::EventArgs &args)
 
 
     ControllerSource * ctrl = static_cast<ControllerSource*>(GetManager()->Get("Controller"));
-    ctrl->GetControllerData()->SetInt("mouseOverRoot", 0);
+    ctrl->GetControllerData()->Set("mouseOverRoot", 0);
     return true;
 
 
