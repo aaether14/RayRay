@@ -17,7 +17,7 @@ AVoid DataManager::Init()
 
 
 
-	Add("Techniques", techniques);
+    Add("Techniques", techniques);
     Add("EntityCollection", new EntityCollection());
 	Add("Resources", new ResourceLoader());
 

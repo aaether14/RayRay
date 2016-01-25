@@ -27,7 +27,7 @@ AVoid DataComponent::Load(std::string path, std::string extension)
 
 
 
-	LoadInterface(AFile::GetPtree(path).get_child("Component"));
+    LoadInterface(AFile::GetPtree(path).get_child("Component"));
 
 
 

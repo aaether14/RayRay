@@ -13,23 +13,27 @@ AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
     {
 
 
-        if (v.first == "GeneralInfo")
-            Set("__name__", v.second.get<std::string>("Name"));
+std::cout<<v.first<<std::endl;
 
 
 
-        if (v.first == "Float")
+        if (v.first == "float")
             Set(v.second.get<std::string>("V"), boost::lexical_cast<AFloat>(v.second.get<std::string>("D")));
-        if (v.first == "Int")
+        if (v.first == "int")
             Set(v.second.get<std::string>("V"), boost::lexical_cast<AInt>(v.second.get<std::string>("D")));
-        if (v.first == "String")
+        if (v.first == "str")
             Set(v.second.get<std::string>("V"), v.second.get<std::string>("D"));
-        if (v.first == "Vec2")
+        if (v.first == "vec2")
             Set(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec2>(v.second.get<std::string>("D")));
-        if (v.first == "Vec3")
+        if (v.first == "vec3")
             Set(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec3>(v.second.get<std::string>("D")));
-        if (v.first == "Vec4")
+        if (v.first == "vec4")
             Set(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::vec4>(v.second.get<std::string>("D")));
+        if (v.first == "mat4")
+            Set(v.second.get<std::string>("V"), AString::GetFloatArrayFromString<glm::mat4>(v.second.get<std::string>("D")));
+
+
+
 
 
 
@@ -38,7 +42,7 @@ AVoid AData::LoadInterface(boost::property_tree::ptree base_index)
 
 
 
-    Debug();
+    //Debug();
 
 
 
@@ -54,8 +58,24 @@ AVoid AData::Debug()
 
 
     std::cout << "\n\nPrinting debug for: " << Get<std::string>("__name__") << std::endl;
-    std::string debug_info = boost::python::extract<std::string>(boost::python::str(data_dictionary));
-    std::cout << debug_info << std::endl;
+
+
+
+    boost::python::list keys = data_dictionary.keys();
+    for (AInt i = 0; i < boost::python::len(keys); i++)
+    {
+
+
+        boost::python::object obj = boost::python::extract<boost::python::object>(data_dictionary[keys[i]]);
+        std::string obj_name = boost::python::extract<std::string>(keys[i]);
+        std::string obj_str = boost::python::extract<std::string>(boost::python::str(obj));
+        std::string obj_class_name = boost::python::extract<std::string>(obj.attr("__class__").attr("__name__"));
+        std::cout << obj_class_name << ": { " << obj_name << ": " << obj_str << " }" << std::endl;
+
+
+    }
+
+
 
 
 
@@ -73,6 +93,36 @@ boost::property_tree::ptree AData::Save()
 
 
     boost::property_tree::ptree ptree_data;
+    boost::python::list keys = data_dictionary.keys();
+
+
+
+
+    for (AInt i = 0; i < boost::python::len(keys); i++)
+    {
+
+
+        boost::python::object obj = boost::python::extract<boost::python::object>(data_dictionary[keys[i]]);
+        std::string obj_name = boost::python::extract<std::string>(keys[i]);
+        std::string obj_str = boost::python::extract<std::string>(boost::python::str(obj));
+        std::string obj_class_name = boost::python::extract<std::string>(obj.attr("__class__").attr("__name__"));
+
+
+
+        boost::property_tree::ptree ptree_float_data;
+        ptree_float_data.push_back(boost::property_tree::ptree::value_type("V", boost::property_tree::ptree(obj_name)));
+        ptree_float_data.push_back(boost::property_tree::ptree::value_type("D", boost::property_tree::ptree(obj_str)));
+        ptree_data.push_back(boost::property_tree::ptree::value_type(obj_class_name , ptree_float_data));
+
+
+
+
+    }
+
+
+
+
+
     return ptree_data;
 
 
